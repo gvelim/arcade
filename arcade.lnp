@@ -1,0 +1,12 @@
+--cpu Cortex-M4.fp
+".\startup_tm4c123.o"
+".\init.o"
+".\main.o"
+".\nokia5110.o"
+".\pll.o"
+".\switch.o"
+".\timer.o"
+--library_type=microlib --strict --scatter ".\arcade.sct"
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\arcade.map" -o .\arcade.axf
