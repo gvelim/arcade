@@ -639,7 +639,7 @@ void TimerRendering()
 	}
 	
 	// active laser sprite if fire is pressed
-	if( isFirePressed() && !laser.status == ALIVE)
+	if( isFirePressed() && !laser.status == ALIVE && pship.status == ALIVE)
 	{
 		laser.status = ALIVE;
 		laser.x = pship.x+8;
@@ -682,12 +682,11 @@ void TimerRendering()
 	
 	if( hasAllienCollided(pship) )
 	{
-		pship.status = DEAD;
+		pship.status = DAMAGED;
 	}
 	
 	
 // Move sprites
-	
 	// move every N-th frame where n = available alliens
 	if(framecounter % gl_a.maxAllien == 0) MoveAlliens();
 	
@@ -714,7 +713,8 @@ int main(void)
 //  Timer2_Init(&TimerRendering, 4000);    // initialize timer2 (20,000 Hz)
 //  Timer2_Init(&TimerRendering, 5000000); // initialize timer2 (16 Hz)
 //  Timer2_Init(&TimerRendering, 2666666); // initialize timer2 (30 Hz)
-  Timer2_Init(&TimerRendering, 1333333); // initialize timer2 (60 Hz)
+		Timer2_Init(&TimerRendering, 1333333); // initialize timer2 (60 Hz)
+//	Timer2_Init(&TimerRendering, 666666); // initialize timer2 (120 Hz)	
 //  Timer2_Init(&TimerRendering, 80000000);// initialize timer2 (1 Hz)
 //  Timer2_Init(&TimerRendering, 0xFFFFFFFF); // initialize timer2 (slowest rate)	
 	
