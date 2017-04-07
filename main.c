@@ -275,8 +275,12 @@ struct State {
 	unsigned char h;
 	unsigned char img_count;
   const unsigned char *image[4]; 	// ptr->image
-  long life;            					// 0=dead, 1=alive
-};          
+	long decay;											// decay count before dies out
+	enum {
+		ALIVE,
+		DAMAGED,
+		DEAD } status;
+};
 
 typedef struct State STyp;
 
@@ -297,18 +301,18 @@ struct {
 
 STyp allien[ALLIEN_NUM] = 
 {
-	{ 0,9,15,9,0,{SmallEnemy30PointA,SmallEnemy30PointB,SmallExplosion1,SmallExplosion0}, 1},
-	{16,9,15,9,0,{SmallEnemy30PointA,SmallEnemy30PointB,SmallExplosion1,SmallExplosion0}, 1},
-	{32,9,15,9,0,{SmallEnemy30PointA,SmallEnemy30PointB,SmallExplosion1,SmallExplosion0}, 1},
-	{48,9,15,9,0,{SmallEnemy30PointA,SmallEnemy30PointB,SmallExplosion1,SmallExplosion0}, 1},
-	{ 0,18,15,9,0,{SmallEnemy20PointA,SmallEnemy20PointB,SmallExplosion1,SmallExplosion0}, 1},
-	{16,18,15,9,0,{SmallEnemy20PointA,SmallEnemy20PointB,SmallExplosion1,SmallExplosion0}, 1},
-	{32,18,15,9,0,{SmallEnemy20PointA,SmallEnemy20PointB,SmallExplosion1,SmallExplosion0}, 1},
-	{48,18,15,9,0,{SmallEnemy20PointA,SmallEnemy20PointB,SmallExplosion1,SmallExplosion0}, 1},
-	{ 0,27,15,9,0,{SmallEnemy10PointA,SmallEnemy10PointB,SmallExplosion1,SmallExplosion0}, 1},
-	{16,27,15,9,0,{SmallEnemy10PointA,SmallEnemy10PointB,SmallExplosion1,SmallExplosion0}, 1},
-	{32,27,15,9,0,{SmallEnemy10PointA,SmallEnemy10PointB,SmallExplosion1,SmallExplosion0}, 1},
-	{48,27,15,9,0,{SmallEnemy10PointA,SmallEnemy10PointB,SmallExplosion1,SmallExplosion0}, 1}
+	{ 0,9,15,9,0,{SmallEnemy30PointA,SmallEnemy30PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE},
+	{16,9,15,9,0,{SmallEnemy30PointA,SmallEnemy30PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE},
+	{32,9,15,9,0,{SmallEnemy30PointA,SmallEnemy30PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE},
+	{48,9,15,9,0,{SmallEnemy30PointA,SmallEnemy30PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE},
+	{ 0,18,15,9,0,{SmallEnemy20PointA,SmallEnemy20PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE},
+	{16,18,15,9,0,{SmallEnemy20PointA,SmallEnemy20PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE},
+	{32,18,15,9,0,{SmallEnemy20PointA,SmallEnemy20PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE},
+	{48,18,15,9,0,{SmallEnemy20PointA,SmallEnemy20PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE},
+	{ 0,27,15,9,0,{SmallEnemy10PointA,SmallEnemy10PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE},
+	{16,27,15,9,0,{SmallEnemy10PointA,SmallEnemy10PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE},
+	{32,27,15,9,0,{SmallEnemy10PointA,SmallEnemy10PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE},
+	{48,27,15,9,0,{SmallEnemy10PointA,SmallEnemy10PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE}
 };
 
 /***************************************/
@@ -322,23 +326,23 @@ struct {
 
 STyp missile[MAX_MISSILES] = 
 {
-	{0,0, 3, 8, 0, {Missile0, Missile1, Missile2, Missile2}, 0},
-	{0,0, 3, 8, 0, {Missile0, Missile1, Missile2, Missile2}, 0},
-	{0,0, 3, 8, 0, {Missile0, Missile1, Missile2, Missile2}, 0},
-	{0,0, 3, 8, 0, {Missile0, Missile1, Missile2, Missile2}, 0}
+	{0,0, 3, 8, 0, {Missile0, Missile1, Missile2, Missile2}, 4, DEAD},
+	{0,0, 3, 8, 0, {Missile0, Missile1, Missile2, Missile2}, 4, DEAD},
+	{0,0, 3, 8, 0, {Missile0, Missile1, Missile2, Missile2}, 4, DEAD},
+	{0,0, 3, 8, 0, {Missile0, Missile1, Missile2, Missile2}, 4, DEAD}
 };
 
 /***************************************/
 // Ship & Laster variables
 
-STyp pship = {(SCREENW-18)/2,SCREENH-1,17,7,0,{PlayerShip0,PlayerShip0,BigExplosion0,BigExplosion1}, 1};
-STyp laser = {0,0, 3, 8, 0, {Laser0, Laser1, Laser0, Laser1}, 0};
+STyp pship = {(SCREENW-18)/2,SCREENH-1,17,7,0,{PlayerShip0,PlayerShip0,BigExplosion0,BigExplosion1}, 32, ALIVE};
+STyp laser = {0,0, 3, 8, 0, {Laser0, Laser1, Laser0, Laser1}, 4, DEAD};
 
 
 void InitAlliens()
 {	
 	long n;
-	
+
 	gl_a.maxAllien = ALLIEN_NUM;	// total alliens 12
 	gl_a.max_x=0, 								// min,max values used to identify when to switch allien direction
 	gl_a.min_x=SCREENW, 					//
@@ -349,10 +353,11 @@ void InitAlliens()
 	
 	for(n=0; n < ALLIEN_NUM; n++)
 	{
-		allien[n].x = ENEMY30W*(n%4);									// create 4 columns
+		allien[n].x = ENEMY30W*(n%4);						// create 4 columns
 		allien[n].y = allien[n].y = 9*(1+n/4);	// create 3 rows
-		allien[n].img_count = 0;											// image counter used to point to different BMPs
-		allien[n].life = 1;														// sprite is active
+		allien[n].img_count = 0;								// image counter used to point to different BMPs
+		allien[n].decay = 3;										// frames of decay following impact
+		allien[n].status = ALIVE;
 	}
 }
 
@@ -360,13 +365,15 @@ void InitPlayerShip()
 {
 	pship.x = (SCREENW-18)/2;
 	pship.y = SCREENH-1;
-	pship.life = 1;
+	pship.status = ALIVE;
 	pship.img_count = 0;
+	pship.decay = 9;
 }
 
 void InitLaser()
 {
-	laser.life = 0;
+	laser.status = DEAD;
+	laser.decay = 4;
 }
 
  void InitMissiles()
@@ -376,8 +383,9 @@ void InitLaser()
 	 gl_m.maxMissiles = 0;
 	 
 	 for(n=0; n < MAX_MISSILES; n++) {
-		 missile[n].life = 0;
+		 missile[n].status = DEAD;
 		 missile[n].img_count = 0;
+		 missile[n].decay = 2;
 	 }
  }
 
@@ -386,8 +394,20 @@ void DrawAlliens()
 	long n;
 	
 	for(n=0; n < ALLIEN_NUM; n++)
-		if(allien[n].life)
-			Nokia5110_PrintBMP( allien[n].x, allien[n].y, allien[n].image[allien[n].img_count], 0);
+		switch( allien[n].status )
+		{
+			case ALIVE:
+				Nokia5110_PrintBMP( allien[n].x, allien[n].y, allien[n].image[allien[n].img_count], 0);
+				break;
+			
+			case DAMAGED:
+				// offset count by 2 so to pick the explosion Bitmaps
+				Nokia5110_PrintBMP( allien[n].x, allien[n].y, allien[n].image[allien[n].img_count+1], 0);
+				break;
+			
+			case DEAD:
+				break;
+		}	
 }
 
 void MoveAlliens()
@@ -404,12 +424,24 @@ void MoveAlliens()
 
 		// Lower alliens from start Y position plus delta-y
 		for(n=0; n < ALLIEN_NUM; n++)
-			if(allien[n].life)
+			switch(allien[n].status)
 			{
-				// move allien MIN_Y + offset( delta-Y )
-				allien[n].y = gl_a.min_y*(1+n/4) + gl_a.dy;
-				gl_a.max_y = allien[n].y > gl_a.max_y ? allien[n].y : gl_a.max_y;
+				case DAMAGED:
+					allien[n].status = (allien[n].decay>0)? DAMAGED : DEAD;
+					allien[n].decay--;
+				
+				// allow to fall onto ALIVE code so it picks the Y change
+
+				case ALIVE:
+					// move allien MIN_Y + offset( delta-Y )
+					allien[n].y = gl_a.min_y*(1+n/4) + gl_a.dy;
+					gl_a.max_y = allien[n].y > gl_a.max_y ? allien[n].y : gl_a.max_y;
+					break;
+								
+				case DEAD:
+					break;
 			}
+			
 		// Has alliens reached the end of the screen ?
 		if( gl_a.max_y > SCREENH-1 )
 			gl_a.max_y = gl_a.dy = 0; 		// yes, reset delta-Y, max_y
@@ -418,46 +450,79 @@ void MoveAlliens()
 	}
 	else 
 		for(n=0; n < ALLIEN_NUM; n++)
-			if(allien[n].life)
+			switch(allien[n].status)
 			{
-				// Move alliens across based on direction setting
-				allien[n].x += 2*gl_a.dir;
+				case DAMAGED:
+					// if decay run out then alien is DEAD
+					allien[n].status = (allien[n].decay>0)? DAMAGED : DEAD;
+					allien[n].decay--;
+					allien[n].y++;
+					
+					// fall onto ALIVE so allien continues picking up the X values
+				case ALIVE:
+					// Move alliens across based on direction setting
+					allien[n].x += 2*gl_a.dir;
+					
+					// Set the image to be displayed by the Draw() function
+					allien[n].img_count = (allien[n].img_count+1)&0x01;
+					
+					// track min and max X values so we can detect whether any allien hit the end of the screen
+					gl_a.max_x = (allien[n].x > gl_a.max_x) ? allien[n].x : gl_a.max_x;
+					gl_a.min_x = (allien[n].x < gl_a.min_x) ? allien[n].x : gl_a.min_x;
+					break;
 				
-				// Set the image to be displayed by the Draw() function
-				allien[n].img_count = (allien[n].img_count+1)&0x01;
-				
-				// track min and max X values so we can detect whether any allien hit the end of the screen
-				gl_a.max_x = (allien[n].x > gl_a.max_x) ? allien[n].x : gl_a.max_x;
-				gl_a.min_x = (allien[n].x < gl_a.min_x) ? allien[n].x : gl_a.min_x;
+				default:
+					break;
 			}	
 }
 
 void DrawShip()
 {
-	if( pship.life )
-		Nokia5110_PrintBMP( pship.x, pship.y, pship.image[pship.img_count], 0 );
+	switch(pship.status)
+	{
+		case ALIVE:
+			Nokia5110_PrintBMP( pship.x, pship.y, pship.image[pship.img_count], 0 );
+			break;
+		case DAMAGED:
+			Nokia5110_PrintBMP( pship.x, pship.y, pship.image[pship.img_count+2], 0 );
+			break;
+		case DEAD:
+			break;
+	}
 }
 
 void MoveShip()
 {
-	if( isLeftPressed() && pship.x > 1)
-		pship.x--;
-	if( isRightPressed() && pship.x < SCREENW-pship.w-1)
-		pship.x++;
+	switch( pship.status )
+	{
+		case ALIVE:		
+			if( isLeftPressed() && pship.x > 1)
+				pship.x--;
+			if( isRightPressed() && pship.x < SCREENW-pship.w-1)
+				pship.x++;
+			break;
+		
+		case DAMAGED:
+			pship.status = (pship.decay>0) ? DAMAGED : DEAD;
+			pship.img_count = pship.decay & 0x01;
+			pship.decay--;
+		
+		default:
+			break;
+	}
 }
 
 void DrawLaser()
 {
-	if( laser.life )
+	if( laser.status == ALIVE )
 		Nokia5110_PrintBMP( laser.x, laser.y, laser.image[laser.img_count], 0);
 }
 
 void MoveLaser()
 {
 	laser.y--;
-	//laser.img_count = laser.y & 0x01;
 	if(laser.y-laser.h < 1)
-		laser.life = 0;
+		laser.status = DEAD;
 }
 
 
@@ -465,7 +530,7 @@ void DrawMissiles()
 {
 	int n;
 	for( n = 0; n<MAX_MISSILES; n++ )
-		if( missile[n].life )
+		if( missile[n].status==ALIVE )
 			Nokia5110_PrintBMP( missile[n].x, missile[n].y, missile[n].image[missile[n].img_count], 0);
 }
 
@@ -473,13 +538,13 @@ void MoveMissiles()
 {
 	int n;
 	for( n=0; n<MAX_MISSILES; n++ )
-		if( missile[n].life )
+		if( missile[n].status==ALIVE )
 		{
 			missile[n].y++;															// increase missle Y by one
 			missile[n].img_count = missile[n].y & 0x01; // flick the sprite image
 			if(missile[n].y > SCREENH-1)								// if reached the bottom of the screen ? 
 			{
-				missile[n].life = 0;												// set life to zero
+				missile[n].status = DEAD;												// set life to zero
 				gl_m.maxMissiles--;												// reduce the active missiles
 			}
 		}
@@ -520,7 +585,7 @@ unsigned char hasAllienCollided( STyp spr1 )
 {
 	long n;
 	for(n=0; n < ALLIEN_NUM; n++)
-		if(	allien[n].life && hasCollided(spr1, allien[n]) )
+		if(	allien[n].status == ALIVE && hasCollided(spr1, allien[n]) )
 			return n+1;
 		
 	return 0;
@@ -532,7 +597,7 @@ unsigned char hasMissileCollided( STyp s1 )
 {
 	long n;
 	for(n=0; n < MAX_MISSILES; n++)
-		if(	missile[n].life && hasCollided(s1, missile[n]) )
+		if(	missile[n].status == ALIVE && hasCollided(s1, missile[n]) )
 			return n+1;
 	return 0;
 }
@@ -551,11 +616,13 @@ void TimerRendering()
 	{
 		unsigned char n,i, y_max=0, ship_mid = pship.x+pship.w/2;
 		
+		// find an inactive missie slot and 
+		// activate it if an alien is over the player ship
 		for(n=0; n<MAX_MISSILES; n++)
-		if( !missile[n].life )
+		if( !missile[n].status == ALIVE )
 		{
 			for(i=0; i<ALLIEN_NUM; i++)																				// find the alien's Y possition
-				if( allien[i].life )																									// while alien is above		
+				if( allien[i].status == ALIVE )																									// while alien is above		
 					if( allien[i].x < ship_mid && ship_mid < allien[i].x+allien[i].w )	// there is an alien above the ship
 						y_max = (allien[i].y > y_max) ? allien[i].y : y_max;							// if alien has the highest Y so far keep it
 			
@@ -564,7 +631,7 @@ void TimerRendering()
 			{
 				missile[n].x = pship.x + pship.w/2;				// fire it against the ship location
 				missile[n].y = y_max - missile[n].h;			// position middle of alien sprite
-				missile[n].life = 1;											// activate missile
+				missile[n].status = ALIVE;								// activate missile
 				gl_m.maxMissiles++;
 				break;
 			}
@@ -572,51 +639,50 @@ void TimerRendering()
 	}
 	
 	// active laser sprite if fire is pressed
-	if( isFirePressed() && !laser.life)
+	if( isFirePressed() && !laser.status == ALIVE)
 	{
-		laser.life = 1;
+		laser.status = ALIVE;
 		laser.x = pship.x+8;
 		laser.y = pship.y - pship.h + laser.h;
 	}
 	
 	// check for collisions if laser fired
-	if( laser.life )
+	if( laser.status == ALIVE )
 	{
 		unsigned char a_idx = hasAllienCollided(laser);
 		if( a_idx )
 		{
-			gl_a.maxAllien--;					// reduce the count of alive alliens
-			allien[a_idx-1].life--;		// flag allien as dead
-			laser.life=0;							// flag laser as dead
+			gl_a.maxAllien--;									// reduce the count of alive alliens
+			allien[a_idx-1].status = DAMAGED;		// flag allien as dead
+			laser.status = DEAD;							// flag laser as dead
 		}
 	}
 	
-	// check for collisions if stray missiles
+	// check for collisions when active missiles
 	if( gl_m.maxMissiles )
 	{
 		// test collision with laser
 		unsigned char a_idx = hasMissileCollided(laser);
 		if( a_idx )
 		{
-			gl_m.maxMissiles--;				// reduce the count of active missiles
-			missile[a_idx-1].life--;	// flag missile neutralised
-			laser.life=0;							// flag laser as dead
+			gl_m.maxMissiles--;								// reduce the count of active missiles
+			missile[a_idx-1].status = DEAD;		// flag missile neutralised
+			laser.status = DEAD;							// flag laser as dead
 		}
 		
 		// test collision with player Ship
 		a_idx = hasMissileCollided(pship);
 		if( a_idx )
 		{
-			gl_m.maxMissiles--;				// reduce active missile count
-			missile[a_idx-1].life--;	// kill missile
-			pship.life--;							// kill ship
+			gl_m.maxMissiles--;							// reduce active missile count
+			missile[a_idx-1].status = DEAD;	// kill missile
+			pship.status = DAMAGED;					// ship enters decay
 		}
 	}
 	
 	if( hasAllienCollided(pship) )
 	{
-		pship.life--;
-		pship.img_count = 2;
+		pship.status = DEAD;
 	}
 	
 	
@@ -678,7 +744,7 @@ int main(void)
 		Timer2A_Start();
 
 		// Game loop
-		while( pship.life && gl_a.maxAllien!=0 )
+		while( pship.status != DEAD && gl_a.maxAllien != 0 )
 		{
 			while(!Flag){}
 				
@@ -699,7 +765,7 @@ int main(void)
 
 		Nokia5110_SetCursor(0,0);	Nokia5110_OutString("************");
 		Nokia5110_SetCursor(0,1);	
-		if( pship.life )	  			Nokia5110_OutString("*SavedEarth*");
+		if(pship.status == ALIVE)	Nokia5110_OutString("*SavedEarth*");
 		else   										Nokia5110_OutString("*Lost Earth*");
 		Nokia5110_SetCursor(0,2);	Nokia5110_OutString("************");
 		Nokia5110_SetCursor(0,4);	Nokia5110_OutString("  Push Fire ");

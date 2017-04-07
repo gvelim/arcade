@@ -51,3 +51,7 @@ arcade.uvgui_milev.bak
 *.o
 *.crf
 *.d
+*.htm
+*.htm
+*.map
+*.dep
