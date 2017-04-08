@@ -2,6 +2,12 @@
 #include <TM4C123.h>
 #include "switch.h"
 
+// ******* Required Hardware I/O connections*******************
+// Left button connected to PE3
+// Right button connected to PE2
+// fire button connected to PE1
+
+
 #define PA5	 (*((volatile unsigned long *)0x40004080))
 
 

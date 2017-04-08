@@ -285,7 +285,7 @@ struct State {
 typedef struct State STyp;
 
 /***************************************/
-// Global Allien variables
+// Global Alien sprites & variables
 
 #define ALLIEN_NUM	12
 
@@ -316,7 +316,7 @@ STyp allien[ALLIEN_NUM] =
 };
 
 /***************************************/
-// Global missile variables
+// Global missile sprites & variables
 
 #define MAX_MISSILES	4
 
@@ -333,7 +333,7 @@ STyp missile[MAX_MISSILES] =
 };
 
 /***************************************/
-// Ship & Laster variables
+// Ship & Laster sprites
 
 STyp pship = {(SCREENW-18)/2,SCREENH-1,17,7,0,{PlayerShip0,PlayerShip0,BigExplosion0,BigExplosion1}, 32, ALIVE};
 STyp laser = {0,0, 3, 8, 0, {Laser0, Laser1, Laser0, Laser1}, 4, DEAD};
@@ -683,11 +683,12 @@ void TimerRendering()
 		}
 	}
 	
+	// has Alien collided with ship ?
 	if( hasAllienCollided(pship) )
 		pship.status = DAMAGED;
 
 	
-// Move sprites
+	// Move sprites
 	switch( pship.status )
 	{
 		// pause motion when player ship is destroyed
