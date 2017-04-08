@@ -367,7 +367,7 @@ void InitPlayerShip()
 	pship.y = SCREENH-1;
 	pship.status = ALIVE;
 	pship.img_count = 0;
-	pship.decay = 9;
+	pship.decay = 30;
 }
 
 void InitLaser()
@@ -614,7 +614,7 @@ void TimerRendering()
 	// every 20-32 frames fire an alien missile
 	if( gl_m.maxMissiles < MAX_MISSILES && (framecounter % (20 + gl_a.maxAllien)) == 0 )
 	{
-		unsigned char n,i, y_max=0, ship_mid = pship.x+pship.w/2;
+		unsigned char n,i, y_max=0, t_allien = 0, ship_mid = pship.x+pship.w/2;
 		
 		// find an inactive missie slot and 
 		// activate it if an alien is over the player ship
@@ -622,16 +622,19 @@ void TimerRendering()
 		if( !missile[n].status == ALIVE )
 		{
 			for(i=0; i<ALLIEN_NUM; i++)																				// find the alien's Y possition
-				if( allien[i].status == ALIVE )																									// while alien is above		
+				if( allien[i].status == ALIVE )																				// while alien is above		
 					if( allien[i].x < ship_mid && ship_mid < allien[i].x+allien[i].w )	// there is an alien above the ship
+					{
 						y_max = (allien[i].y > y_max) ? allien[i].y : y_max;							// if alien has the highest Y so far keep it
+						t_allien = i;																											// keep the alien column
+					}
 			
 			// we've found an alien above the pship
 			if( y_max )
 			{
-				missile[n].x = pship.x + pship.w/2;				// fire it against the ship location
-				missile[n].y = y_max - missile[n].h;			// position middle of alien sprite
-				missile[n].status = ALIVE;								// activate missile
+				missile[n].x = allien[t_allien].x + allien[t_allien].w/2+1;		// fire it against the ship location
+				missile[n].y = y_max;																					// position middle of alien sprite
+				missile[n].status = ALIVE;																		// activate missile
 				gl_m.maxMissiles++;
 				break;
 			}
@@ -681,23 +684,30 @@ void TimerRendering()
 	}
 	
 	if( hasAllienCollided(pship) )
-	{
 		pship.status = DAMAGED;
-	}
-	
+
 	
 // Move sprites
-	// move every N-th frame where n = available alliens
-	if(framecounter % gl_a.maxAllien == 0) MoveAlliens();
-	
-	// move every other frame
-	if(framecounter % 2 == 0 ) 
+	switch( pship.status )
 	{
-		MoveShip();
-		MoveMissiles();	
+		// pause motion when player ship is destroyed
+		case ALIVE:
+			// move allien every N-th frame where n = available alliens
+			if(framecounter % gl_a.maxAllien == 0) MoveAlliens();
+			
+			// move missiles every other frame
+			if(framecounter % 2 == 0 ) MoveMissiles();	
+			
+			// move every frame			
+			MoveLaser();
+			
+			// then carry on with ship movement
+		
+		// draw ship animation whether alive or damaged
+		default:
+			if(framecounter % 2 == 0) MoveShip();
+			break;
 	}
-
-	MoveLaser();
 	
 	framecounter++;
 	Flag = 1;
@@ -749,13 +759,15 @@ int main(void)
 			while(!Flag){}
 				
 			Nokia5110_ClearBuffer();
-
 			DrawMissiles();
 			DrawAlliens();
 			DrawLaser();
-			DrawShip();
-			
+			DrawShip();			
 			Nokia5110_DisplayBuffer();
+
+//			Nokia5110_SetCursor(0,0);	Nokia5110_OutUDec( gl_m.maxMissiles );
+//		  Nokia5110_SetCursor(1,0);	Nokia5110_OutUDec( pship.decay );
+//			Nokia5110_SetCursor(0,0);	Nokia5110_OutUDec( gl_m.maxMissiles );
 
 			Flag = 1;
 		}

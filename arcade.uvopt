@@ -161,13 +161,13 @@
           <Type>0</Type>
           <LineNumber>468</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>1740</Address>
+          <Address>0</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
+          <BreakIfRCount>0</BreakIfRCount>
           <Filename>.\main.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression></Expression>
@@ -280,10 +280,10 @@
       <FileType>1</FileType>
       <tvExp>1</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>1</ColumnNumber>
+      <ColumnNumber>81</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>381</TopLine>
-      <CurrentLine>393</CurrentLine>
+      <TopLine>715</TopLine>
+      <CurrentLine>629</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\main.c</PathWithFileName>
       <FilenameWithoutPath>main.c</FilenameWithoutPath>

@@ -3,9 +3,9 @@
 <title>Static Call Graph - [.\arcade.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\arcade.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Thu Apr 06 21:42:02 2017
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Sat Apr 08 09:41:17 2017
 <BR><P>
-<H3>Maximum Stack Usage =        120 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =        136 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
 TimerRendering &rArr; hasMissileCollided &rArr; hasCollided
 <P>
@@ -1100,23 +1100,25 @@ Global Symbols
 <P><STRONG><a name="[77]"></a>SystemInit</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, init.o(.text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_tm4c123.o(.text)
 </UL>
-<P><STRONG><a name="[90]"></a>InitAlliens</STRONG> (Thumb, 118 bytes, Stack size 0 bytes, main.o(.text))
+<P><STRONG><a name="[90]"></a>InitAlliens</STRONG> (Thumb, 146 bytes, Stack size 8 bytes, main.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = InitAlliens
+</UL>
+<BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
+<P><STRONG><a name="[92]"></a>InitPlayerShip</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, main.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[92]"></a>InitPlayerShip</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, main.o(.text))
+<P><STRONG><a name="[93]"></a>InitLaser</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, main.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[93]"></a>InitLaser</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, main.o(.text))
+<P><STRONG><a name="[91]"></a>InitMissiles</STRONG> (Thumb, 58 bytes, Stack size 0 bytes, main.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[91]"></a>InitMissiles</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, main.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-</UL>
-
-<P><STRONG><a name="[7b]"></a>DrawAlliens</STRONG> (Thumb, 66 bytes, Stack size 16 bytes, main.o(.text))
+<P><STRONG><a name="[7b]"></a>DrawAlliens</STRONG> (Thumb, 158 bytes, Stack size 16 bytes, main.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = DrawAlliens &rArr; Nokia5110_PrintBMP
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_PrintBMP
@@ -1124,13 +1126,13 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[89]"></a>MoveAlliens</STRONG> (Thumb, 298 bytes, Stack size 8 bytes, main.o(.text))
+<P><STRONG><a name="[89]"></a>MoveAlliens</STRONG> (Thumb, 514 bytes, Stack size 8 bytes, main.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = MoveAlliens
 </UL>
 <BR>[Called By]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerRendering
 </UL>
 
-<P><STRONG><a name="[7d]"></a>DrawShip</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, main.o(.text))
+<P><STRONG><a name="[7d]"></a>DrawShip</STRONG> (Thumb, 106 bytes, Stack size 8 bytes, main.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = DrawShip &rArr; Nokia5110_PrintBMP
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_PrintBMP
@@ -1138,7 +1140,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[7e]"></a>MoveShip</STRONG> (Thumb, 58 bytes, Stack size 8 bytes, main.o(.text))
+<P><STRONG><a name="[7e]"></a>MoveShip</STRONG> (Thumb, 118 bytes, Stack size 8 bytes, main.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = MoveShip
 </UL>
 <BR>[Calls]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isRightPressed
@@ -1147,7 +1149,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerRendering
 </UL>
 
-<P><STRONG><a name="[81]"></a>DrawLaser</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, main.o(.text))
+<P><STRONG><a name="[81]"></a>DrawLaser</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, main.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = DrawLaser &rArr; Nokia5110_PrintBMP
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_PrintBMP
@@ -1155,11 +1157,11 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[8b]"></a>MoveLaser</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, main.o(.text))
+<P><STRONG><a name="[8b]"></a>MoveLaser</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, main.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerRendering
 </UL>
 
-<P><STRONG><a name="[82]"></a>DrawMissiles</STRONG> (Thumb, 66 bytes, Stack size 16 bytes, main.o(.text))
+<P><STRONG><a name="[82]"></a>DrawMissiles</STRONG> (Thumb, 84 bytes, Stack size 16 bytes, main.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = DrawMissiles &rArr; Nokia5110_PrintBMP
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_PrintBMP
@@ -1167,7 +1169,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[8a]"></a>MoveMissiles</STRONG> (Thumb, 92 bytes, Stack size 0 bytes, main.o(.text))
+<P><STRONG><a name="[8a]"></a>MoveMissiles</STRONG> (Thumb, 118 bytes, Stack size 0 bytes, main.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerRendering
 </UL>
 
@@ -1178,8 +1180,8 @@ Global Symbols
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hasAllienCollided
 </UL>
 
-<P><STRONG><a name="[83]"></a>hasAllienCollided</STRONG> (Thumb, 104 bytes, Stack size 72 bytes, main.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = hasAllienCollided &rArr; hasCollided
+<P><STRONG><a name="[83]"></a>hasAllienCollided</STRONG> (Thumb, 86 bytes, Stack size 80 bytes, main.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = hasAllienCollided &rArr; hasCollided
 </UL>
 <BR>[Calls]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hasCollided
@@ -1187,8 +1189,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerRendering
 </UL>
 
-<P><STRONG><a name="[86]"></a>hasMissileCollided</STRONG> (Thumb, 74 bytes, Stack size 72 bytes, main.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = hasMissileCollided &rArr; hasCollided
+<P><STRONG><a name="[86]"></a>hasMissileCollided</STRONG> (Thumb, 86 bytes, Stack size 80 bytes, main.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = hasMissileCollided &rArr; hasCollided
 </UL>
 <BR>[Calls]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hasCollided
@@ -1196,10 +1198,11 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerRendering
 </UL>
 
-<P><STRONG><a name="[87]"></a>TimerRendering</STRONG> (Thumb, 592 bytes, Stack size 32 bytes, main.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = TimerRendering &rArr; hasMissileCollided &rArr; hasCollided
+<P><STRONG><a name="[87]"></a>TimerRendering</STRONG> (Thumb, 716 bytes, Stack size 40 bytes, main.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = TimerRendering &rArr; hasMissileCollided &rArr; hasCollided
 </UL>
-<BR>[Calls]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isFirePressed
+<BR>[Calls]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
+<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isFirePressed
 <LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hasMissileCollided
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hasAllienCollided
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MoveMissiles
@@ -1209,7 +1212,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(.text)
 </UL>
-<P><STRONG><a name="[76]"></a>main</STRONG> (Thumb, 414 bytes, Stack size 0 bytes, main.o(.text))
+<P><STRONG><a name="[76]"></a>main</STRONG> (Thumb, 274 bytes, Stack size 0 bytes, main.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = main &rArr; DrawMissiles &rArr; Nokia5110_PrintBMP
 </UL>
 <BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;waitForFire
@@ -1367,7 +1370,8 @@ Global Symbols
 <P><STRONG><a name="[a9]"></a>__aeabi_memcpy</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, memcpya.o(.text), UNUSED)
 
 <P><STRONG><a name="[84]"></a>__aeabi_memcpy4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memcpya.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hasMissileCollided
+<BR><BR>[Called By]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerRendering
+<LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hasMissileCollided
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hasAllienCollided
 </UL>
 
