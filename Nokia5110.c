@@ -220,21 +220,21 @@ void Nokia5110_OutString(char *ptr){
 // assumes: LCD is in default horizontal addressing mode (V = 0)
 void Nokia5110_OutUDec(unsigned short n){
   if(n < 10){
-    Nokia5110_OutString("    ");
+//    Nokia5110_OutString("    ");
     Nokia5110_OutChar(n+'0'); /* n is between 0 and 9 */
   } else if(n<100){
-    Nokia5110_OutString("   ");
+//    Nokia5110_OutString("   ");
     Nokia5110_OutChar(n/10+'0'); /* tens digit */
     Nokia5110_OutChar(n%10+'0'); /* ones digit */
   } else if(n<1000){
-    Nokia5110_OutString("  ");
+//    Nokia5110_OutString("  ");
     Nokia5110_OutChar(n/100+'0'); /* hundreds digit */
     n = n%100;
     Nokia5110_OutChar(n/10+'0'); /* tens digit */
     Nokia5110_OutChar(n%10+'0'); /* ones digit */
   }
   else if(n<10000){
-    Nokia5110_OutChar(' ');
+//    Nokia5110_OutChar(' ');
     Nokia5110_OutChar(n/1000+'0'); /* thousands digit */
     n = n%1000;
     Nokia5110_OutChar(n/100+'0'); /* hundreds digit */
@@ -270,6 +270,7 @@ void Nokia5110_SetCursor(unsigned char newX, unsigned char newY){
   lcdwrite(COMMAND, 0x40|newY);         // setting bit 6 updates Y-position
 }
 
+
 //********Nokia5110_Clear*****************
 // Clear the LCD by writing zeros to the entire screen and
 // reset the cursor to (0,0) (top left corner of screen).
@@ -295,7 +296,81 @@ void Nokia5110_DrawFullImage(const char *ptr){
     lcdwrite(DATA, ptr[i]);
   }
 }
-char Screen[SCREENW*SCREENH/8]; // buffer stores the next image to be printed on the screen
+
+static char Screen[SCREENW*SCREENH/8]; // buffer stores the next image to be printed on the screen
+static unsigned long x_pos = 0, y_pos = 0, write_pos = 0;
+
+//********Nokia5110_SetCursor*****************
+// Move the cursor to the desired X- and Y-position.  The
+// next character will be printed here.  X=0 is the leftmost
+// column.  Y=0 is the top row.
+// inputs: newX  new X-position of the cursor (0<=newX<=11)
+//         newY  new Y-position of the cursor (0<=newY<=5)
+// outputs: none
+void Nokia5110_SetCursorBuffer(unsigned char newX, unsigned char newY){
+  if((newX > 11) || (newY > 5)){        // bad input
+    return;                             // do nothing
+  }
+  // multiply newX by 7 because each character is 7 columns wide
+  x_pos = newX*7;     	
+  y_pos = newY*SCREENW;
+}
+
+void Nokia5110_OutCharBuffer(unsigned char data, enum OutCharMethod method)
+{
+  int i;
+	write_pos = y_pos + x_pos;
+  for(i=0; i<5; i=i+1)
+		switch(method){
+			case OR_METHOD: Screen[write_pos+i] |= ASCII[data - 0x20][i]; break;
+			case AND_METHOD: Screen[write_pos+i] &= ASCII[data - 0x20][i]; break;
+		}
+	x_pos += 7;
+}
+
+void Nokia5110_OutStringBuffer(char *ptr, enum OutCharMethod method){
+  while(*ptr){
+    Nokia5110_OutCharBuffer((unsigned char)*ptr, method);
+    ptr = ptr + 1;
+		x_pos +=7;
+  }
+}
+
+void Nokia5110_OutUDecBuffer(unsigned short n, enum OutCharMethod method){
+  if(n < 10){
+//    Nokia5110_OutString("    ");
+    Nokia5110_OutCharBuffer(n+'0',method); /* n is between 0 and 9 */
+  } else if(n<100){
+//    Nokia5110_OutString("   ");
+    Nokia5110_OutCharBuffer(n/10+'0',method); /* tens digit */
+    Nokia5110_OutCharBuffer(n%10+'0',method); /* ones digit */
+  } else if(n<1000){
+//    Nokia5110_OutString("  ");
+    Nokia5110_OutCharBuffer(n/100+'0',method); /* hundreds digit */
+    n = n%100;
+    Nokia5110_OutCharBuffer(n/10+'0',method); /* tens digit */
+    Nokia5110_OutCharBuffer(n%10+'0',method); /* ones digit */
+  }
+  else if(n<10000){
+//    Nokia5110_OutChar(' ');
+    Nokia5110_OutCharBuffer(n/1000+'0',method); /* thousands digit */
+    n = n%1000;
+    Nokia5110_OutCharBuffer(n/100+'0',method); /* hundreds digit */
+    n = n%100;
+    Nokia5110_OutCharBuffer(n/10+'0',method); /* tens digit */
+    Nokia5110_OutCharBuffer(n%10+'0',method); /* ones digit */
+  }
+  else {
+    Nokia5110_OutCharBuffer(n/10000+'0',method); /* ten-thousands digit */
+    n = n%10000;
+    Nokia5110_OutCharBuffer(n/1000+'0',method); /* thousands digit */
+    n = n%1000;
+    Nokia5110_OutCharBuffer(n/100+'0',method); /* hundreds digit */
+    n = n%100;
+    Nokia5110_OutCharBuffer(n/10+'0',method); /* tens digit */
+    Nokia5110_OutCharBuffer(n%10+'0',method); /* ones digit */
+  }
+}
 
 //********Nokia5110_PrintBMP*****************
 // Bitmaps defined above were created for the LM3S1968 or

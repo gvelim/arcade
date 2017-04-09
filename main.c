@@ -280,6 +280,7 @@ struct State {
 		ALIVE,
 		DAMAGED,
 		DEAD } status;
+	long score;
 };
 
 typedef struct State STyp;
@@ -301,18 +302,18 @@ struct {
 
 STyp allien[ALLIEN_NUM] = 
 {
-	{ 0,9,15,9,0,{SmallEnemy30PointA,SmallEnemy30PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE},
-	{16,9,15,9,0,{SmallEnemy30PointA,SmallEnemy30PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE},
-	{32,9,15,9,0,{SmallEnemy30PointA,SmallEnemy30PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE},
-	{48,9,15,9,0,{SmallEnemy30PointA,SmallEnemy30PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE},
-	{ 0,18,15,9,0,{SmallEnemy20PointA,SmallEnemy20PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE},
-	{16,18,15,9,0,{SmallEnemy20PointA,SmallEnemy20PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE},
-	{32,18,15,9,0,{SmallEnemy20PointA,SmallEnemy20PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE},
-	{48,18,15,9,0,{SmallEnemy20PointA,SmallEnemy20PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE},
-	{ 0,27,15,9,0,{SmallEnemy10PointA,SmallEnemy10PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE},
-	{16,27,15,9,0,{SmallEnemy10PointA,SmallEnemy10PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE},
-	{32,27,15,9,0,{SmallEnemy10PointA,SmallEnemy10PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE},
-	{48,27,15,9,0,{SmallEnemy10PointA,SmallEnemy10PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE}
+	{ 0,9,15,9,0,{SmallEnemy30PointA,SmallEnemy30PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0},
+	{16,9,15,9,0,{SmallEnemy30PointA,SmallEnemy30PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0},
+	{32,9,15,9,0,{SmallEnemy30PointA,SmallEnemy30PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0},
+	{48,9,15,9,0,{SmallEnemy30PointA,SmallEnemy30PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0},
+	{ 0,18,15,9,0,{SmallEnemy20PointA,SmallEnemy20PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0},
+	{16,18,15,9,0,{SmallEnemy20PointA,SmallEnemy20PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0},
+	{32,18,15,9,0,{SmallEnemy20PointA,SmallEnemy20PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0},
+	{48,18,15,9,0,{SmallEnemy20PointA,SmallEnemy20PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0},
+	{ 0,27,15,9,0,{SmallEnemy10PointA,SmallEnemy10PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0},
+	{16,27,15,9,0,{SmallEnemy10PointA,SmallEnemy10PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0},
+	{32,27,15,9,0,{SmallEnemy10PointA,SmallEnemy10PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0},
+	{48,27,15,9,0,{SmallEnemy10PointA,SmallEnemy10PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0}
 };
 
 /***************************************/
@@ -338,6 +339,23 @@ STyp missile[MAX_MISSILES] =
 STyp pship = {(SCREENW-18)/2,SCREENH-1,17,7,0,{PlayerShip0,PlayerShip0,BigExplosion0,BigExplosion1}, 32, ALIVE};
 STyp laser = {0,0, 3, 8, 0, {Laser0, Laser1, Laser0, Laser1}, 4, DEAD};
 
+/***************************************/
+// Game variables
+
+struct {
+	long Flag;					// framerate sync flag
+	long ship_lives;		// available player lives
+	long hiscore;				// Keep high score
+} gl_game;
+
+
+void InitGame(void)
+{
+	gl_game.Flag = 0;
+	gl_game.ship_lives = 3;
+	gl_game.hiscore = 0;	
+}
+
 
 void InitAlliens()
 {	
@@ -356,8 +374,9 @@ void InitAlliens()
 		allien[n].x = ENEMY30W*(n%4);						// create 4 columns
 		allien[n].y = allien[n].y = 9*(1+n/4);	// create 3 rows
 		allien[n].img_count = 0;								// image counter used to point to different BMPs
-		allien[n].decay = 3;										// frames of decay following impact
+		allien[n].decay = 4;										// frames of decay following impact
 		allien[n].status = ALIVE;
+		allien[n].score = 40-10*(1+n/4);
 	}
 }
 
@@ -427,8 +446,8 @@ void MoveAlliens()
 			switch(allien[n].status)
 			{
 				case DAMAGED:
-					allien[n].status = (allien[n].decay>0)? DAMAGED : DEAD;
 					allien[n].decay--;
+					if(allien[n].decay == 0) allien[n].status = DEAD;
 				
 				// allow to fall onto ALIVE code so it picks the Y change
 
@@ -453,9 +472,12 @@ void MoveAlliens()
 			switch(allien[n].status)
 			{
 				case DAMAGED:
-					// if decay run out then alien is DEAD
-					allien[n].status = (allien[n].decay>0)? DAMAGED : DEAD;
+
 					allien[n].decay--;
+
+				// if decay run out then alien is DEAD
+					if(allien[n].decay == 0) allien[n].status = DEAD;
+
 					allien[n].y++;
 					
 					// fall onto ALIVE so allien continues picking up the X values
@@ -503,9 +525,10 @@ void MoveShip()
 			break;
 		
 		case DAMAGED:
-			pship.status = (pship.decay>0) ? DAMAGED : DEAD;
-			pship.img_count = pship.decay & 0x01;
 			pship.decay--;
+			if( pship.decay == 0 ) pship.status = DEAD;
+			
+			pship.img_count = pship.decay & 0x01;
 		
 		default:
 			break;
@@ -605,12 +628,10 @@ unsigned char hasMissileCollided( STyp s1 )
 /////////////////////////////////////////////
 // Game Engine and logic
 
-static long Flag = 0;
-
 void TimerRendering()
 {
 	static long framecounter = 1;
-	
+		
 	// every 20-32 frames fire an alien missile
 	if( gl_m.maxMissiles < MAX_MISSILES && (framecounter % (20 + gl_a.maxAllien)) == 0 )
 	{
@@ -619,7 +640,7 @@ void TimerRendering()
 		// find an inactive missie slot and 
 		// activate it if an alien is over the player ship
 		for(n=0; n<MAX_MISSILES; n++)
-		if( !missile[n].status == ALIVE )
+		if( !missile[n].status == ALIVE)
 		{
 			for(i=0; i<ALLIEN_NUM; i++)																				// find the alien's Y possition
 				if( allien[i].status == ALIVE )																				// while alien is above		
@@ -655,9 +676,10 @@ void TimerRendering()
 		unsigned char a_idx = hasAllienCollided(laser);
 		if( a_idx )
 		{
-			gl_a.maxAllien--;									// reduce the count of alive alliens
-			allien[a_idx-1].status = DAMAGED;		// flag allien as dead
-			laser.status = DEAD;							// flag laser as dead
+			gl_game.hiscore += allien[a_idx-1].score;	// add game score
+			gl_a.maxAllien--;													// reduce the count of alive alliens
+			allien[a_idx-1].status = DAMAGED;					// flag allien as dead
+			laser.status = DEAD;											// flag laser as dead
 		}
 	}
 	
@@ -711,9 +733,11 @@ void TimerRendering()
 	}
 	
 	framecounter++;
-	Flag = 1;
+	gl_game.Flag = 1;
 }
 
+void Delay100ms(unsigned long count);
+	
 int main(void)
 {
 
@@ -735,11 +759,7 @@ int main(void)
 	while(1)
 	{
 		// Game Prologue
-		Flag = 0;
-		InitAlliens();
-		InitMissiles();
-		InitPlayerShip();
-		InitLaser();
+		InitGame();
 		
 		Nokia5110_ClearBuffer();
 		Nokia5110_DisplayBuffer();
@@ -751,39 +771,77 @@ int main(void)
 		Nokia5110_SetCursor(0,5); Nokia5110_OutString(" Press Fire");
 
 		waitForFire();
-		
-		Timer2A_Start();
 
-		// Game loop
-		while( pship.status != DEAD && gl_a.maxAllien != 0 )
+		// initialise once in a game
+		InitAlliens();
+		
+		while( gl_game.ship_lives != 0 && gl_a.maxAllien != 0 )
 		{
-			while(!Flag){}
-				
+			// initialise every time a life is lost
+			InitMissiles();
+			InitPlayerShip();
+			InitLaser();
+
 			Nokia5110_ClearBuffer();
-			DrawMissiles();
-			DrawAlliens();
-			DrawLaser();
-			DrawShip();			
 			Nokia5110_DisplayBuffer();
 
-//			Nokia5110_SetCursor(0,0);	Nokia5110_OutUDec( gl_m.maxMissiles );
-//		  Nokia5110_SetCursor(1,0);	Nokia5110_OutUDec( pship.decay );
-//			Nokia5110_SetCursor(0,0);	Nokia5110_OutUDec( gl_m.maxMissiles );
+			Nokia5110_SetCursor(0,2);	Nokia5110_OutString("Get Ready !!");
+			Nokia5110_SetCursor(9,4); Nokia5110_OutUDec( gl_game.ship_lives );
+			Nokia5110_SetCursor(0,4);	Nokia5110_OutString("  Lives:");
 
-			Flag = 1;
+			Delay100ms(10);
+			
+			Timer2A_Start();
+			// Game loop
+			while( pship.status != DEAD && gl_a.maxAllien != 0 )
+			{
+				while(!gl_game.Flag){}
+					
+				Nokia5110_ClearBuffer();
+				DrawMissiles();
+				DrawAlliens();
+				DrawLaser();
+				DrawShip();
+				Nokia5110_SetCursorBuffer(11,0);	
+//					Nokia5110_OutCharBuffer('L',OR_METHOD);
+					Nokia5110_OutUDecBuffer( gl_game.ship_lives, OR_METHOD );
+			  Nokia5110_SetCursorBuffer(0,0);
+//					Nokia5110_OutCharBuffer('S',OR_METHOD);
+					Nokia5110_OutUDecBuffer( gl_game.hiscore, OR_METHOD);
+				Nokia5110_DisplayBuffer();
+
+				gl_game.Flag = 1;
+			}
+
+			Timer2A_Stop();
+
+			gl_game.ship_lives--;			
 		}
-
 		// Game End / Epilogue
-		Timer2A_Stop();
 
 		Nokia5110_SetCursor(0,0);	Nokia5110_OutString("************");
 		Nokia5110_SetCursor(0,1);	
 		if(pship.status == ALIVE)	Nokia5110_OutString("*SavedEarth*");
 		else   										Nokia5110_OutString("*Lost Earth*");
 		Nokia5110_SetCursor(0,2);	Nokia5110_OutString("************");
-		Nokia5110_SetCursor(0,4);	Nokia5110_OutString("  Push Fire ");
+		Nokia5110_SetCursor(8,3); Nokia5110_OutUDec(gl_game.hiscore);
+		Nokia5110_SetCursor(0,3);	Nokia5110_OutString(" Score:");
+		Nokia5110_SetCursor(0,5);	Nokia5110_OutString("  Push Fire ");
 		
 		waitForFire();
 	}
 }
 
+
+void Delay100ms(unsigned long count)
+{
+	unsigned long volatile time;
+  
+	while(count>0){
+    time = 727240;  // 0.1sec at 80 MHz
+    while(time){
+	  	time--;
+    }
+    count--;
+  }
+}
