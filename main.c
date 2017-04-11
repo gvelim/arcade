@@ -644,11 +644,11 @@ struct Levels* getLevel(int bIncrease)
 {
 	static struct Levels level[6] = 
 	{
-		{50,4,30,2,3},
-		{35,3,20,2,2},
-		{20,2,10,1,1},
-		{10,2,10,1,1},
-		{5,1,5,1,1},
+		{60,6,5,2,3},
+		{45,4,3,2,2},
+		{30,2,2,2,2},
+		{15,2,2,1,2},
+		{10,2,1,1,1},
 		{5,1,1,1,1},
 	};
 	static long nLevel = 0;
@@ -666,7 +666,7 @@ void TimerRendering()
 	static long framecounter = 1;
 		
 	// every 20-32 frames fire an alien missile
-	if( gl_m.maxMissiles < MAX_MISSILES && (framecounter % (getLevel(0)->al_base_speed+gl_a.maxAllien)) == 0 )
+	if( gl_m.maxMissiles < MAX_MISSILES && (framecounter % (getLevel(0)->mis_sensitivity+gl_a.maxAllien)) == 0 )
 	{
 		unsigned char n,i, y_max=0, t_allien = 0, ship_mid = pship.x+pship.w/2;
 		
@@ -749,7 +749,7 @@ void TimerRendering()
 		// pause motion when player ship is destroyed
 		case ALIVE:
 			// move allien every N-th frame where n = available alliens
-			if(framecounter % gl_a.maxAllien == 0) MoveAlliens();
+			if(framecounter % (getLevel(0)->al_base_speed+gl_a.maxAllien) == 0) MoveAlliens();
 			
 			// move missiles every other frame
 			if(framecounter % getLevel(0)->mis_speed == 0 ) MoveMissiles();	
@@ -770,25 +770,20 @@ void TimerRendering()
 }
 
 void Delay100ms(unsigned long count);
-	
+
 int main(void)
 {
-	long nLevel = 0;
+	long nLevel;
 
 	Nokia5110_Init();
 	PLL_Init();
 	Switch_Init();
 
-//  Timer2_Init(&TimerRendering, 4000);    // initialize timer2 (20,000 Hz)
 //  Timer2_Init(&TimerRendering, 5000000); // initialize timer2 (16 Hz)
 //  Timer2_Init(&TimerRendering, 2666666); // initialize timer2 (30 Hz)
-		Timer2_Init(&TimerRendering, 1333333); // initialize timer2 (60 Hz)
+	Timer2_Init(&TimerRendering, 1333333); // initialize timer2 (60 Hz)
 //	Timer2_Init(&TimerRendering, 666666); // initialize timer2 (120 Hz)	
 //  Timer2_Init(&TimerRendering, 80000000);// initialize timer2 (1 Hz)
-//  Timer2_Init(&TimerRendering, 0xFFFFFFFF); // initialize timer2 (slowest rate)	
-	
-		
-	
 
 	while(1)
 	{
@@ -806,13 +801,14 @@ int main(void)
 
 		waitForFire();		
 
-		// initialise on every level
+		// initialise aliens and levels
 		InitAlliens();
 		getLevel(-1);
+		nLevel = 0;
 		
-		while( gl_game.ship_lives != 0 )
+		while( gl_game.ship_lives != 0 && nLevel < 6)
 		{
-			// initialise every time a life is lost
+			// initialise every time life is lost or level is won
 			InitMissiles();
 			InitPlayerShip();
 			InitLaser();
@@ -820,7 +816,7 @@ int main(void)
 			Nokia5110_ClearBuffer();
 			Nokia5110_DisplayBuffer();
 
-			Nokia5110_SetCursor(0,2);	Nokia5110_OutString("Get Ready !!");
+			Nokia5110_SetCursor(0,1);	Nokia5110_OutString("Get Ready !!");
 			Nokia5110_SetCursor(0,3);	Nokia5110_OutString("  Level");
 			Nokia5110_SetCursor(9,3); Nokia5110_OutUDec( nLevel+1 );
 			Nokia5110_SetCursor(9,5); Nokia5110_OutUDec( gl_game.ship_lives );
@@ -829,7 +825,8 @@ int main(void)
 			Delay100ms(10);
 			
 			Timer2A_Start();
-			// Game loop
+			
+			// Game loop until ship is or aliens are destroyed 
 			while( pship.status != DEAD && gl_a.maxAllien != 0 )
 			{
 				while(!gl_game.Flag){}
@@ -839,6 +836,7 @@ int main(void)
 				DrawAlliens();
 				DrawLaser();
 				DrawShip();
+					
 				Nokia5110_SetCursorBuffer(11,0);	
 				Nokia5110_OutUDecBuffer( gl_game.ship_lives, OR_METHOD );
 			  Nokia5110_SetCursorBuffer(0,0);
@@ -868,7 +866,7 @@ int main(void)
 		if(pship.status == ALIVE)	Nokia5110_OutString("*SavedEarth*");
 		else   										Nokia5110_OutString("*Lost Earth*");
 		Nokia5110_SetCursor(0,2);	Nokia5110_OutString("************");
-		Nokia5110_SetCursor(8,3); Nokia5110_OutUDec(gl_game.hiscore);
+		Nokia5110_SetCursor(7,3); Nokia5110_OutUDec(gl_game.hiscore);
 		Nokia5110_SetCursor(0,3);	Nokia5110_OutString(" Score:");
 		Nokia5110_SetCursor(0,5);	Nokia5110_OutString("  Push Fire ");
 		
