@@ -644,12 +644,12 @@ struct Levels* getLevel(int bIncrease)
 {
 	static struct Levels level[6] = 
 	{
-		{60,6,5,2,3},
-		{45,4,3,2,2},
-		{30,2,2,2,2},
-		{15,2,2,1,2},
-		{10,2,1,1,1},
-		{5,1,1,1,1},
+		{60,6,5,2,3},	// Level 1
+		{45,4,3,2,2},	// Level 2
+		{30,2,3,2,2},	// Level 3
+		{15,2,2,1,2},	// Level 4
+		{10,2,2,1,1},	// Level 5
+		{5,1,1,1,1},	// Level 6
 	};
 	static long nLevel = 0;
 	
