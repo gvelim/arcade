@@ -374,7 +374,7 @@ void InitAlliens()
 		allien[n].x = ENEMY30W*(n%4);						// create 4 columns
 		allien[n].y = allien[n].y = 9*(1+n/4);	// create 3 rows
 		allien[n].img_count = 0;								// image counter used to point to different BMPs
-		allien[n].decay = 4;										// frames of decay following impact
+		allien[n].decay = 6;										// frames of decay following impact
 		allien[n].status = ALIVE;
 		allien[n].score = 40-10*(1+n/4);
 	}
@@ -386,7 +386,7 @@ void InitPlayerShip()
 	pship.y = SCREENH-1;
 	pship.status = ALIVE;
 	pship.img_count = 0;
-	pship.decay = 30;
+	pship.decay = 20;
 }
 
 void InitLaser()
@@ -579,23 +579,23 @@ unsigned char hasCollided( STyp s1, STyp s2 )
 	if( s1.y >= s2.y )
 	{
 		// Does Y2 falls within (Y1,Y1+H1) ?
-		if( s2.y > s1.y-s1.h )
+		if( s2.y+1 > s1.y-s1.h )
 			// Y indicates collision, check X2 fall within (X1,X1+W1)
 			if( s1.x < s2.x )
 			{
 				// X2 falls within X1+W1 ?
-				if( s2.x < s1.x+s1.w ) return 1;
+				if( s2.x+1 < s1.x+s1.w ) return 1;
 			} else 
-				if( s1.x < s2.x+s2.w ) return 1;
+				if( s1.x+1 < s2.x+s2.w ) return 1;
 	} else
 	{
-		if( s1.y > s2.y-s2.h )
+		if( s1.y+1 > s2.y-s2.h )
 			// Y indicates collission, check X
 			if( s1.x < s2.x )
 			{
-				if( s2.x < s1.x+s1.w ) return 1;
+				if( s2.x+1 < s1.x+s1.w ) return 1;
 			} else
-				if( s1.x < s2.x+s2.w ) return 1;
+				if( s1.x+1 < s2.x+s2.w ) return 1;
 	}
 	// no collision detected
 	return 0;
@@ -628,12 +628,45 @@ unsigned char hasMissileCollided( STyp s1 )
 /////////////////////////////////////////////
 // Game Engine and logic
 
+struct Levels {
+	long mis_sensitivity;		// frames per move; lower number gives more missiles
+	long mis_speed;					// missile speed
+	long al_base_speed;			// minimum alien speed; frames per move
+	long laser_speed;				// frames per move
+	long ship_speed;				// frames per move
+};
+
+// Input: > 0 increase game level
+//				= 0 keep level the same, just return level variables
+//				< 0 reset the game level
+// output: type Levels containing level variables 
+struct Levels* getLevel(int bIncrease)
+{
+	static struct Levels level[6] = 
+	{
+		{50,4,30,2,3},
+		{35,3,20,2,2},
+		{20,2,10,1,1},
+		{10,2,10,1,1},
+		{5,1,5,1,1},
+		{5,1,1,1,1},
+	};
+	static long nLevel = 0;
+	
+	if( bIncrease > 0 && nLevel < 6 )	nLevel++;
+	if( bIncrease < 0 ) nLevel = 0;
+	
+	return &level[nLevel];
+}
+
+//*****************************************
+// 
 void TimerRendering()
 {
 	static long framecounter = 1;
 		
 	// every 20-32 frames fire an alien missile
-	if( gl_m.maxMissiles < MAX_MISSILES && (framecounter % (20 + gl_a.maxAllien)) == 0 )
+	if( gl_m.maxMissiles < MAX_MISSILES && (framecounter % (getLevel(0)->al_base_speed+gl_a.maxAllien)) == 0 )
 	{
 		unsigned char n,i, y_max=0, t_allien = 0, ship_mid = pship.x+pship.w/2;
 		
@@ -662,7 +695,7 @@ void TimerRendering()
 		}
 	}
 	
-	// active laser sprite if fire is pressed
+	// activate laser sprite if fire is pressed
 	if( isFirePressed() && !laser.status == ALIVE && pship.status == ALIVE)
 	{
 		laser.status = ALIVE;
@@ -670,7 +703,7 @@ void TimerRendering()
 		laser.y = pship.y - pship.h + laser.h;
 	}
 	
-	// check for collisions if laser fired
+	// check for collisions when laser is fired
 	if( laser.status == ALIVE )
 	{
 		unsigned char a_idx = hasAllienCollided(laser);
@@ -719,16 +752,16 @@ void TimerRendering()
 			if(framecounter % gl_a.maxAllien == 0) MoveAlliens();
 			
 			// move missiles every other frame
-			if(framecounter % 2 == 0 ) MoveMissiles();	
+			if(framecounter % getLevel(0)->mis_speed == 0 ) MoveMissiles();	
 			
 			// move every frame			
-			MoveLaser();
+			if(framecounter % getLevel(0)->laser_speed == 0 ) MoveLaser();
 			
 			// then carry on with ship movement
 		
 		// draw ship animation whether alive or damaged
 		default:
-			if(framecounter % 2 == 0) MoveShip();
+			if(framecounter % getLevel(0)->ship_speed == 0) MoveShip();
 			break;
 	}
 	
@@ -740,6 +773,7 @@ void Delay100ms(unsigned long count);
 	
 int main(void)
 {
+	long nLevel = 0;
 
 	Nokia5110_Init();
 	PLL_Init();
@@ -770,24 +804,27 @@ int main(void)
 		Nokia5110_SetCursor(0,3);	Nokia5110_OutString("************");
 		Nokia5110_SetCursor(0,5); Nokia5110_OutString(" Press Fire");
 
-		waitForFire();
+		waitForFire();		
 
-		// initialise once in a game
+		// initialise on every level
 		InitAlliens();
+		getLevel(-1);
 		
-		while( gl_game.ship_lives != 0 && gl_a.maxAllien != 0 )
+		while( gl_game.ship_lives != 0 )
 		{
 			// initialise every time a life is lost
 			InitMissiles();
 			InitPlayerShip();
 			InitLaser();
-
+			
 			Nokia5110_ClearBuffer();
 			Nokia5110_DisplayBuffer();
 
 			Nokia5110_SetCursor(0,2);	Nokia5110_OutString("Get Ready !!");
-			Nokia5110_SetCursor(9,4); Nokia5110_OutUDec( gl_game.ship_lives );
-			Nokia5110_SetCursor(0,4);	Nokia5110_OutString("  Lives:");
+			Nokia5110_SetCursor(0,3);	Nokia5110_OutString("  Level");
+			Nokia5110_SetCursor(9,3); Nokia5110_OutUDec( nLevel+1 );
+			Nokia5110_SetCursor(9,5); Nokia5110_OutUDec( gl_game.ship_lives );
+			Nokia5110_SetCursor(0,5);	Nokia5110_OutString("  Lives");
 
 			Delay100ms(10);
 			
@@ -803,11 +840,9 @@ int main(void)
 				DrawLaser();
 				DrawShip();
 				Nokia5110_SetCursorBuffer(11,0);	
-//					Nokia5110_OutCharBuffer('L',OR_METHOD);
-					Nokia5110_OutUDecBuffer( gl_game.ship_lives, OR_METHOD );
+				Nokia5110_OutUDecBuffer( gl_game.ship_lives, OR_METHOD );
 			  Nokia5110_SetCursorBuffer(0,0);
-//					Nokia5110_OutCharBuffer('S',OR_METHOD);
-					Nokia5110_OutUDecBuffer( gl_game.hiscore, OR_METHOD);
+				Nokia5110_OutUDecBuffer( gl_game.hiscore, OR_METHOD);
 				Nokia5110_DisplayBuffer();
 
 				gl_game.Flag = 1;
@@ -815,8 +850,17 @@ int main(void)
 
 			Timer2A_Stop();
 
-			gl_game.ship_lives--;			
+			// game exit reason: aliens all destroyed ?
+			// implies ship is still alive
+			if( gl_a.maxAllien == 0 )
+			{
+				getLevel(++nLevel);			// increase level
+				InitAlliens();					// initialise on every level
+			}
+			else
+				gl_game.ship_lives--;		// Game exit reason: ship destroyed
 		}
+		
 		// Game End / Epilogue
 
 		Nokia5110_SetCursor(0,0);	Nokia5110_OutString("************");
