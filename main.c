@@ -345,7 +345,8 @@ STyp laser = {0,0, 3, 8, 0, {Laser0, Laser1, Laser0, Laser1}, 4, DEAD};
 struct {
 	long Flag;					// framerate sync flag
 	long ship_lives;		// available player lives
-	long hiscore;				// Keep high score
+	long score;					// Keep high score
+	long hiscore;
 } gl_game;
 
 
@@ -353,7 +354,7 @@ void InitGame(void)
 {
 	gl_game.Flag = 0;
 	gl_game.ship_lives = 3;
-	gl_game.hiscore = 0;	
+	gl_game.score = 0;
 }
 
 
@@ -709,7 +710,7 @@ void TimerRendering()
 		unsigned char a_idx = hasAllienCollided(laser);
 		if( a_idx )
 		{
-			gl_game.hiscore += allien[a_idx-1].score;	// add game score
+			gl_game.score += allien[a_idx-1].score;	// add game score
 			gl_a.maxAllien--;													// reduce the count of alive alliens
 			allien[a_idx-1].status = DAMAGED;					// flag allien as dead
 			laser.status = DEAD;											// flag laser as dead
@@ -797,7 +798,9 @@ int main(void)
 		Nokia5110_SetCursor(0,1);	Nokia5110_OutString("*  Space   *");
 		Nokia5110_SetCursor(0,2);	Nokia5110_OutString("* Invaders *");
 		Nokia5110_SetCursor(0,3);	Nokia5110_OutString("************");
-		Nokia5110_SetCursor(0,5); Nokia5110_OutString(" Press Fire");
+		Nokia5110_SetCursor(0,4); Nokia5110_OutString(" Top:");
+		Nokia5110_SetCursor(7,4); Nokia5110_OutUDec( gl_game.hiscore );
+		Nokia5110_SetCursor(0,5); Nokia5110_OutString(" Press Fire ");
 
 		waitForFire();		
 
@@ -840,7 +843,7 @@ int main(void)
 				Nokia5110_SetCursorBuffer(11,0);	
 				Nokia5110_OutUDecBuffer( gl_game.ship_lives, OR_METHOD );
 			  Nokia5110_SetCursorBuffer(0,0);
-				Nokia5110_OutUDecBuffer( gl_game.hiscore, OR_METHOD);
+				Nokia5110_OutUDecBuffer( gl_game.score, OR_METHOD);
 				Nokia5110_DisplayBuffer();
 
 				gl_game.Flag = 1;
@@ -858,15 +861,20 @@ int main(void)
 			else
 				gl_game.ship_lives--;		// Game exit reason: ship destroyed
 		}
-		
+				
 		// Game End / Epilogue
 
-		Nokia5110_SetCursor(0,0);	Nokia5110_OutString("************");
+		// do we have a new high score ?
+		if(gl_game.score > gl_game.hiscore)
+			gl_game.hiscore = gl_game.score;
+
+		// display result and game score
+		Nokia5110_SetCursor(0,0);	Nokia5110_OutString("***********");
 		Nokia5110_SetCursor(0,1);	
 		if(pship.status == ALIVE)	Nokia5110_OutString("*SavedEarth*");
 		else   										Nokia5110_OutString("*Lost Earth*");
 		Nokia5110_SetCursor(0,2);	Nokia5110_OutString("************");
-		Nokia5110_SetCursor(7,3); Nokia5110_OutUDec(gl_game.hiscore);
+		Nokia5110_SetCursor(7,3); Nokia5110_OutUDec(gl_game.score);
 		Nokia5110_SetCursor(0,3);	Nokia5110_OutString(" Score:");
 		Nokia5110_SetCursor(0,5);	Nokia5110_OutString("  Push Fire ");
 		
