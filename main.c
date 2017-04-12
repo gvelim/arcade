@@ -288,10 +288,10 @@ typedef struct State STyp;
 /***************************************/
 // Global Alien sprites & variables
 
-#define ALLIEN_NUM	12
+#define ALIEN_NUM	12
 
 struct {
-	unsigned char maxAllien;	// Number of Active alliens
+	unsigned char maxAlien;	// Number of Active aliens
 	int max_x, 								// Alien flock, bigger X
 			min_x, 								// Alien flock, smallest X
 			min_y, 								// Alien flock, smallest Y
@@ -300,7 +300,7 @@ struct {
 			dir;									// flock direction 
 } gl_a;
 
-STyp allien[ALLIEN_NUM] = 
+STyp alien[ALIEN_NUM] = 
 {
 	{ 0,9,15,9,0,{SmallEnemy30PointA,SmallEnemy30PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0},
 	{16,9,15,9,0,{SmallEnemy30PointA,SmallEnemy30PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0},
@@ -358,26 +358,26 @@ void InitGame(void)
 }
 
 
-void InitAlliens()
+void Initaliens()
 {	
 	long n;
 
-	gl_a.maxAllien = ALLIEN_NUM;	// total alliens 12
-	gl_a.max_x=0, 								// min,max values used to identify when to switch allien direction
+	gl_a.maxAlien = ALIEN_NUM;	// total aliens 12
+	gl_a.max_x=0, 								// min,max values used to identify when to switch alien direction
 	gl_a.min_x=SCREENW, 					//
 	gl_a.min_y=9, 								//
-	gl_a.max_y=0, 								// Base Y for first allien sprite
+	gl_a.max_y=0, 								// Base Y for first alien sprite
 	gl_a.dy = 1, 									// Delta-Y for moving the sprites over the Y axis
-	gl_a.dir = 1;									// Direction flag (1,-1) to move the alliens over the X axis
+	gl_a.dir = 1;									// Direction flag (1,-1) to move the aliens over the X axis
 	
-	for(n=0; n < ALLIEN_NUM; n++)
+	for(n=0; n < ALIEN_NUM; n++)
 	{
-		allien[n].x = ENEMY30W*(n%4);						// create 4 columns
-		allien[n].y = allien[n].y = 9*(1+n/4);	// create 3 rows
-		allien[n].img_count = 0;								// image counter used to point to different BMPs
-		allien[n].decay = 6;										// frames of decay following impact
-		allien[n].status = ALIVE;
-		allien[n].score = 40-10*(1+n/4);
+		alien[n].x = ENEMY30W*(n%4);						// create 4 columns
+		alien[n].y = alien[n].y = 9*(1+n/4);	// create 3 rows
+		alien[n].img_count = 0;								// image counter used to point to different BMPs
+		alien[n].decay = 6;										// frames of decay following impact
+		alien[n].status = ALIVE;
+		alien[n].score = 40-10*(1+n/4);
 	}
 }
 
@@ -409,20 +409,20 @@ void InitLaser()
 	 }
  }
 
-void DrawAlliens()
+void DrawAliens()
 {
 	long n;
 	
-	for(n=0; n < ALLIEN_NUM; n++)
-		switch( allien[n].status )
+	for(n=0; n < ALIEN_NUM; n++)
+		switch( alien[n].status )
 		{
 			case ALIVE:
-				Nokia5110_PrintBMP( allien[n].x, allien[n].y, allien[n].image[allien[n].img_count], 0);
+				Nokia5110_PrintBMP( alien[n].x, alien[n].y, alien[n].image[alien[n].img_count], 0);
 				break;
 			
 			case DAMAGED:
 				// offset count by 2 so to pick the explosion Bitmaps
-				Nokia5110_PrintBMP( allien[n].x, allien[n].y, allien[n].image[allien[n].img_count+1], 0);
+				Nokia5110_PrintBMP( alien[n].x, alien[n].y, alien[n].image[alien[n].img_count+1], 0);
 				break;
 			
 			case DEAD:
@@ -430,7 +430,7 @@ void DrawAlliens()
 		}	
 }
 
-void MoveAlliens()
+void MoveAliens()
 {
 	long n;
 	
@@ -442,56 +442,56 @@ void MoveAlliens()
 		gl_a.min_x = SCREENW;
 		gl_a.max_x = 0;	
 
-		// Lower alliens from start Y position plus delta-y
-		for(n=0; n < ALLIEN_NUM; n++)
-			switch(allien[n].status)
+		// Lower aliens from start Y position plus delta-y
+		for(n=0; n < ALIEN_NUM; n++)
+			switch(alien[n].status)
 			{
 				case DAMAGED:
-					allien[n].decay--;
-					if(allien[n].decay == 0) allien[n].status = DEAD;
+					alien[n].decay--;
+					if(alien[n].decay == 0) alien[n].status = DEAD;
 				
 				// allow to fall onto ALIVE code so it picks the Y change
 
 				case ALIVE:
-					// move allien MIN_Y + offset( delta-Y )
-					allien[n].y = gl_a.min_y*(1+n/4) + gl_a.dy;
-					gl_a.max_y = allien[n].y > gl_a.max_y ? allien[n].y : gl_a.max_y;
+					// move alien MIN_Y + offset( delta-Y )
+					alien[n].y = gl_a.min_y*(1+n/4) + gl_a.dy;
+					gl_a.max_y = alien[n].y > gl_a.max_y ? alien[n].y : gl_a.max_y;
 					break;
 								
 				case DEAD:
 					break;
 			}
 			
-		// Has alliens reached the end of the screen ?
+		// Has aliens reached the end of the screen ?
 		if( gl_a.max_y > SCREENH-1 )
 			gl_a.max_y = gl_a.dy = 0; 		// yes, reset delta-Y, max_y
 		else
 			++gl_a.dy;										// increment delta-Y
 	}
 	else 
-		for(n=0; n < ALLIEN_NUM; n++)
-			switch(allien[n].status)
+		for(n=0; n < ALIEN_NUM; n++)
+			switch(alien[n].status)
 			{
 				case DAMAGED:
 
-					allien[n].decay--;
+					alien[n].decay--;
 
 				// if decay run out then alien is DEAD
-					if(allien[n].decay == 0) allien[n].status = DEAD;
+					if(alien[n].decay == 0) alien[n].status = DEAD;
 
-					allien[n].y++;
+					alien[n].y++;
 					
-					// fall onto ALIVE so allien continues picking up the X values
+					// fall onto ALIVE so alien continues picking up the X values
 				case ALIVE:
-					// Move alliens across based on direction setting
-					allien[n].x += 2*gl_a.dir;
+					// Move aliens across based on direction setting
+					alien[n].x += 2*gl_a.dir;
 					
 					// Set the image to be displayed by the Draw() function
-					allien[n].img_count = (allien[n].img_count+1)&0x01;
+					alien[n].img_count = (alien[n].img_count+1)&0x01;
 					
-					// track min and max X values so we can detect whether any allien hit the end of the screen
-					gl_a.max_x = (allien[n].x > gl_a.max_x) ? allien[n].x : gl_a.max_x;
-					gl_a.min_x = (allien[n].x < gl_a.min_x) ? allien[n].x : gl_a.min_x;
+					// track min and max X values so we can detect whether any alien hit the end of the screen
+					gl_a.max_x = (alien[n].x > gl_a.max_x) ? alien[n].x : gl_a.max_x;
+					gl_a.min_x = (alien[n].x < gl_a.min_x) ? alien[n].x : gl_a.min_x;
 					break;
 				
 				default:
@@ -605,11 +605,11 @@ unsigned char hasCollided( STyp s1, STyp s2 )
 
 // returns 0 when no collision is detected
 // returns n for sprite affected
-unsigned char hasAllienCollided( STyp spr1 )
+unsigned char hasAlienCollided( STyp spr1 )
 {
 	long n;
-	for(n=0; n < ALLIEN_NUM; n++)
-		if(	allien[n].status == ALIVE && hasCollided(spr1, allien[n]) )
+	for(n=0; n < ALIEN_NUM; n++)
+		if(	alien[n].status == ALIVE && hasCollided(spr1, alien[n]) )
 			return n+1;
 		
 	return 0;
@@ -630,8 +630,8 @@ unsigned char hasMissileCollided( STyp s1 )
 // Game Engine and logic
 
 struct Levels {
-	long mis_sensitivity;		// frames per move; lower number gives more missiles
-	long mis_speed;					// missile speed
+	long mis_sensitivity;		// frames per move; lower number gives higer missile frequency
+	long mis_speed;					// frame per move; missile speed
 	long al_base_speed;			// minimum alien speed; frames per move
 	long laser_speed;				// frames per move
 	long ship_speed;				// frames per move
@@ -646,11 +646,11 @@ struct Levels* getLevel(int bIncrease)
 	static struct Levels level[6] = 
 	{
 		{60,6,5,2,3},	// Level 1
-		{45,4,3,2,2},	// Level 2
+		{45,5,3,2,3},	// Level 2
 		{30,4,3,2,2},	// Level 3
-		{15,2,2,1,2},	// Level 4
+		{15,3,2,1,2},	// Level 4
 		{10,2,1,1,1},	// Level 5
-		{5,1,1,1,1},	// Level 6
+		{8,2,1,1,1},	// Level 6
 	};
 	static long nLevel = 0;
 	
@@ -667,30 +667,31 @@ void TimerRendering()
 	static long framecounter = 1;
 		
 	// every 20-32 frames fire an alien missile
-	if( gl_m.maxMissiles < MAX_MISSILES && (framecounter % (getLevel(0)->mis_sensitivity+gl_a.maxAllien)) == 0 )
+	if( gl_m.maxMissiles < MAX_MISSILES && (framecounter % (getLevel(0)->mis_sensitivity+gl_a.maxAlien)) == 0 )
 	{
-		unsigned char n,i, y_max=0, t_allien = 0, ship_mid = pship.x+pship.w/2;
+		unsigned char n,i, y_max=0, t_alien = 0, ship_mid = pship.x+pship.w/2;
 		
-		// find an inactive missie slot and 
-		// activate it if an alien is over the player ship
+		// find an inactive missile slot and 
+		// activate it when an alien is found over the player ship
+		// note: missiles drop from the alien that has direct line of sight to the ship
 		for(n=0; n<MAX_MISSILES; n++)
-		if( !missile[n].status == ALIVE)
+		if( !missile[n].status == ALIVE)																		// find an inactive missile
 		{
-			for(i=0; i<ALLIEN_NUM; i++)																				// find the alien's Y possition
-				if( allien[i].status == ALIVE )																				// while alien is above		
-					if( allien[i].x < ship_mid && ship_mid < allien[i].x+allien[i].w )	// there is an alien above the ship
+			for(i=0; i<ALIEN_NUM; i++)																				// find the alien's Y possition
+				if( alien[i].status == ALIVE )																				// while alien is active		
+					if( alien[i].x < ship_mid && ship_mid < alien[i].x+alien[i].w )	// and alien is above the ship
 					{
-						y_max = (allien[i].y > y_max) ? allien[i].y : y_max;							// if alien has the highest Y so far keep it
-						t_allien = i;																											// keep the alien column
+						y_max = (alien[i].y > y_max) ? alien[i].y : y_max;							// if alien has the highest Y so far keep it
+						t_alien = i;																											// keep the alien column
 					}
 			
 			// we've found an alien above the pship
 			if( y_max )
 			{
-				missile[n].x = allien[t_allien].x + allien[t_allien].w/2+1;		// fire it against the ship location
+				missile[n].x = alien[t_alien].x + alien[t_alien].w/2+1;		// fire it against the ship location
 				missile[n].y = y_max;																					// position middle of alien sprite
 				missile[n].status = ALIVE;																		// activate missile
-				gl_m.maxMissiles++;
+				gl_m.maxMissiles++;																						// keep count of active missiles
 				break;
 			}
 		}
@@ -704,15 +705,15 @@ void TimerRendering()
 		laser.y = pship.y - pship.h + laser.h;
 	}
 	
-	// check for collisions when laser is fired
+	// check for collisions when laser is active
 	if( laser.status == ALIVE )
 	{
-		unsigned char a_idx = hasAllienCollided(laser);
-		if( a_idx )
+		unsigned char a_idx = hasAlienCollided(laser);
+		if( a_idx )																	// if not zero, we get the index of the alien destroyed
 		{
-			gl_game.score += allien[a_idx-1].score;	// add game score
-			gl_a.maxAllien--;													// reduce the count of alive alliens
-			allien[a_idx-1].status = DAMAGED;					// flag allien as dead
+			gl_game.score += alien[a_idx-1].score;		// add to the game's score
+			gl_a.maxAlien--;													// reduce the count of alive aliens
+			alien[a_idx-1].status = DAMAGED;					// flag alien as damaged (enter decay)
 			laser.status = DEAD;											// flag laser as dead
 		}
 	}
@@ -722,10 +723,10 @@ void TimerRendering()
 	{
 		// test collision with laser
 		unsigned char a_idx = hasMissileCollided(laser);
-		if( a_idx )
+		if( a_idx )													// if not zero, laser and missile have collided
 		{
 			gl_m.maxMissiles--;								// reduce the count of active missiles
-			missile[a_idx-1].status = DEAD;		// flag missile neutralised
+			missile[a_idx-1].status = DEAD;		// flag missile as dead
 			laser.status = DEAD;							// flag laser as dead
 		}
 		
@@ -740,7 +741,7 @@ void TimerRendering()
 	}
 	
 	// has Alien collided with ship ?
-	if( hasAllienCollided(pship) )
+	if( hasAlienCollided(pship) )
 		pship.status = DAMAGED;
 
 	
@@ -749,8 +750,8 @@ void TimerRendering()
 	{
 		// pause motion when player ship is destroyed
 		case ALIVE:
-			// move allien every N-th frame where n = available alliens
-			if(framecounter % (getLevel(0)->al_base_speed+gl_a.maxAllien) == 0) MoveAlliens();
+			// move alien every N-th frame where n = available aliens
+			if(framecounter % (getLevel(0)->al_base_speed+gl_a.maxAlien) == 0) MoveAliens();
 			
 			// move missiles every other frame
 			if(framecounter % getLevel(0)->mis_speed == 0 ) MoveMissiles();	
@@ -805,7 +806,7 @@ int main(void)
 		waitForFire();		
 
 		// initialise aliens and levels
-		InitAlliens();
+		Initaliens();
 		getLevel(-1);
 		nLevel = 0;
 		
@@ -830,13 +831,13 @@ int main(void)
 			Timer2A_Start();
 			
 			// Game loop until ship is or aliens are destroyed 
-			while( pship.status != DEAD && gl_a.maxAllien != 0 )
+			while( pship.status != DEAD && gl_a.maxAlien != 0 )
 			{
 				while(!gl_game.Flag){}
 					
 				Nokia5110_ClearBuffer();
+				DrawAliens();
 				DrawMissiles();
-				DrawAlliens();
 				DrawLaser();
 				DrawShip();
 					
@@ -853,10 +854,10 @@ int main(void)
 
 			// game exit reason: aliens all destroyed ?
 			// implies ship is still alive
-			if( gl_a.maxAllien == 0 )
+			if( gl_a.maxAlien == 0 )
 			{
 				getLevel(++nLevel);			// increase level
-				InitAlliens();					// initialise on every level
+				Initaliens();					// initialise on every level
 			}
 			else
 				gl_game.ship_lives--;		// Game exit reason: ship destroyed
