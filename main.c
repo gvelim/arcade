@@ -327,10 +327,10 @@ struct {
 
 STyp missile[MAX_MISSILES] = 
 {
-	{0,0, 3, 8, 0, {Missile0, Missile1, Missile2, Missile2}, 4, DEAD},
-	{0,0, 3, 8, 0, {Missile0, Missile1, Missile2, Missile2}, 4, DEAD},
-	{0,0, 3, 8, 0, {Missile0, Missile1, Missile2, Missile2}, 4, DEAD},
-	{0,0, 3, 8, 0, {Missile0, Missile1, Missile2, Missile2}, 4, DEAD}
+	{0,0, 3, 8, 0, {Missile0, Missile1, Missile2, Missile2}, 4, DEAD, 1},
+	{0,0, 3, 8, 0, {Missile0, Missile1, Missile2, Missile2}, 4, DEAD, 1},
+	{0,0, 3, 8, 0, {Missile0, Missile1, Missile2, Missile2}, 4, DEAD, 1},
+	{0,0, 3, 8, 0, {Missile0, Missile1, Missile2, Missile2}, 4, DEAD, 1}
 };
 
 /***************************************/
@@ -406,6 +406,7 @@ void InitLaser()
 		 missile[n].status = DEAD;
 		 missile[n].img_count = 0;
 		 missile[n].decay = 2;
+		 missile[n].score = 1 + n % 4;
 	 }
  }
 
@@ -474,7 +475,11 @@ void MoveAliens()
 					alien[n].decay--;
 
 				// if decay run out then alien is DEAD
-					if(alien[n].decay == 0) alien[n].status = DEAD;
+					if(alien[n].decay == 0) 
+					{
+						alien[n].status = DEAD;		// Flag alien as dead
+						gl_a.maxAlien--;					// reduce the count of alive aliens
+					}
 
 					alien[n].y++;
 					
@@ -709,7 +714,6 @@ void TimerRendering()
 		if( a_idx )																	// if not zero, we get the index of the alien destroyed
 		{
 			gl_game.score += alien[a_idx-1].score;		// add to the game's score
-			gl_a.maxAlien--;													// reduce the count of alive aliens
 			alien[a_idx-1].status = DAMAGED;					// flag alien as damaged (enter decay)
 			laser.status = DEAD;											// flag laser as dead
 		}
@@ -722,6 +726,7 @@ void TimerRendering()
 		unsigned char a_idx = hasMissileCollided(laser);
 		if( a_idx )													// if not zero, laser and missile have collided
 		{
+			gl_game.score += missile[a_idx-1].score;
 			gl_m.maxMissiles--;								// reduce the count of active missiles
 			missile[a_idx-1].status = DEAD;		// flag missile as dead
 			laser.status = DEAD;							// flag laser as dead
@@ -867,7 +872,10 @@ int main(void)
 			gl_game.hiscore = gl_game.score;
 
 		// display result and game score
-		Nokia5110_SetCursor(0,0);	Nokia5110_OutString("***********");
+		Nokia5110_ClearBuffer();
+		Nokia5110_DisplayBuffer();
+
+		Nokia5110_SetCursor(0,0);	Nokia5110_OutString("************");
 		Nokia5110_SetCursor(0,1);	
 		if(pship.status == ALIVE)	Nokia5110_OutString("*SavedEarth*");
 		else   										Nokia5110_OutString("*Lost Earth*");
