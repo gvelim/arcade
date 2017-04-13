@@ -447,11 +447,8 @@ void MoveAliens()
 			switch(alien[n].status)
 			{
 				case DAMAGED:
-					alien[n].decay--;
-					if(alien[n].decay == 0) alien[n].status = DEAD;
-				
-				// allow to fall onto ALIVE code so it picks the Y change
-
+					alien[n].y++;
+					break;
 				case ALIVE:
 					// move alien MIN_Y + offset( delta-Y )
 					alien[n].y = gl_a.min_y*(1+n/4) + gl_a.dy;
@@ -585,18 +582,18 @@ unsigned char hasCollided( STyp s1, STyp s2 )
 			if( s1.x < s2.x )
 			{
 				// X2 falls within X1+W1 ?
-				if( s2.x+1 < s1.x+s1.w ) return 1;
+				if( s2.x+1 <= s1.x+s1.w ) return 1;
 			} else 
-				if( s1.x+1 < s2.x+s2.w ) return 1;
+				if( s1.x+1 <= s2.x+s2.w ) return 1;
 	} else
 	{
 		if( s1.y+1 > s2.y-s2.h )
 			// Y indicates collission, check X
 			if( s1.x < s2.x )
 			{
-				if( s2.x+1 < s1.x+s1.w ) return 1;
+				if( s2.x+1 <= s1.x+s1.w ) return 1;
 			} else
-				if( s1.x+1 < s2.x+s2.w ) return 1;
+				if( s1.x+1 <= s2.x+s2.w ) return 1;
 	}
 	// no collision detected
 	return 0;
@@ -836,8 +833,8 @@ int main(void)
 				while(!gl_game.Flag){}
 					
 				Nokia5110_ClearBuffer();
-				DrawAliens();
 				DrawMissiles();
+				DrawAliens();
 				DrawLaser();
 				DrawShip();
 					
