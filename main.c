@@ -412,9 +412,9 @@ void InitLaser()
 
 void DrawAliens()
 {
-	long n;
+	int n;
 	
-	for(n=0; n < ALIEN_NUM; n++)
+	for(n=ALIEN_NUM-1; n >= 0 ; --n)
 		switch( alien[n].status )
 		{
 			case ALIVE:
@@ -609,8 +609,8 @@ unsigned char hasCollided( STyp s1, STyp s2 )
 // returns n for sprite affected
 unsigned char hasAlienCollided( STyp spr1 )
 {
-	long n;
-	for(n=0; n < ALIEN_NUM; n++)
+	int n;
+	for(n=ALIEN_NUM-1; n>=0 ; --n)
 		if(	alien[n].status == ALIVE && hasCollided(spr1, alien[n]) )
 			return n+1;
 		
@@ -621,7 +621,7 @@ unsigned char hasAlienCollided( STyp spr1 )
 // returns n for sprite affected
 unsigned char hasMissileCollided( STyp s1 )
 {
-	long n;
+	int n;
 	for(n=0; n < MAX_MISSILES; n++)
 		if(	missile[n].status == ALIVE && hasCollided(s1, missile[n]) )
 			return n+1;
@@ -671,7 +671,8 @@ void TimerRendering()
 	// every 20-32 frames fire an alien missile
 	if( gl_m.maxMissiles < MAX_MISSILES && (framecounter % (getLevel(0)->mis_sensitivity+gl_a.maxAlien)) == 0 )
 	{
-		unsigned char n,i, y_max=0, t_alien = 0, ship_mid = pship.x+pship.w/2;
+		unsigned char y_max=0, t_alien = 0, ship_mid = pship.x+pship.w/2;
+		int n, i;
 		
 		// find an inactive missile slot and 
 		// activate it when an alien is found over the player ship
@@ -679,7 +680,7 @@ void TimerRendering()
 		for(n=0; n<MAX_MISSILES; n++)
 		if( !missile[n].status == ALIVE)																		// find an inactive missile
 		{
-			for(i=0; i<ALIEN_NUM; i++)																				// find the alien's Y possition
+			for(i=ALIEN_NUM-1; i>=0; --i)																				// find the alien's Y possition
 				if( alien[i].status == ALIVE )																				// while alien is active		
 					if( alien[i].x < ship_mid && ship_mid < alien[i].x+alien[i].w )	// and alien is above the ship
 					{
@@ -694,6 +695,7 @@ void TimerRendering()
 				missile[n].y = y_max;																					// position middle of alien sprite
 				missile[n].status = ALIVE;																		// activate missile
 				gl_m.maxMissiles++;																						// keep count of active missiles
+				missile[n].score = gl_m.maxMissiles;													// set score value
 				break;
 			}
 		}

@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\arcade.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\arcade.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Sun Apr 09 09:41:07 2017
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Sat Apr 15 19:34:04 2017
 <BR><P>
 <H3>Maximum Stack Usage =        152 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -262,25 +262,25 @@ Global Symbols
 <P><STRONG><a name="[78]"></a>__main</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry.o(.ARM.Collect$$$$00000000))
 <BR>[Address Reference Count : 1]<UL><LI> startup_tm4c123.o(.text)
 </UL>
-<P><STRONG><a name="[a7]"></a>_main_stk</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry2.o(.ARM.Collect$$$$00000001))
+<P><STRONG><a name="[a8]"></a>_main_stk</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry2.o(.ARM.Collect$$$$00000001))
 
 <P><STRONG><a name="[79]"></a>_main_scatterload</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry5.o(.ARM.Collect$$$$00000004))
 <BR><BR>[Calls]<UL><LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload
 </UL>
 
-<P><STRONG><a name="[a6]"></a>__main_after_scatterload</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry5.o(.ARM.Collect$$$$00000004))
+<P><STRONG><a name="[a7]"></a>__main_after_scatterload</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry5.o(.ARM.Collect$$$$00000004))
 <BR><BR>[Called By]<UL><LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload
 </UL>
 
-<P><STRONG><a name="[a8]"></a>_main_clock</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry7b.o(.ARM.Collect$$$$00000008))
+<P><STRONG><a name="[a9]"></a>_main_clock</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry7b.o(.ARM.Collect$$$$00000008))
 
-<P><STRONG><a name="[a9]"></a>_main_cpp_init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry8b.o(.ARM.Collect$$$$0000000A))
+<P><STRONG><a name="[aa]"></a>_main_cpp_init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry8b.o(.ARM.Collect$$$$0000000A))
 
-<P><STRONG><a name="[aa]"></a>_main_init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry9a.o(.ARM.Collect$$$$0000000B))
+<P><STRONG><a name="[ab]"></a>_main_init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry9a.o(.ARM.Collect$$$$0000000B))
 
-<P><STRONG><a name="[ab]"></a>__rt_final_cpp</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry10a.o(.ARM.Collect$$$$0000000D))
+<P><STRONG><a name="[ac]"></a>__rt_final_cpp</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry10a.o(.ARM.Collect$$$$0000000D))
 
-<P><STRONG><a name="[ac]"></a>__rt_final_exit</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry11a.o(.ARM.Collect$$$$0000000F))
+<P><STRONG><a name="[ad]"></a>__rt_final_exit</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry11a.o(.ARM.Collect$$$$0000000F))
 
 <P><STRONG><a name="[0]"></a>Reset_Handler</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, startup_tm4c123.o(.text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_tm4c123.o(RESET)
@@ -1100,43 +1100,45 @@ Global Symbols
 <P><STRONG><a name="[77]"></a>SystemInit</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, init.o(.text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_tm4c123.o(.text)
 </UL>
-<P><STRONG><a name="[90]"></a>InitGame</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, main.o(.text))
+<P><STRONG><a name="[91]"></a>InitGame</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, main.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[96]"></a>InitAlliens</STRONG> (Thumb, 174 bytes, Stack size 8 bytes, main.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = InitAlliens
+<P><STRONG><a name="[98]"></a>Initaliens</STRONG> (Thumb, 174 bytes, Stack size 8 bytes, main.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = Initaliens
 </UL>
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[98]"></a>InitPlayerShip</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, main.o(.text))
+<P><STRONG><a name="[9a]"></a>InitPlayerShip</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, main.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[99]"></a>InitLaser</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, main.o(.text))
+<P><STRONG><a name="[9b]"></a>InitLaser</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, main.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[97]"></a>InitMissiles</STRONG> (Thumb, 58 bytes, Stack size 0 bytes, main.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<P><STRONG><a name="[99]"></a>InitMissiles</STRONG> (Thumb, 88 bytes, Stack size 8 bytes, main.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = InitMissiles
+</UL>
+<BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[7b]"></a>DrawAlliens</STRONG> (Thumb, 158 bytes, Stack size 16 bytes, main.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = DrawAlliens &rArr; Nokia5110_PrintBMP
+<P><STRONG><a name="[7b]"></a>DrawAliens</STRONG> (Thumb, 158 bytes, Stack size 16 bytes, main.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = DrawAliens &rArr; Nokia5110_PrintBMP
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_PrintBMP
 </UL>
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[89]"></a>MoveAlliens</STRONG> (Thumb, 504 bytes, Stack size 8 bytes, main.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = MoveAlliens
+<P><STRONG><a name="[8a]"></a>MoveAliens</STRONG> (Thumb, 488 bytes, Stack size 8 bytes, main.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = MoveAliens
 </UL>
 <BR>[Called By]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerRendering
 </UL>
 
-<P><STRONG><a name="[7d]"></a>DrawShip</STRONG> (Thumb, 110 bytes, Stack size 8 bytes, main.o(.text))
+<P><STRONG><a name="[7d]"></a>DrawShip</STRONG> (Thumb, 112 bytes, Stack size 8 bytes, main.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = DrawShip &rArr; Nokia5110_PrintBMP
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_PrintBMP
@@ -1161,7 +1163,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[8b]"></a>MoveLaser</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, main.o(.text))
+<P><STRONG><a name="[8c]"></a>MoveLaser</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, main.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerRendering
 </UL>
 
@@ -1173,19 +1175,19 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[8a]"></a>MoveMissiles</STRONG> (Thumb, 118 bytes, Stack size 0 bytes, main.o(.text))
+<P><STRONG><a name="[8b]"></a>MoveMissiles</STRONG> (Thumb, 118 bytes, Stack size 0 bytes, main.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerRendering
 </UL>
 
-<P><STRONG><a name="[85]"></a>hasCollided</STRONG> (Thumb, 132 bytes, Stack size 16 bytes, main.o(.text))
+<P><STRONG><a name="[85]"></a>hasCollided</STRONG> (Thumb, 144 bytes, Stack size 16 bytes, main.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = hasCollided
 </UL>
 <BR>[Called By]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hasMissileCollided
-<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hasAllienCollided
+<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hasAlienCollided
 </UL>
 
-<P><STRONG><a name="[83]"></a>hasAllienCollided</STRONG> (Thumb, 86 bytes, Stack size 88 bytes, main.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = hasAllienCollided &rArr; hasCollided
+<P><STRONG><a name="[83]"></a>hasAlienCollided</STRONG> (Thumb, 86 bytes, Stack size 88 bytes, main.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = hasAlienCollided &rArr; hasCollided
 </UL>
 <BR>[Calls]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hasCollided
@@ -1202,132 +1204,139 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerRendering
 </UL>
 
-<P><STRONG><a name="[87]"></a>TimerRendering</STRONG> (Thumb, 740 bytes, Stack size 48 bytes, main.o(.text))
+<P><STRONG><a name="[88]"></a>getLevel</STRONG> (Thumb, 50 bytes, Stack size 0 bytes, main.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerRendering
+</UL>
+
+<P><STRONG><a name="[87]"></a>TimerRendering</STRONG> (Thumb, 824 bytes, Stack size 48 bytes, main.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = TimerRendering &rArr; hasMissileCollided &rArr; hasCollided
 </UL>
 <BR>[Calls]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
-<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isFirePressed
+<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isFirePressed
+<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getLevel
 <LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hasMissileCollided
-<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hasAllienCollided
-<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MoveMissiles
-<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MoveLaser
+<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hasAlienCollided
+<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MoveMissiles
+<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MoveLaser
 <LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MoveShip
-<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MoveAlliens
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MoveAliens
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(.text)
 </UL>
-<P><STRONG><a name="[9b]"></a>Delay100ms</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, main.o(.text))
+<P><STRONG><a name="[9c]"></a>Delay100ms</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, main.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = Delay100ms
 </UL>
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[76]"></a>main</STRONG> (Thumb, 430 bytes, Stack size 0 bytes, main.o(.text))
+<P><STRONG><a name="[76]"></a>main</STRONG> (Thumb, 698 bytes, Stack size 0 bytes, main.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = main &rArr; DrawMissiles &rArr; Nokia5110_PrintBMP
 </UL>
-<BR>[Calls]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;waitForFire
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer2_Init
-<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer2A_Stop
-<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer2A_Start
-<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Switch_Init
-<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PLL_Init
-<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_SetCursorBuffer
-<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_SetCursor
-<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutUDecBuffer
-<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutUDec
-<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutString
-<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_Init
-<LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_DisplayBuffer
-<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_ClearBuffer
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Delay100ms
+<BR>[Calls]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;waitForFire
+<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer2_Init
+<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer2A_Stop
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer2A_Start
+<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Switch_Init
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PLL_Init
+<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_SetCursorBuffer
+<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_SetCursor
+<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutUDecBuffer
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutUDec
+<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutString
+<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_Init
+<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_DisplayBuffer
+<LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_ClearBuffer
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Delay100ms
+<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getLevel
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DrawMissiles
 <LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DrawLaser
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DrawShip
-<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DrawAlliens
-<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitMissiles
-<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitLaser
-<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitPlayerShip
-<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitAlliens
-<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitGame
+<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DrawAliens
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitMissiles
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitLaser
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitPlayerShip
+<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Initaliens
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitGame
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
 </UL>
-<P><STRONG><a name="[8c]"></a>Nokia5110_Init</STRONG> (Thumb, 314 bytes, Stack size 8 bytes, nokia5110.o(.text))
+<P><STRONG><a name="[8d]"></a>Nokia5110_Init</STRONG> (Thumb, 314 bytes, Stack size 8 bytes, nokia5110.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = Nokia5110_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcdwrite
+<BR>[Calls]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcdwrite
 </UL>
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[a1]"></a>Nokia5110_OutChar</STRONG> (Thumb, 52 bytes, Stack size 16 bytes, nokia5110.o(.text))
+<P><STRONG><a name="[a2]"></a>Nokia5110_OutChar</STRONG> (Thumb, 52 bytes, Stack size 16 bytes, nokia5110.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = Nokia5110_OutChar
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcdwrite
+<BR>[Calls]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcdwrite
 </UL>
-<BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutUDec
-<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutString
+<BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutUDec
+<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutString
 </UL>
 
-<P><STRONG><a name="[94]"></a>Nokia5110_OutString</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, nokia5110.o(.text))
+<P><STRONG><a name="[95]"></a>Nokia5110_OutString</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, nokia5110.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = Nokia5110_OutString &rArr; Nokia5110_OutChar
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutChar
+<BR>[Calls]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutChar
 </UL>
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[9a]"></a>Nokia5110_OutUDec</STRONG> (Thumb, 370 bytes, Stack size 16 bytes, nokia5110.o(.text))
+<P><STRONG><a name="[96]"></a>Nokia5110_OutUDec</STRONG> (Thumb, 370 bytes, Stack size 16 bytes, nokia5110.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = Nokia5110_OutUDec &rArr; Nokia5110_OutChar
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutChar
+<BR>[Calls]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutChar
 </UL>
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[93]"></a>Nokia5110_SetCursor</STRONG> (Thumb, 46 bytes, Stack size 16 bytes, nokia5110.o(.text))
+<P><STRONG><a name="[94]"></a>Nokia5110_SetCursor</STRONG> (Thumb, 46 bytes, Stack size 16 bytes, nokia5110.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = Nokia5110_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcdwrite
+<BR>[Calls]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcdwrite
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_DrawFullImage
-<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_Clear
+<BR>[Called By]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_DrawFullImage
+<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_Clear
 <LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[a2]"></a>Nokia5110_Clear</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, nokia5110.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcdwrite
-<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_SetCursor
+<P><STRONG><a name="[a3]"></a>Nokia5110_Clear</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, nokia5110.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcdwrite
+<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_SetCursor
 </UL>
 
-<P><STRONG><a name="[a3]"></a>Nokia5110_DrawFullImage</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, nokia5110.o(.text))
+<P><STRONG><a name="[a4]"></a>Nokia5110_DrawFullImage</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, nokia5110.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = Nokia5110_DrawFullImage &rArr; Nokia5110_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcdwrite
-<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_SetCursor
+<BR>[Calls]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcdwrite
+<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_SetCursor
 </UL>
-<BR>[Called By]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_DisplayBuffer
+<BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_DisplayBuffer
 </UL>
 
-<P><STRONG><a name="[9d]"></a>Nokia5110_SetCursorBuffer</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, nokia5110.o(.text))
+<P><STRONG><a name="[9e]"></a>Nokia5110_SetCursorBuffer</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, nokia5110.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[a5]"></a>Nokia5110_OutCharBuffer</STRONG> (Thumb, 200 bytes, Stack size 12 bytes, nokia5110.o(.text))
+<P><STRONG><a name="[a6]"></a>Nokia5110_OutCharBuffer</STRONG> (Thumb, 200 bytes, Stack size 12 bytes, nokia5110.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = Nokia5110_OutCharBuffer
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutStringBuffer
-<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutUDecBuffer
+<BR>[Called By]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutStringBuffer
+<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutUDecBuffer
 </UL>
 
-<P><STRONG><a name="[a4]"></a>Nokia5110_OutStringBuffer</STRONG> (Thumb, 36 bytes, Stack size 12 bytes, nokia5110.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutCharBuffer
+<P><STRONG><a name="[a5]"></a>Nokia5110_OutStringBuffer</STRONG> (Thumb, 36 bytes, Stack size 12 bytes, nokia5110.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutCharBuffer
 </UL>
 
-<P><STRONG><a name="[9e]"></a>Nokia5110_OutUDecBuffer</STRONG> (Thumb, 402 bytes, Stack size 16 bytes, nokia5110.o(.text))
+<P><STRONG><a name="[9f]"></a>Nokia5110_OutUDecBuffer</STRONG> (Thumb, 402 bytes, Stack size 16 bytes, nokia5110.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = Nokia5110_OutUDecBuffer &rArr; Nokia5110_OutCharBuffer
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutCharBuffer
+<BR>[Calls]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutCharBuffer
 </UL>
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -1338,32 +1347,32 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DrawMissiles
 <LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DrawLaser
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DrawShip
-<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DrawAlliens
+<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DrawAliens
 </UL>
 
-<P><STRONG><a name="[91]"></a>Nokia5110_ClearBuffer</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, nokia5110.o(.text))
+<P><STRONG><a name="[92]"></a>Nokia5110_ClearBuffer</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, nokia5110.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[92]"></a>Nokia5110_DisplayBuffer</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, nokia5110.o(.text))
+<P><STRONG><a name="[93]"></a>Nokia5110_DisplayBuffer</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, nokia5110.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = Nokia5110_DisplayBuffer &rArr; Nokia5110_DrawFullImage &rArr; Nokia5110_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_DrawFullImage
+<BR>[Calls]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_DrawFullImage
 </UL>
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[8d]"></a>PLL_Init</STRONG> (Thumb, 118 bytes, Stack size 0 bytes, pll.o(.text))
+<P><STRONG><a name="[8e]"></a>PLL_Init</STRONG> (Thumb, 118 bytes, Stack size 0 bytes, pll.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[8e]"></a>Switch_Init</STRONG> (Thumb, 108 bytes, Stack size 8 bytes, switch.o(.text))
+<P><STRONG><a name="[8f]"></a>Switch_Init</STRONG> (Thumb, 108 bytes, Stack size 8 bytes, switch.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = Switch_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[ad]"></a>Switch_Input</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, switch.o(.text), UNUSED)
+<P><STRONG><a name="[ae]"></a>Switch_Input</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, switch.o(.text), UNUSED)
 
 <P><STRONG><a name="[7f]"></a>isLeftPressed</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, switch.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MoveShip
@@ -1373,22 +1382,22 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MoveShip
 </UL>
 
-<P><STRONG><a name="[88]"></a>isFirePressed</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, switch.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;waitForFire
+<P><STRONG><a name="[89]"></a>isFirePressed</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, switch.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;waitForFire
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerRendering
 </UL>
 
-<P><STRONG><a name="[95]"></a>waitForFire</STRONG> (Thumb, 26 bytes, Stack size 4 bytes, switch.o(.text))
+<P><STRONG><a name="[97]"></a>waitForFire</STRONG> (Thumb, 26 bytes, Stack size 4 bytes, switch.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = waitForFire
 </UL>
-<BR>[Calls]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isFirePressed
+<BR>[Calls]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isFirePressed
 </UL>
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[ae]"></a>waitForAnyButton</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, switch.o(.text), UNUSED)
+<P><STRONG><a name="[af]"></a>waitForAnyButton</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, switch.o(.text), UNUSED)
 
-<P><STRONG><a name="[8f]"></a>Timer2_Init</STRONG> (Thumb, 112 bytes, Stack size 20 bytes, timer.o(.text))
+<P><STRONG><a name="[90]"></a>Timer2_Init</STRONG> (Thumb, 112 bytes, Stack size 20 bytes, timer.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = Timer2_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -1399,51 +1408,51 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_tm4c123.o(RESET)
 </UL>
-<P><STRONG><a name="[9f]"></a>Timer2A_Stop</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, timer.o(.text))
+<P><STRONG><a name="[a0]"></a>Timer2A_Stop</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, timer.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[9c]"></a>Timer2A_Start</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, timer.o(.text))
+<P><STRONG><a name="[9d]"></a>Timer2A_Start</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, timer.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[af]"></a>__aeabi_memcpy</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, memcpya.o(.text), UNUSED)
+<P><STRONG><a name="[b0]"></a>__aeabi_memcpy</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, memcpya.o(.text), UNUSED)
 
 <P><STRONG><a name="[84]"></a>__aeabi_memcpy4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memcpya.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerRendering
 <LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hasMissileCollided
-<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hasAllienCollided
+<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hasAlienCollided
 </UL>
 
-<P><STRONG><a name="[b0]"></a>__aeabi_memcpy8</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memcpya.o(.text), UNUSED)
+<P><STRONG><a name="[b1]"></a>__aeabi_memcpy8</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memcpya.o(.text), UNUSED)
 
 <P><STRONG><a name="[7a]"></a>__scatterload</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, init.o(.text))
-<BR><BR>[Calls]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main_after_scatterload
+<BR><BR>[Calls]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main_after_scatterload
 </UL>
 <BR>[Called By]<UL><LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_main_scatterload
 </UL>
 
-<P><STRONG><a name="[b1]"></a>__scatterload_rt2</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, init.o(.text), UNUSED)
+<P><STRONG><a name="[b2]"></a>__scatterload_rt2</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, init.o(.text), UNUSED)
 
-<P><STRONG><a name="[b2]"></a>__decompress</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __dczerorl2.o(.text), UNUSED)
+<P><STRONG><a name="[b3]"></a>__decompress</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __dczerorl2.o(.text), UNUSED)
 
-<P><STRONG><a name="[b3]"></a>__decompress1</STRONG> (Thumb, 92 bytes, Stack size unknown bytes, __dczerorl2.o(.text), UNUSED)
+<P><STRONG><a name="[b4]"></a>__decompress1</STRONG> (Thumb, 92 bytes, Stack size unknown bytes, __dczerorl2.o(.text), UNUSED)
 
-<P><STRONG><a name="[b4]"></a>__scatterload_copy</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_copy), UNUSED)
+<P><STRONG><a name="[b5]"></a>__scatterload_copy</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_copy), UNUSED)
 
-<P><STRONG><a name="[b5]"></a>__scatterload_null</STRONG> (Thumb, 2 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_null), UNUSED)
+<P><STRONG><a name="[b6]"></a>__scatterload_null</STRONG> (Thumb, 2 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_null), UNUSED)
 
-<P><STRONG><a name="[b6]"></a>__scatterload_zeroinit</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_zeroinit), UNUSED)
+<P><STRONG><a name="[b7]"></a>__scatterload_zeroinit</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_zeroinit), UNUSED)
 <P>
 <H3>
 Local Symbols
 </H3>
-<P><STRONG><a name="[a0]"></a>lcdwrite</STRONG> (Thumb, 66 bytes, Stack size 0 bytes, nokia5110.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_DrawFullImage
-<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_Clear
-<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutChar
-<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_SetCursor
-<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_Init
+<P><STRONG><a name="[a1]"></a>lcdwrite</STRONG> (Thumb, 66 bytes, Stack size 0 bytes, nokia5110.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_DrawFullImage
+<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_Clear
+<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutChar
+<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_SetCursor
+<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_Init
 </UL>
 <P>
 <H3>
