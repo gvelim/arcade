@@ -64,7 +64,7 @@
 // Contrast value 0xB1 looks good on red SparkFun
 // and 0xB8 looks good on blue Nokia 5110.
 // Adjust this from 0xA0 (lighter) to 0xCF (darker) for your display.
-#define CONTRAST                0xB4
+#define CONTRAST                0xB0
 
 // This table contains the hex values that represent pixels
 // for a font that is 5 pixels wide and 8 pixels high

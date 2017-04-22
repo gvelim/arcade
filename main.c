@@ -10,11 +10,9 @@
 #include "timer.h"
 
 // ******* Required Hardware I/O connections*******************
-// Slide pot pin 1 connected to ground
-// Slide pot pin 2 connected to PE2/AIN1
-// Slide pot pin 3 connected to +3.3V 
-// fire button connected to PE0
-// special weapon fire button connected to PE1
+// Left button connected to PE3
+// Right button connected to PE2
+// fire button connected to PE1
 // 8*R resistor DAC bit 0 on PB0 (least significant bit)
 // 4*R resistor DAC bit 1 on PB1
 // 2*R resistor DAC bit 2 on PB2
@@ -489,7 +487,7 @@ void MoveAliens()
 					alien[n].x += 2*gl_a.dir;
 					
 					// Set the image to be displayed by the Draw() function
-					alien[n].img_count = (alien[n].img_count+1)&0x01;
+					alien[n].img_count = ++alien[n].img_count & 0x01;
 					
 					// track min and max X values so we can detect whether any alien hit the end of the screen
 					gl_a.max_x = (alien[n].x > gl_a.max_x) ? alien[n].x : gl_a.max_x;
@@ -530,8 +528,10 @@ void MoveShip()
 		case DAMAGED:
 			pship.decay--;
 			if( pship.decay == 0 ) pship.status = DEAD;
-			
-			pship.img_count = pship.decay & 0x01;
+
+			// the explosion image should alternate every 3rd ship draw
+			if( pship.decay%3==0 )
+				pship.img_count = ++pship.img_count & 0x01;
 		
 		default:
 			break;
@@ -582,23 +582,27 @@ unsigned char hasCollided( STyp s1, STyp s2 )
 	if( s1.y >= s2.y )
 	{
 		// Does Y2 falls within (Y1,Y1+H1) ?
-		if( s2.y+1 > s1.y-s1.h )
+		if( s2.y+1 > s1.y-s1.h ) 
+		{
 			// Y indicates collision, check X2 fall within (X1,X1+W1)
 			if( s1.x < s2.x )
 			{
 				// X2 falls within X1+W1 ?
 				if( s2.x+1 <= s1.x+s1.w ) return 1;
-			} else 
+			} else
 				if( s1.x+1 <= s2.x+s2.w ) return 1;
+		}
 	} else
 	{
 		if( s1.y+1 > s2.y-s2.h )
+		{
 			// Y indicates collission, check X
 			if( s1.x < s2.x )
 			{
 				if( s2.x+1 <= s1.x+s1.w ) return 1;
 			} else
 				if( s1.x+1 <= s2.x+s2.w ) return 1;
+		}
 	}
 	// no collision detected
 	return 0;
@@ -611,8 +615,9 @@ unsigned char hasAlienCollided( STyp spr1 )
 {
 	int n;
 	for(n=ALIEN_NUM-1; n>=0 ; --n)
-		if(	alien[n].status == ALIVE && hasCollided(spr1, alien[n]) )
-			return n+1;
+		if(	alien[n].status == ALIVE )
+			if( hasCollided(spr1, alien[n]) )
+				return n+1;
 		
 	return 0;
 }
@@ -623,8 +628,9 @@ unsigned char hasMissileCollided( STyp s1 )
 {
 	int n;
 	for(n=0; n < MAX_MISSILES; n++)
-		if(	missile[n].status == ALIVE && hasCollided(s1, missile[n]) )
-			return n+1;
+		if(	missile[n].status == ALIVE )
+			if( hasCollided(s1, missile[n]) )
+				return n+1;
 	return 0;
 }
 
@@ -681,21 +687,21 @@ void TimerRendering()
 		if( !missile[n].status == ALIVE)																		// find an inactive missile
 		{
 			for(i=ALIEN_NUM-1; i>=0; --i)																				// find the alien's Y possition
-				if( alien[i].status == ALIVE )																				// while alien is active		
+				if( alien[i].status == ALIVE )																		// while alien is active		
 					if( alien[i].x < ship_mid && ship_mid < alien[i].x+alien[i].w )	// and alien is above the ship
 					{
-						y_max = (alien[i].y > y_max) ? alien[i].y : y_max;							// if alien has the highest Y so far keep it
-						t_alien = i;																											// keep the alien column
+						y_max = (alien[i].y > y_max) ? alien[i].y : y_max;						// if alien has the highest Y so far keep it
+						t_alien = i;																									// keep the alien column
 					}
 			
 			// we've found an alien above the pship
 			if( y_max )
 			{
 				missile[n].x = alien[t_alien].x + alien[t_alien].w/2+1;		// fire it against the ship location
-				missile[n].y = y_max;																					// position middle of alien sprite
-				missile[n].status = ALIVE;																		// activate missile
-				gl_m.maxMissiles++;																						// keep count of active missiles
-				missile[n].score = gl_m.maxMissiles;													// set score value
+				missile[n].y = y_max;																			// position middle of alien sprite
+				missile[n].status = ALIVE;																// activate missile
+				gl_m.maxMissiles++;																				// keep count of active missiles
+				missile[n].score = gl_m.maxMissiles;											// set score value
 				break;
 			}
 		}
@@ -760,7 +766,7 @@ void TimerRendering()
 			// move missiles every other frame
 			if(framecounter % getLevel(0)->mis_speed == 0 ) MoveMissiles();	
 			
-			// move every frame			
+			// move every frame
 			if(framecounter % getLevel(0)->laser_speed == 0 ) MoveLaser();
 			
 			// then carry on with ship movement

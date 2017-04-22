@@ -13,6 +13,7 @@ void Timer2_Init(void(*task)(void), unsigned long period)
 { 
   unsigned long volatile delay;
   
+	// page 338
 	SYSCTL->RCGCTIMER |= 0x04;   // 0) activate timer2
 	
   delay = SYSCTL->RCGCTIMER;
