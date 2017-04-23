@@ -4,7 +4,7 @@
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
 C:\Keil\Labware\arcade\arcade.uvproj
-Project File Date:  04/05/2017
+Project File Date:  04/22/2017
 
 <h2>Output:</h2>
 Rebuild target 'Arcade'
@@ -15,26 +15,44 @@ compiling Nokia5110.c...
 compiling PLL.c...
 compiling switch.c...
 compiling timer.c...
+compiling sound.c...
 linking...
-Program Size: Code=6498 RO-data=5546 RW-data=868 ZI-data=1060  
+Program Size: Code=6966 RO-data=17578 RW-data=940 ZI-data=1076  
 ".\arcade.axf" - 0 Error(s), 0 Warning(s).
-Load "C:\\Keil\\Labware\\arcade\\arcade.axf" 
-Connecting: Mode=JTAG, Speed=1000000Hz
-Erase Done.
-Programming Done.
-Verify OK.
 </pre>
 </body>
 </html>
-rcade\\arcade.axf" 
-Connecting: Mode=JTAG, Speed=1000000Hz
-Erase Done.
-Programming Done.
-Verify OK.
-=6502 RO-data=5546 RW-data=868 ZI-data=1060  
-".\arcade.axf" - 0 Error(s), 1 Warning(s).
-Load "C:\\Keil\\Labware\\arcade\\arcade.axf" 
-Connecting: Mode=JTAG, Speed=1000000Hz
-Erase Done.
-Programming Done.
-Verify OK.
+ warning:  #1-D: last line of file ends without a newline
+  }
+sound.c: 2 warnings, 0 errors
+linking...
+.\arcade.axf: Error: L6218E: Undefined symbol DAC_Out (referred from sound.o).
+Not enough information to list image symbols.
+Finished: 1 information, 0 warning and 1 error messages.
+".\arcade.axf" - 1 Error(s), 2 Warning(s).
+Target not created
+compiling sound.c...
+sound.c(87): error:  #20: identifier "GPIO_PORTB_DATA_R" is undefined
+    GPIO_PORTB_DATA_R = data;
+sound.c(136): warning:  #1-D: last line of file ends without a newline
+  }
+sound.c: 1 warning, 1 error
+"sound.c" - 1 Error(s), 1 Warning(s).
+compiling sound.c...
+sound.c(136): warning:  #1-D: last line of file ends without a newline
+  }
+sound.c: 1 warning, 0 errors
+"sound.c" - 0 Error(s), 1 Warning(s).
+compiling sound.c...
+"sound.c" - 0 Error(s), 0 Warning(s).
+compiling sound.c...
+"sound.c" - 0 Error(s), 0 Warning(s).
+compiling sound.c...
+"sound.c" - 0 Error(s), 0 Warning(s).
+ue of type "const unsigned char *" cannot be used to initialize an entity of type "unsigned char *"
+        {fastinvader3,1054,FASTINVADER3}        
+sound.c(28): error: At end of source:  #65: expected a ";"
+sound.c: 0 warnings, 8 errors
+"sound.c" - 8 Error(s), 0 Warning(s).
+compiling sound.c...
+"sound.c" - 0 Error(s), 0 Warning(s).

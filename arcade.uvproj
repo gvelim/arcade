@@ -462,6 +462,16 @@
             </File>
           </Files>
         </Group>
+        <Group>
+          <GroupName>Sound</GroupName>
+          <Files>
+            <File>
+              <FileName>sound.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\sound.c</FilePath>
+            </File>
+          </Files>
+        </Group>
       </Groups>
     </Target>
   </Targets>
