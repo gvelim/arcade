@@ -39,7 +39,7 @@ void Timer_Init(unsigned long period)
   TIMER1->IMR = 0x00000001;    // 7) arm timeout interrupt
 
 //  NVIC_PRI5_R = (NVIC_PRI5_R&0x00FFFFFF)|0x80000000; // 8) priority 4
-	NVIC_SetPriority( TIMER1A_IRQn, 2 );
+	NVIC_SetPriority( TIMER1A_IRQn, 1 );
 
 // interrupts enabled in the main program after all devices initialized
 // vector number 39, interrupt number 23

@@ -8,6 +8,7 @@
 #include "PLL.h"
 #include "switch.h"
 #include "timer.h"
+#include "sound.h"
 
 // ******* Required Hardware I/O connections*******************
 // Left button connected to PE3
@@ -710,6 +711,7 @@ void TimerRendering()
 	// activate laser sprite if fire is pressed
 	if( isFirePressed() && !laser.status == ALIVE && pship.status == ALIVE)
 	{
+		Sound_Play( S_SHOOT );
 		laser.status = ALIVE;
 		laser.x = pship.x+8;
 		laser.y = pship.y - pship.h + laser.h;
@@ -724,6 +726,7 @@ void TimerRendering()
 			gl_game.score += alien[a_idx-1].score;		// add to the game's score
 			alien[a_idx-1].status = DAMAGED;					// flag alien as damaged (enter decay)
 			laser.status = DEAD;											// flag laser as dead
+			Sound_Play( S_INVADERKILLED );
 		}
 	}
 	
@@ -747,6 +750,7 @@ void TimerRendering()
 			gl_m.maxMissiles--;							// reduce active missile count
 			missile[a_idx-1].status = DEAD;	// kill missile
 			pship.status = DAMAGED;					// ship enters decay
+			Sound_Play( S_EXPLOSION );
 		}
 	}
 	
@@ -790,6 +794,7 @@ int main(void)
 	Nokia5110_Init();
 	PLL_Init();
 	Switch_Init();
+	Sound_Init();
 
 //  Timer2_Init(&TimerRendering, 5000000); // initialize timer2 (16 Hz)
 //  Timer2_Init(&TimerRendering, 2666666); // initialize timer2 (30 Hz)
@@ -856,6 +861,7 @@ int main(void)
 			  Nokia5110_SetCursorBuffer(0,0);
 				Nokia5110_OutUDecBuffer( gl_game.score, OR_METHOD);
 				Nokia5110_DisplayBuffer();
+				Sound_Play( S_FASTINVADER2 );
 
 				gl_game.Flag = 1;
 			}

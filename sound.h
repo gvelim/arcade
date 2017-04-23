@@ -10,5 +10,7 @@ typedef enum {
 	S_SHOOT
 } S_NAME;
 
+void Sound_Init(void );
+void Sound_Play(S_NAME sound_name);
 
 #endif
