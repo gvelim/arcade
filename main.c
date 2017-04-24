@@ -711,10 +711,10 @@ void TimerRendering()
 	// activate laser sprite if fire is pressed
 	if( isFirePressed() && !laser.status == ALIVE && pship.status == ALIVE)
 	{
-		Sound_Play( S_SHOOT );
 		laser.status = ALIVE;
 		laser.x = pship.x+8;
 		laser.y = pship.y - pship.h + laser.h;
+		Sound_Play( S_SHOOT );
 	}
 	
 	// check for collisions when laser is active
@@ -765,7 +765,11 @@ void TimerRendering()
 		// pause motion when player ship is destroyed
 		case ALIVE:
 			// move alien every N-th frame where n = available aliens
-			if(framecounter % (getLevel(0)->al_base_speed+gl_a.maxAlien) == 0) MoveAliens();
+			if(framecounter % (getLevel(0)->al_base_speed+gl_a.maxAlien) == 0) 
+			{
+				MoveAliens();
+				Sound_Play( S_FASTINVADER1 );
+			}
 			
 			// move missiles every other frame
 			if(framecounter % getLevel(0)->mis_speed == 0 ) MoveMissiles();	
@@ -794,13 +798,14 @@ int main(void)
 	Nokia5110_Init();
 	PLL_Init();
 	Switch_Init();
-	Sound_Init();
 
 //  Timer2_Init(&TimerRendering, 5000000); // initialize timer2 (16 Hz)
 //  Timer2_Init(&TimerRendering, 2666666); // initialize timer2 (30 Hz)
 	Timer2_Init(&TimerRendering, 1333333); // initialize timer2 (60 Hz)
 //	Timer2_Init(&TimerRendering, 666666); // initialize timer2 (120 Hz)	
 //  Timer2_Init(&TimerRendering, 80000000);// initialize timer2 (1 Hz)
+
+	Sound_Init();	
 
 	while(1)
 	{
@@ -861,7 +866,6 @@ int main(void)
 			  Nokia5110_SetCursorBuffer(0,0);
 				Nokia5110_OutUDecBuffer( gl_game.score, OR_METHOD);
 				Nokia5110_DisplayBuffer();
-				Sound_Play( S_FASTINVADER2 );
 
 				gl_game.Flag = 1;
 			}

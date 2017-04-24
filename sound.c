@@ -10,19 +10,22 @@ struct Sound
 	S_NAME s_name;								// available sounds enumerator
 };
 
-#define NO_SOUNDS 6
+#define NO_SOUNDS 8
 struct Sound sounds[NO_SOUNDS] =
 {
+	{fastinvader4,1098,S_FASTINVADER4},
 	{fastinvader3,1054,S_FASTINVADER3},
 	{fastinvader2,1042,S_FASTINVADER2},
 	{fastinvader1,982,S_FASTINVADER1},
 	{invaderkilled,3377,S_INVADERKILLED},
-	{SmallExplosion,1500,S_EXPLOSION},
-	{shoot,4080,S_SHOOT}	
+	{explosion,2000,S_EXPLOSION},
+	{shoot,4080,S_SHOOT},
+	{highpitch,1802,S_HIGHPITCH},	
 };
 
+
 // Establish timer for creating the sampling clock @11khz 
-void Timer_Init(unsigned long period)
+void Timer1A_Init(unsigned long period)
 { 
   unsigned long volatile delay;
   
@@ -30,27 +33,25 @@ void Timer_Init(unsigned long period)
 	
   delay = SYSCTL->RCGCTIMER;
 
-  TIMER1->CTL = 0x00000000;    // 1) disable timer2A during setup
+  TIMER1->CTL = 0x00000000;    // 1) disable timer1A during setup
   TIMER1->CFG = 0x00000000;    // 2) configure for 32-bit mode
   TIMER1->TAMR = 0x00000002;   // 3) configure for periodic mode, default down-count settings
   TIMER1->TAILR = period-1;    // 4) reload value
   TIMER1->TAPR = 0;            // 5) bus clock resolution
-  TIMER1->ICR = 0x00000001;    // 6) clear timer2A timeout flag
+  TIMER1->ICR = 0x00000001;    // 6) clear timer1A timeout flag
   TIMER1->IMR = 0x00000001;    // 7) arm timeout interrupt
 
-//  NVIC_PRI5_R = (NVIC_PRI5_R&0x00FFFFFF)|0x80000000; // 8) priority 4
+//  NVIC_PRI5_R = (NVIC_PRI5_R&0x00FFFFFF)|0x20000000; // 2) priority 1
 	NVIC_SetPriority( TIMER1A_IRQn, 1 );
 
-// interrupts enabled in the main program after all devices initialized
 // vector number 39, interrupt number 23
-//  NVIC_EN0_R = 1<<23;           // 9) enable IRQ 23 in NVIC
 	NVIC_EnableIRQ( TIMER1A_IRQn );
 }
 
-void Timer_Stop(void){ 
+void Timer1A_Stop(void){ 
   TIMER1->CTL &= ~0x00000001; // disable
 }
-void Timer_Start(void){ 
+void Timer1A_Start(void){ 
   TIMER1->CTL |= 0x00000001;   // enable
 }
 
@@ -60,9 +61,13 @@ void Timer_Start(void){
 // Output: none
 
 void DAC_Init(void){unsigned long volatile delay;
-	//SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOB; // activate port B
-  SYSCTL->RCGC2 |= 0x02;
+	
+  SYSCTL->RCGC2 |= 0x02;		// activate port B
   delay = SYSCTL->RCGC2;    // allow time to finish activating
+	
+	GPIOB->LOCK = 0x4C4F434;	 // 2) unlock GPIO Port E
+	(*(unsigned int*)GPIOB->CR) = 0x07;					 // allow changes to PB4-0
+
   GPIOB->AMSEL &= ~0x07;      // no analog
   GPIOB->PCTL &= ~0x00000FFF; // regular GPIO function
   GPIOB->DIR |= 0x07;      // make PB2-0 out
@@ -81,11 +86,11 @@ static void DAC_Out(unsigned long data){
 
 void Sound_Init()
 {
+	DAC_Init();
 	//The bus clock is 80MHz, or 12.5ns/cycle. 
 	// To interrupt at 11.025 kHz, the interrupt must occur every 80,000,000/11,025 cycles, 
 	// which is about 7256. To make this happen we call Timer_Init with the parameter 7256
-	Timer_Init(7256);
-	DAC_Init();
+	Timer1A_Init(7256);
 }
 
 struct {
@@ -104,7 +109,7 @@ void Sound_Play(S_NAME sound_name)
 				cur_sound.samples = sounds[i].samples;
 				cur_sound.sample_count = sounds[i].count;
 				cur_sound.idx = 0;
-				Timer_Start();
+				Timer1A_Start();
 				break;
 			}
 }
@@ -126,6 +131,6 @@ void TIMER1A_Handler(void)
 	}
 	else
 		// samples finished hence stop the music
-		Timer_Stop();
+		Timer1A_Stop();
 }
 
