@@ -10,7 +10,11 @@ struct Sound
 	S_NAME s_name;								// available sounds enumerator
 };
 
+//***************************************************
+// The sounds order should match the S_NAME ENUM order
+// as the ENUM values are used for array indexes 
 #define NO_SOUNDS 8
+
 struct Sound sounds[NO_SOUNDS] =
 {
 	{fastinvader4,1098,S_FASTINVADER4},
@@ -84,53 +88,74 @@ static void DAC_Out(unsigned long data){
   GPIOB->DATA = data;
 }
 
+struct SoundChannel {
+	unsigned long idx;    					// index into array
+	const unsigned char* samples;		// pointer to array
+	unsigned long sample_count;			// number of points (0 means no sound)
+};
+
+struct SoundChannel	cur_sound[MAX_CHANNELS] =
+{
+	{0,0,0},	// channel 1, use for bg game sound
+	{0,0,0},	// channel 2, use for laser and ship sounds
+	{0,0,0},	// channel 3, use for alien sounds
+	{0,0,0},	// channel 4, not used
+};
+
 void Sound_Init()
 {
 	DAC_Init();
 	//The bus clock is 80MHz, or 12.5ns/cycle. 
 	// To interrupt at 11.025 kHz, the interrupt must occur every 80,000,000/11,025 cycles, 
 	// which is about 7256. To make this happen we call Timer_Init with the parameter 7256
-	Timer1A_Init(7256);
+	
+	// as we have 4 channels go round in 11Khz each, the interrup should be 7256/4
+	Timer1A_Init(7256/MAX_CHANNELS);
 }
 
-struct {
-	unsigned long idx;    					// index into array
-	const unsigned char* samples;		// pointer to array
-	unsigned long sample_count;			// number of points (0 means no sound)
-} cur_sound;
-
-void Sound_Play(S_NAME sound_name)
+void Sound_Play(S_NAME sound_name, SC_CHANNEL channel)
 {
-	int i;
+	if( sound_name > S_HIGHPITCH ) return;
+	if( channel > MAX_CHANNELS-1 ) return;
+	
 	// setup sound requested
-	for(i=0; i < NO_SOUNDS; i++)
-		if(sound_name == sounds[i].s_name) 
-			{
-				cur_sound.samples = sounds[i].samples;
-				cur_sound.sample_count = sounds[i].count;
-				cur_sound.idx = 0;
-				Timer1A_Start();
-				break;
-			}
+	cur_sound[channel].samples = sounds[sound_name].samples;
+	cur_sound[channel].sample_count = sounds[sound_name].count;
+	cur_sound[channel].idx = 0;
+
+	Timer1A_Start();
 }
 
 // function defined in "startup_TM4C123.s" 
 void TIMER1A_Handler(void)
 {
+	static unsigned char cidx=0, framecount=0;
+	
   TIMER1->ICR = 0x00000001;  // acknowledge
 
-	// samples remain ?
-	if(cur_sound.sample_count)
+	// select active channel for connecting to output; should be 0,1,2,3
+	cidx = framecount++ % MAX_CHANNELS; 
+	
+	// samples remain on active channel?
+	if(cur_sound[cidx].sample_count)
 	{
 		// push sample to output
-		DAC_Out(cur_sound.samples[cur_sound.idx]>>4); 
+		DAC_Out(cur_sound[cidx].samples[cur_sound[cidx].idx]>>4); 
 		// get ready to pick the next sample
-		cur_sound.idx++;
+		cur_sound[cidx].idx++;
 		// reduce sample remaining by 1
-		cur_sound.sample_count--;
+		cur_sound[cidx].sample_count--;
 	}
-	else
+	
+	// if all channels counters are zero then no more sound to play
+	if( cur_sound[0].sample_count+
+			cur_sound[1].sample_count+
+			cur_sound[2].sample_count+
+			cur_sound[3].sample_count == 0 )
+	{
 		// samples finished hence stop the music
 		Timer1A_Stop();
+	}
+	
 }
 

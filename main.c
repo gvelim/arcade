@@ -644,6 +644,7 @@ struct Levels {
 	long al_base_speed;			// minimum alien speed; frames per move
 	long laser_speed;				// frames per move
 	long ship_speed;				// frames per move
+	S_NAME bgSound;
 };
 
 // Input: > 0 increase game level
@@ -654,12 +655,12 @@ struct Levels* getLevel(int bIncrease)
 {
 	static struct Levels level[6] = 
 	{
-		{60,6,5,2,3},	// Level 1
-		{45,5,3,2,3},	// Level 2
-		{30,4,3,2,2},	// Level 3
-		{15,3,2,1,2},	// Level 4
-		{10,2,1,1,1},	// Level 5
-		{8,2,1,1,1},	// Level 6
+		{60,6,5,2,3,S_FASTINVADER1},	// Level 1
+		{45,5,3,2,3,S_FASTINVADER1},	// Level 2
+		{30,4,3,2,2,S_FASTINVADER2},	// Level 3
+		{15,3,2,1,2,S_FASTINVADER3},	// Level 4
+		{10,2,1,1,1,S_FASTINVADER4},	// Level 5
+		{8,2,1,1,1, S_FASTINVADER4},	// Level 6
 	};
 	static long nLevel = 0;
 	
@@ -714,7 +715,7 @@ void TimerRendering()
 		laser.status = ALIVE;
 		laser.x = pship.x+8;
 		laser.y = pship.y - pship.h + laser.h;
-		Sound_Play( S_SHOOT );
+		Sound_Play( S_SHOOT, SC_CHANNEL2 );
 	}
 	
 	// check for collisions when laser is active
@@ -726,7 +727,7 @@ void TimerRendering()
 			gl_game.score += alien[a_idx-1].score;		// add to the game's score
 			alien[a_idx-1].status = DAMAGED;					// flag alien as damaged (enter decay)
 			laser.status = DEAD;											// flag laser as dead
-			Sound_Play( S_INVADERKILLED );
+			Sound_Play( S_INVADERKILLED, SC_CHANNEL3 );
 		}
 	}
 	
@@ -750,7 +751,7 @@ void TimerRendering()
 			gl_m.maxMissiles--;							// reduce active missile count
 			missile[a_idx-1].status = DEAD;	// kill missile
 			pship.status = DAMAGED;					// ship enters decay
-			Sound_Play( S_EXPLOSION );
+			Sound_Play( S_EXPLOSION, SC_CHANNEL2 );
 		}
 	}
 	
@@ -768,7 +769,8 @@ void TimerRendering()
 			if(framecounter % (getLevel(0)->al_base_speed+gl_a.maxAlien) == 0) 
 			{
 				MoveAliens();
-				Sound_Play( S_FASTINVADER1 );
+				// pick the relevant bg sound for the level
+				Sound_Play( getLevel(0)->bgSound, SC_CHANNEL1 );
 			}
 			
 			// move missiles every other frame

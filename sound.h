@@ -54,18 +54,30 @@
 #define DF7 36077   // 138.6 Hz
 #define C6  38223   // 130.8 Hz
 
+//**********************************
+// ensure the timer routine is adjusted if more channels are added
+# define MAX_CHANNELS 4
 typedef enum {
-	S_FASTINVADER4,
-	S_FASTINVADER3,
-	S_FASTINVADER2,
-	S_FASTINVADER1,
-	S_INVADERKILLED,
-	S_EXPLOSION,
-	S_SHOOT,
-	S_HIGHPITCH
+	SC_CHANNEL1=0,
+	SC_CHANNEL2=1,
+	SC_CHANNEL3=2,
+	SC_CHANNEL4=3	
+} SC_CHANNEL;
+
+//*********************
+// The order is used as array index in the "sounds" structure and play_sound function
+typedef enum {
+	S_FASTINVADER4=0,
+	S_FASTINVADER3=1,
+	S_FASTINVADER2=2,
+	S_FASTINVADER1=3,
+	S_INVADERKILLED=4,
+	S_EXPLOSION=5,
+	S_SHOOT=6,
+	S_HIGHPITCH=7
 } S_NAME;
 
 void Sound_Init(void );
-void Sound_Play(S_NAME sound_name);
+void Sound_Play(S_NAME sound_name, SC_CHANNEL channel);
 
 #endif

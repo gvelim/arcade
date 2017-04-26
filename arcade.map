@@ -73,18 +73,18 @@ Image Symbol Table
     RESET                                    0x00000000   Section      620  startup_tm4c123.o(RESET)
     ../clib/../cmprslib/zerorunl2.c          0x00000000   Number         0  __dczerorl2.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11b.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
     ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpya.o ABSOLUTE
     ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpyb.o ABSOLUTE
     Nokia5110.c                              0x00000000   Number         0  nokia5110.o ABSOLUTE
@@ -117,39 +117,41 @@ Image Symbol Table
     $v0                                      0x00000280   Number         0  startup_tm4c123.o(.text)
     .text                                    0x0000037c   Section        0  init.o(.text)
     .text                                    0x00000380   Section        0  main.o(.text)
-    .text                                    0x0000112c   Section        0  nokia5110.o(.text)
-    lcdwrite                                 0x0000112d   Thumb Code    66  nokia5110.o(.text)
-    .text                                    0x00001934   Section        0  pll.o(.text)
-    .text                                    0x000019b0   Section        0  switch.o(.text)
-    .text                                    0x00001aa0   Section        0  timer.o(.text)
-    .text                                    0x00001b50   Section        0  sound.o(.text)
-    DAC_Out                                  0x00001c41   Thumb Code     6  sound.o(.text)
-    .text                                    0x00001d14   Section        0  memcpya.o(.text)
-    .text                                    0x00001d38   Section       36  init.o(.text)
-    .text                                    0x00001d5c   Section        0  __dczerorl2.o(.text)
-    i.__scatterload_copy                     0x00001db8   Section       14  handlers.o(i.__scatterload_copy)
-    i.__scatterload_null                     0x00001dc6   Section        2  handlers.o(i.__scatterload_null)
-    i.__scatterload_zeroinit                 0x00001dc8   Section       14  handlers.o(i.__scatterload_zeroinit)
-    .constdata                               0x00001dd6   Section     4411  main.o(.constdata)
-    ASCII                                    0x00001dd6   Data         480  main.o(.constdata)
-    .constdata                               0x00002f11   Section      480  nokia5110.o(.constdata)
-    ASCII                                    0x00002f11   Data         480  nokia5110.o(.constdata)
-    .constdata                               0x000030f1   Section    15435  sound.o(.constdata)
-    .data                                    0x20000000   Section      849  main.o(.data)
-    level                                    0x200002d0   Data         120  main.o(.data)
-    nLevel                                   0x20000348   Data           4  main.o(.data)
-    framecounter                             0x2000034c   Data           4  main.o(.data)
-    .data                                    0x20000354   Section       12  nokia5110.o(.data)
-    x_pos                                    0x20000354   Data           4  nokia5110.o(.data)
-    y_pos                                    0x20000358   Data           4  nokia5110.o(.data)
-    write_pos                                0x2000035c   Data           4  nokia5110.o(.data)
-    .data                                    0x20000360   Section        4  timer.o(.data)
-    .data                                    0x20000364   Section       96  sound.o(.data)
-    .bss                                     0x200003c4   Section       44  main.o(.bss)
-    .bss                                     0x200003f0   Section      504  nokia5110.o(.bss)
-    Screen                                   0x200003f0   Data         504  nokia5110.o(.bss)
-    .bss                                     0x200005e8   Section       12  sound.o(.bss)
-    STACK                                    0x200005f8   Section      512  startup_tm4c123.o(STACK)
+    .text                                    0x00001140   Section        0  nokia5110.o(.text)
+    lcdwrite                                 0x00001141   Thumb Code    66  nokia5110.o(.text)
+    .text                                    0x00001948   Section        0  pll.o(.text)
+    .text                                    0x000019c4   Section        0  switch.o(.text)
+    .text                                    0x00001ab4   Section        0  timer.o(.text)
+    .text                                    0x00001b64   Section        0  sound.o(.text)
+    DAC_Out                                  0x00001c55   Thumb Code     6  sound.o(.text)
+    .text                                    0x00001db4   Section        0  memcpya.o(.text)
+    .text                                    0x00001dd8   Section       36  init.o(.text)
+    .text                                    0x00001dfc   Section        0  __dczerorl2.o(.text)
+    i.__scatterload_copy                     0x00001e58   Section       14  handlers.o(i.__scatterload_copy)
+    i.__scatterload_null                     0x00001e66   Section        2  handlers.o(i.__scatterload_null)
+    i.__scatterload_zeroinit                 0x00001e68   Section       14  handlers.o(i.__scatterload_zeroinit)
+    .constdata                               0x00001e76   Section     4411  main.o(.constdata)
+    ASCII                                    0x00001e76   Data         480  main.o(.constdata)
+    .constdata                               0x00002fb1   Section      480  nokia5110.o(.constdata)
+    ASCII                                    0x00002fb1   Data         480  nokia5110.o(.constdata)
+    .constdata                               0x00003191   Section    15435  sound.o(.constdata)
+    .data                                    0x20000000   Section      873  main.o(.data)
+    level                                    0x200002d0   Data         144  main.o(.data)
+    nLevel                                   0x20000360   Data           4  main.o(.data)
+    framecounter                             0x20000364   Data           4  main.o(.data)
+    .data                                    0x2000036c   Section       12  nokia5110.o(.data)
+    x_pos                                    0x2000036c   Data           4  nokia5110.o(.data)
+    y_pos                                    0x20000370   Data           4  nokia5110.o(.data)
+    write_pos                                0x20000374   Data           4  nokia5110.o(.data)
+    .data                                    0x20000378   Section        4  timer.o(.data)
+    .data                                    0x2000037c   Section       98  sound.o(.data)
+    cidx                                     0x200003dc   Data           1  sound.o(.data)
+    framecount                               0x200003dd   Data           1  sound.o(.data)
+    .bss                                     0x200003e0   Section       44  main.o(.bss)
+    .bss                                     0x2000040c   Section      504  nokia5110.o(.bss)
+    Screen                                   0x2000040c   Data         504  nokia5110.o(.bss)
+    .bss                                     0x20000604   Section       48  sound.o(.bss)
+    STACK                                    0x20000638   Section      512  startup_tm4c123.o(STACK)
 
     Global Symbols
 
@@ -307,94 +309,94 @@ Image Symbol Table
     hasAlienCollided                         0x000009e1   Thumb Code    86  main.o(.text)
     hasMissileCollided                       0x00000a37   Thumb Code    86  main.o(.text)
     getLevel                                 0x00000a8d   Thumb Code    50  main.o(.text)
-    TimerRendering                           0x00000abf   Thumb Code   848  main.o(.text)
-    Delay100ms                               0x00000e0f   Thumb Code    30  main.o(.text)
-    main                                     0x00000e2d   Thumb Code   704  main.o(.text)
-    Nokia5110_Init                           0x0000116f   Thumb Code   314  nokia5110.o(.text)
-    Nokia5110_OutChar                        0x000012a9   Thumb Code    52  nokia5110.o(.text)
-    Nokia5110_OutString                      0x000012dd   Thumb Code    22  nokia5110.o(.text)
-    Nokia5110_OutUDec                        0x000012f3   Thumb Code   370  nokia5110.o(.text)
-    Nokia5110_SetCursor                      0x00001465   Thumb Code    46  nokia5110.o(.text)
-    Nokia5110_Clear                          0x00001493   Thumb Code    32  nokia5110.o(.text)
-    Nokia5110_DrawFullImage                  0x000014b3   Thumb Code    34  nokia5110.o(.text)
-    Nokia5110_SetCursorBuffer                0x000014d5   Thumb Code    30  nokia5110.o(.text)
-    Nokia5110_OutCharBuffer                  0x000014f3   Thumb Code   200  nokia5110.o(.text)
-    Nokia5110_OutStringBuffer                0x000015bb   Thumb Code    36  nokia5110.o(.text)
-    Nokia5110_OutUDecBuffer                  0x000015df   Thumb Code   402  nokia5110.o(.text)
-    Nokia5110_PrintBMP                       0x00001771   Thumb Code   404  nokia5110.o(.text)
-    Nokia5110_ClearBuffer                    0x00001905   Thumb Code    20  nokia5110.o(.text)
-    Nokia5110_DisplayBuffer                  0x00001919   Thumb Code    10  nokia5110.o(.text)
-    PLL_Init                                 0x00001935   Thumb Code   118  pll.o(.text)
-    Switch_Init                              0x000019b1   Thumb Code   108  switch.o(.text)
-    Switch_Input                             0x00001a1d   Thumb Code     6  switch.o(.text)
-    isLeftPressed                            0x00001a23   Thumb Code    10  switch.o(.text)
-    isRightPressed                           0x00001a2d   Thumb Code    10  switch.o(.text)
-    isFirePressed                            0x00001a37   Thumb Code    10  switch.o(.text)
-    waitForFire                              0x00001a41   Thumb Code    26  switch.o(.text)
-    waitForAnyButton                         0x00001a5b   Thumb Code    30  switch.o(.text)
-    Timer2_Init                              0x00001aa1   Thumb Code   112  timer.o(.text)
-    TIMER2A_Handler                          0x00001b11   Thumb Code    16  timer.o(.text)
-    Timer2A_Stop                             0x00001b21   Thumb Code    14  timer.o(.text)
-    Timer2A_Start                            0x00001b2f   Thumb Code    14  timer.o(.text)
-    Timer1A_Init                             0x00001b51   Thumb Code   106  sound.o(.text)
-    Timer1A_Stop                             0x00001bbb   Thumb Code    14  sound.o(.text)
-    Timer1A_Start                            0x00001bc9   Thumb Code    14  sound.o(.text)
-    DAC_Init                                 0x00001bd7   Thumb Code   106  sound.o(.text)
-    Sound_Init                               0x00001c47   Thumb Code    16  sound.o(.text)
-    Sound_Play                               0x00001c57   Thumb Code    72  sound.o(.text)
-    TIMER1A_Handler                          0x00001c9f   Thumb Code    56  sound.o(.text)
-    __aeabi_memcpy                           0x00001d15   Thumb Code    36  memcpya.o(.text)
-    __aeabi_memcpy4                          0x00001d15   Thumb Code     0  memcpya.o(.text)
-    __aeabi_memcpy8                          0x00001d15   Thumb Code     0  memcpya.o(.text)
-    __scatterload                            0x00001d39   Thumb Code    28  init.o(.text)
-    __scatterload_rt2                        0x00001d39   Thumb Code     0  init.o(.text)
-    __decompress                             0x00001d5d   Thumb Code     0  __dczerorl2.o(.text)
-    __decompress1                            0x00001d5d   Thumb Code    92  __dczerorl2.o(.text)
-    __scatterload_copy                       0x00001db9   Thumb Code    14  handlers.o(i.__scatterload_copy)
-    __scatterload_null                       0x00001dc7   Thumb Code     2  handlers.o(i.__scatterload_null)
-    __scatterload_zeroinit                   0x00001dc9   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
-    SmallEnemy30PointA                       0x00001fb6   Data         199  main.o(.constdata)
-    SmallEnemy30PointB                       0x0000207d   Data         199  main.o(.constdata)
-    SmallEnemy20PointA                       0x00002144   Data         199  main.o(.constdata)
-    SmallEnemy20PointB                       0x0000220b   Data         199  main.o(.constdata)
-    SmallEnemy10PointA                       0x000022d2   Data         199  main.o(.constdata)
-    SmallEnemy10PointB                       0x00002399   Data         199  main.o(.constdata)
-    PlayerShip0                              0x00002460   Data         215  main.o(.constdata)
-    SmallEnemyBonus0                         0x00002537   Data         203  main.o(.constdata)
-    Bunker0                                  0x00002602   Data         179  main.o(.constdata)
-    Bunker1                                  0x000026b5   Data         179  main.o(.constdata)
-    Bunker2                                  0x00002768   Data         179  main.o(.constdata)
-    Bunker3                                  0x0000281b   Data         179  main.o(.constdata)
-    BigExplosion0                            0x000028ce   Data         215  main.o(.constdata)
-    BigExplosion1                            0x000029a5   Data         215  main.o(.constdata)
-    SmallExplosion0                          0x00002a7c   Data         199  main.o(.constdata)
-    SmallExplosion1                          0x00002b43   Data         199  main.o(.constdata)
-    Missile0                                 0x00002c0a   Data         155  main.o(.constdata)
-    Missile1                                 0x00002ca5   Data         155  main.o(.constdata)
-    Missile2                                 0x00002d40   Data         155  main.o(.constdata)
-    Laser0                                   0x00002ddb   Data         155  main.o(.constdata)
-    Laser1                                   0x00002e76   Data         155  main.o(.constdata)
-    shoot                                    0x000030f1   Data        4080  sound.o(.constdata)
-    invaderkilled                            0x000040e1   Data        3377  sound.o(.constdata)
-    explosion                                0x00004e12   Data        2000  sound.o(.constdata)
-    fastinvader1                             0x000055e2   Data         982  sound.o(.constdata)
-    fastinvader2                             0x000059b8   Data        1042  sound.o(.constdata)
-    fastinvader3                             0x00005dca   Data        1054  sound.o(.constdata)
-    fastinvader4                             0x000061e8   Data        1098  sound.o(.constdata)
-    highpitch                                0x00006632   Data        1802  sound.o(.constdata)
-    Region$$Table$$Base                      0x00006d3c   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x00006d5c   Number         0  anon$$obj.o(Region$$Table)
+    TimerRendering                           0x00000abf   Thumb Code   864  main.o(.text)
+    Delay100ms                               0x00000e1f   Thumb Code    30  main.o(.text)
+    main                                     0x00000e3d   Thumb Code   704  main.o(.text)
+    Nokia5110_Init                           0x00001183   Thumb Code   314  nokia5110.o(.text)
+    Nokia5110_OutChar                        0x000012bd   Thumb Code    52  nokia5110.o(.text)
+    Nokia5110_OutString                      0x000012f1   Thumb Code    22  nokia5110.o(.text)
+    Nokia5110_OutUDec                        0x00001307   Thumb Code   370  nokia5110.o(.text)
+    Nokia5110_SetCursor                      0x00001479   Thumb Code    46  nokia5110.o(.text)
+    Nokia5110_Clear                          0x000014a7   Thumb Code    32  nokia5110.o(.text)
+    Nokia5110_DrawFullImage                  0x000014c7   Thumb Code    34  nokia5110.o(.text)
+    Nokia5110_SetCursorBuffer                0x000014e9   Thumb Code    30  nokia5110.o(.text)
+    Nokia5110_OutCharBuffer                  0x00001507   Thumb Code   200  nokia5110.o(.text)
+    Nokia5110_OutStringBuffer                0x000015cf   Thumb Code    36  nokia5110.o(.text)
+    Nokia5110_OutUDecBuffer                  0x000015f3   Thumb Code   402  nokia5110.o(.text)
+    Nokia5110_PrintBMP                       0x00001785   Thumb Code   404  nokia5110.o(.text)
+    Nokia5110_ClearBuffer                    0x00001919   Thumb Code    20  nokia5110.o(.text)
+    Nokia5110_DisplayBuffer                  0x0000192d   Thumb Code    10  nokia5110.o(.text)
+    PLL_Init                                 0x00001949   Thumb Code   118  pll.o(.text)
+    Switch_Init                              0x000019c5   Thumb Code   108  switch.o(.text)
+    Switch_Input                             0x00001a31   Thumb Code     6  switch.o(.text)
+    isLeftPressed                            0x00001a37   Thumb Code    10  switch.o(.text)
+    isRightPressed                           0x00001a41   Thumb Code    10  switch.o(.text)
+    isFirePressed                            0x00001a4b   Thumb Code    10  switch.o(.text)
+    waitForFire                              0x00001a55   Thumb Code    26  switch.o(.text)
+    waitForAnyButton                         0x00001a6f   Thumb Code    30  switch.o(.text)
+    Timer2_Init                              0x00001ab5   Thumb Code   112  timer.o(.text)
+    TIMER2A_Handler                          0x00001b25   Thumb Code    16  timer.o(.text)
+    Timer2A_Stop                             0x00001b35   Thumb Code    14  timer.o(.text)
+    Timer2A_Start                            0x00001b43   Thumb Code    14  timer.o(.text)
+    Timer1A_Init                             0x00001b65   Thumb Code   106  sound.o(.text)
+    Timer1A_Stop                             0x00001bcf   Thumb Code    14  sound.o(.text)
+    Timer1A_Start                            0x00001bdd   Thumb Code    14  sound.o(.text)
+    DAC_Init                                 0x00001beb   Thumb Code   106  sound.o(.text)
+    Sound_Init                               0x00001c5b   Thumb Code    16  sound.o(.text)
+    Sound_Play                               0x00001c6b   Thumb Code    80  sound.o(.text)
+    TIMER1A_Handler                          0x00001cbb   Thumb Code   182  sound.o(.text)
+    __aeabi_memcpy                           0x00001db5   Thumb Code    36  memcpya.o(.text)
+    __aeabi_memcpy4                          0x00001db5   Thumb Code     0  memcpya.o(.text)
+    __aeabi_memcpy8                          0x00001db5   Thumb Code     0  memcpya.o(.text)
+    __scatterload                            0x00001dd9   Thumb Code    28  init.o(.text)
+    __scatterload_rt2                        0x00001dd9   Thumb Code     0  init.o(.text)
+    __decompress                             0x00001dfd   Thumb Code     0  __dczerorl2.o(.text)
+    __decompress1                            0x00001dfd   Thumb Code    92  __dczerorl2.o(.text)
+    __scatterload_copy                       0x00001e59   Thumb Code    14  handlers.o(i.__scatterload_copy)
+    __scatterload_null                       0x00001e67   Thumb Code     2  handlers.o(i.__scatterload_null)
+    __scatterload_zeroinit                   0x00001e69   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
+    SmallEnemy30PointA                       0x00002056   Data         199  main.o(.constdata)
+    SmallEnemy30PointB                       0x0000211d   Data         199  main.o(.constdata)
+    SmallEnemy20PointA                       0x000021e4   Data         199  main.o(.constdata)
+    SmallEnemy20PointB                       0x000022ab   Data         199  main.o(.constdata)
+    SmallEnemy10PointA                       0x00002372   Data         199  main.o(.constdata)
+    SmallEnemy10PointB                       0x00002439   Data         199  main.o(.constdata)
+    PlayerShip0                              0x00002500   Data         215  main.o(.constdata)
+    SmallEnemyBonus0                         0x000025d7   Data         203  main.o(.constdata)
+    Bunker0                                  0x000026a2   Data         179  main.o(.constdata)
+    Bunker1                                  0x00002755   Data         179  main.o(.constdata)
+    Bunker2                                  0x00002808   Data         179  main.o(.constdata)
+    Bunker3                                  0x000028bb   Data         179  main.o(.constdata)
+    BigExplosion0                            0x0000296e   Data         215  main.o(.constdata)
+    BigExplosion1                            0x00002a45   Data         215  main.o(.constdata)
+    SmallExplosion0                          0x00002b1c   Data         199  main.o(.constdata)
+    SmallExplosion1                          0x00002be3   Data         199  main.o(.constdata)
+    Missile0                                 0x00002caa   Data         155  main.o(.constdata)
+    Missile1                                 0x00002d45   Data         155  main.o(.constdata)
+    Missile2                                 0x00002de0   Data         155  main.o(.constdata)
+    Laser0                                   0x00002e7b   Data         155  main.o(.constdata)
+    Laser1                                   0x00002f16   Data         155  main.o(.constdata)
+    shoot                                    0x00003191   Data        4080  sound.o(.constdata)
+    invaderkilled                            0x00004181   Data        3377  sound.o(.constdata)
+    explosion                                0x00004eb2   Data        2000  sound.o(.constdata)
+    fastinvader1                             0x00005682   Data         982  sound.o(.constdata)
+    fastinvader2                             0x00005a58   Data        1042  sound.o(.constdata)
+    fastinvader3                             0x00005e6a   Data        1054  sound.o(.constdata)
+    fastinvader4                             0x00006288   Data        1098  sound.o(.constdata)
+    highpitch                                0x000066d2   Data        1802  sound.o(.constdata)
+    Region$$Table$$Base                      0x00006ddc   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x00006dfc   Number         0  anon$$obj.o(Region$$Table)
     alien                                    0x20000000   Data         480  main.o(.data)
     missile                                  0x200001e0   Data         160  main.o(.data)
     pship                                    0x20000280   Data          40  main.o(.data)
     laser                                    0x200002a8   Data          40  main.o(.data)
-    gl_m                                     0x20000350   Data           1  main.o(.data)
-    PeriodicTask                             0x20000360   Data           4  timer.o(.data)
-    sounds                                   0x20000364   Data          96  sound.o(.data)
-    gl_a                                     0x200003c4   Data          28  main.o(.bss)
-    gl_game                                  0x200003e0   Data          16  main.o(.bss)
-    cur_sound                                0x200005e8   Data          12  sound.o(.bss)
-    __initial_sp                             0x200007f8   Data           0  startup_tm4c123.o(STACK)
+    gl_m                                     0x20000368   Data           1  main.o(.data)
+    PeriodicTask                             0x20000378   Data           4  timer.o(.data)
+    sounds                                   0x2000037c   Data          96  sound.o(.data)
+    gl_a                                     0x200003e0   Data          28  main.o(.bss)
+    gl_game                                  0x200003fc   Data          16  main.o(.bss)
+    cur_sound                                0x20000604   Data          48  sound.o(.bss)
+    __initial_sp                             0x20000838   Data           0  startup_tm4c123.o(STACK)
 
 
 
@@ -404,9 +406,9 @@ Memory Map of the image
 
   Image Entry point : 0x0000026d
 
-  Load Region LR_IROM1 (Base: 0x00000000, Size: 0x00007120, Max: 0x00040000, ABSOLUTE, COMPRESSED[0x00006e50])
+  Load Region LR_IROM1 (Base: 0x00000000, Size: 0x000071dc, Max: 0x00040000, ABSOLUTE, COMPRESSED[0x00006ef4])
 
-    Execution Region ER_IROM1 (Base: 0x00000000, Size: 0x00006d5c, Max: 0x00040000, ABSOLUTE)
+    Execution Region ER_IROM1 (Base: 0x00000000, Size: 0x00006dfc, Max: 0x00040000, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -423,38 +425,39 @@ Memory Map of the image
     0x00000280   0x000000fc   Code   RO            4    .text               startup_tm4c123.o
     0x0000037c   0x00000002   Code   RO           12    .text               init.o
     0x0000037e   0x00000002   PAD
-    0x00000380   0x00000dac   Code   RO           59    .text               main.o
-    0x0000112c   0x00000808   Code   RO          100    .text               nokia5110.o
-    0x00001934   0x0000007c   Code   RO          116    .text               pll.o
-    0x000019b0   0x000000f0   Code   RO          130    .text               switch.o
-    0x00001aa0   0x000000b0   Code   RO          150    .text               timer.o
-    0x00001b50   0x000001c4   Code   RO          177    .text               sound.o
-    0x00001d14   0x00000024   Code   RO          204    .text               mc_w.l(memcpya.o)
-    0x00001d38   0x00000024   Code   RO          222    .text               mc_w.l(init.o)
-    0x00001d5c   0x0000005c   Code   RO          232    .text               mc_w.l(__dczerorl2.o)
-    0x00001db8   0x0000000e   Code   RO          226    i.__scatterload_copy  mc_w.l(handlers.o)
-    0x00001dc6   0x00000002   Code   RO          227    i.__scatterload_null  mc_w.l(handlers.o)
-    0x00001dc8   0x0000000e   Code   RO          228    i.__scatterload_zeroinit  mc_w.l(handlers.o)
-    0x00001dd6   0x0000113b   Data   RO           61    .constdata          main.o
-    0x00002f11   0x000001e0   Data   RO          102    .constdata          nokia5110.o
-    0x000030f1   0x00003c4b   Data   RO          179    .constdata          sound.o
-    0x00006d3c   0x00000020   Data   RO          224    Region$$Table       anon$$obj.o
+    0x00000380   0x00000dc0   Code   RO           59    .text               main.o
+    0x00001140   0x00000808   Code   RO          100    .text               nokia5110.o
+    0x00001948   0x0000007c   Code   RO          116    .text               pll.o
+    0x000019c4   0x000000f0   Code   RO          130    .text               switch.o
+    0x00001ab4   0x000000b0   Code   RO          150    .text               timer.o
+    0x00001b64   0x00000250   Code   RO          177    .text               sound.o
+    0x00001db4   0x00000024   Code   RO          204    .text               mc_w.l(memcpya.o)
+    0x00001dd8   0x00000024   Code   RO          222    .text               mc_w.l(init.o)
+    0x00001dfc   0x0000005c   Code   RO          232    .text               mc_w.l(__dczerorl2.o)
+    0x00001e58   0x0000000e   Code   RO          226    i.__scatterload_copy  mc_w.l(handlers.o)
+    0x00001e66   0x00000002   Code   RO          227    i.__scatterload_null  mc_w.l(handlers.o)
+    0x00001e68   0x0000000e   Code   RO          228    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+    0x00001e76   0x0000113b   Data   RO           61    .constdata          main.o
+    0x00002fb1   0x000001e0   Data   RO          102    .constdata          nokia5110.o
+    0x00003191   0x00003c4b   Data   RO          179    .constdata          sound.o
+    0x00006ddc   0x00000020   Data   RO          224    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x000007f8, Max: 0x00008000, ABSOLUTE, COMPRESSED[0x000000f4])
+    Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x00000838, Max: 0x00008000, ABSOLUTE, COMPRESSED[0x000000f8])
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   0x00000351   Data   RW           62    .data               main.o
-    0x20000351   0x00000003   PAD
-    0x20000354   0x0000000c   Data   RW          103    .data               nokia5110.o
-    0x20000360   0x00000004   Data   RW          151    .data               timer.o
-    0x20000364   0x00000060   Data   RW          180    .data               sound.o
-    0x200003c4   0x0000002c   Zero   RW           60    .bss                main.o
-    0x200003f0   0x000001f8   Zero   RW          101    .bss                nokia5110.o
-    0x200005e8   0x0000000c   Zero   RW          178    .bss                sound.o
-    0x200005f4   0x00000004   PAD
-    0x200005f8   0x00000200   Zero   RW            1    STACK               startup_tm4c123.o
+    0x20000000   0x00000369   Data   RW           62    .data               main.o
+    0x20000369   0x00000003   PAD
+    0x2000036c   0x0000000c   Data   RW          103    .data               nokia5110.o
+    0x20000378   0x00000004   Data   RW          151    .data               timer.o
+    0x2000037c   0x00000062   Data   RW          180    .data               sound.o
+    0x200003de   0x00000002   PAD
+    0x200003e0   0x0000002c   Zero   RW           60    .bss                main.o
+    0x2000040c   0x000001f8   Zero   RW          101    .bss                nokia5110.o
+    0x20000604   0x00000030   Zero   RW          178    .bss                sound.o
+    0x20000634   0x00000004   PAD
+    0x20000638   0x00000200   Zero   RW            1    STACK               startup_tm4c123.o
 
 
 ==============================================================================
@@ -465,18 +468,18 @@ Image component sizes
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
          2          0          0          0          0      26801   init.o
-      3500        278       4411        849         44       9680   main.o
+      3520        282       4411        873         44       9796   main.o
       2056         90        480         12        504       6182   nokia5110.o
        124          6          0          0          0        399   pll.o
-       452         62      15435         96         12       3024   sound.o
+       592         68      15435         98         48       3116   sound.o
        252         10        620          0        512       5344   startup_tm4c123.o
        240         40          0          0          0       1307   switch.o
        176         20          0          4          0      27983   timer.o
 
     ----------------------------------------------------------------------
-      6804        506      20978        964       1076      80720   Object Totals
+      6964        516      20978        992       1112      80928   Object Totals
          0          0         32          0          0          0   (incl. Generated)
-         2          0          0          3          4          0   (incl. Padding)
+         2          0          0          5          4          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -515,15 +518,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      7018        522      20978        964       1076      79656   Grand Totals
-      7018        522      20978        244       1076      79656   ELF Image Totals (compressed)
-      7018        522      20978        244          0          0   ROM Totals
+      7178        532      20978        992       1112      79864   Grand Totals
+      7178        532      20978        248       1112      79864   ELF Image Totals (compressed)
+      7178        532      20978        248          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                27996 (  27.34kB)
-    Total RW  Size (RW Data + ZI Data)              2040 (   1.99kB)
-    Total ROM Size (Code + RO Data + RW Data)      28240 (  27.58kB)
+    Total RO  Size (Code + RO Data)                28156 (  27.50kB)
+    Total RW  Size (RW Data + ZI Data)              2104 (   2.05kB)
+    Total ROM Size (Code + RO Data + RW Data)      28404 (  27.74kB)
 
 ==============================================================================
 
