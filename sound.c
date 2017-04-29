@@ -98,8 +98,7 @@ struct SoundChannel	cur_sound[MAX_CHANNELS] =
 {
 	{0,0,0},	// channel 1, use for bg game sound
 	{0,0,0},	// channel 2, use for laser and ship sounds
-	{0,0,0},	// channel 3, use for alien sounds
-	{0,0,0},	// channel 4, not used
+	{0,0,0}	  // channel 3, use for alien sounds
 };
 
 void Sound_Init()
@@ -150,8 +149,7 @@ void TIMER1A_Handler(void)
 	// if all channels counters are zero then no more sound to play
 	if( cur_sound[0].sample_count+
 			cur_sound[1].sample_count+
-			cur_sound[2].sample_count+
-			cur_sound[3].sample_count == 0 )
+			cur_sound[2].sample_count == 0 )
 	{
 		// samples finished hence stop the music
 		Timer1A_Stop();

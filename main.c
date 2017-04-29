@@ -577,32 +577,50 @@ void MoveMissiles()
 		}
 }
 
-unsigned char hasCollided( STyp s1, STyp s2 )
+// screen top/left is taken as (0,0)
+// returns overlap size in pixels
+// overlap < 0 do not overlap
+// overlap = 0 touch
+// overlap > 0 overlap
+static int rectOverlapX(STyp left, STyp right) {
+	return left.w-(right.x-left.x);
+}
+
+// screen top/left is taken as (0,0)
+// < 0 do not overlap
+// = 0 touch
+// > 0 overlap
+// returns overlap size in pixels
+static int rectOverlapY(STyp top, STyp bottom) {
+	return bottom.h-(bottom.y-top.y);
+}
+
+unsigned char rectCollisionCheck( STyp s1, STyp s2 )
 {
 	// if Y1 > Y2
 	if( s1.y >= s2.y )
 	{
 		// Does Y2 falls within (Y1,Y1+H1) ?
-		if( s2.y+1 > s1.y-s1.h ) 
+		if( rectOverlapY(s2,s1) > 0 ) 
 		{
-			// Y indicates collision, check X2 fall within (X1,X1+W1)
+			// Y indicates collision, check S1 left of S2
 			if( s1.x < s2.x )
 			{
 				// X2 falls within X1+W1 ?
-				if( s2.x+1 <= s1.x+s1.w ) return 1;
+				if( rectOverlapX(s1,s2)>0 ) return 1;
 			} else
-				if( s1.x+1 <= s2.x+s2.w ) return 1;
+				if( rectOverlapX(s2,s1)>0 ) return 1;
 		}
 	} else
 	{
-		if( s1.y+1 > s2.y-s2.h )
+		if( rectOverlapY(s1,s2) > 0 )
 		{
-			// Y indicates collission, check X
+			// Y indicates collission, check S1 left of S2
 			if( s1.x < s2.x )
 			{
-				if( s2.x+1 <= s1.x+s1.w ) return 1;
+				if( rectOverlapX(s1,s2)>0 ) return 1;
 			} else
-				if( s1.x+1 <= s2.x+s2.w ) return 1;
+				if( rectOverlapX(s2,s1)>0 ) return 1;
 		}
 	}
 	// no collision detected
@@ -617,7 +635,7 @@ unsigned char hasAlienCollided( STyp spr1 )
 	int n;
 	for(n=ALIEN_NUM-1; n>=0 ; --n)
 		if(	alien[n].status == ALIVE )
-			if( hasCollided(spr1, alien[n]) )
+			if( rectCollisionCheck(spr1, alien[n]) )
 				return n+1;
 		
 	return 0;
@@ -630,7 +648,7 @@ unsigned char hasMissileCollided( STyp s1 )
 	int n;
 	for(n=0; n < MAX_MISSILES; n++)
 		if(	missile[n].status == ALIVE )
-			if( hasCollided(s1, missile[n]) )
+			if( rectCollisionCheck(s1, missile[n]) )
 				return n+1;
 	return 0;
 }

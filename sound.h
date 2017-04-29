@@ -56,7 +56,7 @@
 
 //**********************************
 // ensure the timer routine is adjusted if more channels are added
-# define MAX_CHANNELS 4
+# define MAX_CHANNELS 3
 typedef enum {
 	SC_CHANNEL1=0,
 	SC_CHANNEL2=1,
