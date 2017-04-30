@@ -582,8 +582,8 @@ void MoveMissiles()
 // overlap < 0 do not overlap
 // overlap = 0 touch
 // overlap > 0 overlap
-static int rectOverlapX(STyp left, STyp right) {
-	return left.w-(right.x-left.x);
+static int rectOverlapX(const STyp* left, const STyp* right) {
+	return left->w - (right->x - left->x);
 }
 
 // screen top/left is taken as (0,0)
@@ -591,58 +591,81 @@ static int rectOverlapX(STyp left, STyp right) {
 // = 0 touch
 // > 0 overlap
 // returns overlap size in pixels
-static int rectOverlapY(STyp top, STyp bottom) {
-	return bottom.h-(bottom.y-top.y);
+static int rectOverlapY(STyp* const top, STyp* const bottom) {
+	return bottom->h - (bottom->y - top->y);
 }
 
-int bitCollisionCheck(STyp tl, STyp rb)
+int bitCollisionCheck(STyp* const s1, STyp* const s2)
 {
-	int xolap = rectOverlapX(tl, rb);
-	int yolap = rectOverlapY(tl, rb);
-	unsigned char x, y, tl_p, rb_p, tl_offset_x, tl_offset_y;
-	
-	tl_offset_x = tl.w-xolap;
-	tl_offset_y = tl.h-yolap;
+	int xolap, yolap;
+	unsigned char x, y, 
+								s1_p, s2_p, 
+								s1_offset_x, s1_offset_y,
+								s2_offset_x, s2_offset_y;
+
+	if( s1->y < s2->y ) {
+		// s1 top of s2
+		yolap = rectOverlapY(s1, s2);
+		s1_offset_y = s1->h-yolap;
+		s2_offset_y = 0;
+	} else {
+		// s2 top of s1
+		yolap = rectOverlapY(s2, s1);
+		s2_offset_y = s2->h-yolap;
+		s1_offset_y = 0;
+	}
+	if( s1->x < s2->x )
+	{
+		// s1 left of s2
+		xolap = rectOverlapX(s1, s2);
+		s1_offset_x = s1->w-xolap;
+		s2_offset_x = 0;
+	}	else {
+		// s2 left of s1
+		xolap = rectOverlapX(s2, s1);
+		s2_offset_x = s2->w-xolap;
+		s1_offset_x = 0;
+	}
 	
 	for(y=0; y < yolap; y++)
 	{
 		for(x=0; x < xolap; x++)
 		{		
-			tl_p = getPixelBMP( tl_offset_x+x,tl_offset_y+y, tl.image[tl.img_count]);
-			rb_p = getPixelBMP( x, y, rb.image[rb.img_count]);
-			if(tl_p & rb_p )
+			s1_p = getPixelBMP( s1_offset_x+x, s1_offset_y+y, s1->image[s1->img_count] );
+			s2_p = getPixelBMP( s2_offset_x+x, s2_offset_y+y, s2->image[s2->img_count] );
+			if(s1_p & s2_p )
 				return 0xFF;
 		}
 	}
 	return 0x00;
 }
 
-unsigned char rectCollisionCheck( STyp s1, STyp s2 )
+unsigned char rectCollisionCheck( STyp* const s1, STyp* const s2 )
 {
 	// if Y1 > Y2
-	if( s1.y >= s2.y )
+	if( s1->y >= s2->y )
 	{
 		// Does Y2 falls within (Y1,Y1+H1) ?
 		if( rectOverlapY(s2,s1) > 0 ) 
 		{
 			// Y indicates collision, check S1 left of S2
-			if( s1.x < s2.x )
+			if( s1->x < s2->x )
 			{
 				// X2 falls within X1+W1 ?
-				if( rectOverlapX(s1,s2)>0 ) return 1;
+				if( rectOverlapX(s1,s2)>0 ) return bitCollisionCheck(s1,s2);
 			} else
-				if( rectOverlapX(s2,s1)>0 ) return bitCollisionCheck(s2,s1);
+				if( rectOverlapX(s2,s1)>0 ) return bitCollisionCheck(s1,s2);
 		}
 	} else
 	{
 		if( rectOverlapY(s1,s2) > 0 )
 		{
 			// Y indicates collission, check S1 left of S2
-			if( s1.x < s2.x )
+			if( s1->x < s2->x )
 			{
-				if( rectOverlapX(s1,s2)>0 ) return bitCollisionCheck(s1,s2);
+				if( rectOverlapX(s1,s2)>0 ) return bitCollisionCheck(s2,s1);
 			} else
-				if( rectOverlapX(s2,s1)>0 ) return 1;
+				if( rectOverlapX(s2,s1)>0 ) return bitCollisionCheck(s2,s1);
 		}
 	}
 	// no collision detected
@@ -652,12 +675,12 @@ unsigned char rectCollisionCheck( STyp s1, STyp s2 )
 
 // returns 0 when no collision is detected
 // returns n for sprite affected
-unsigned char hasAlienCollided( STyp spr1 )
+unsigned char hasAlienCollided( STyp* const spr1 )
 {
 	int n;
 	for(n=ALIEN_NUM-1; n>=0 ; --n)
 		if(	alien[n].status == ALIVE )
-			if( rectCollisionCheck(spr1, alien[n]) )
+			if( rectCollisionCheck( spr1, &alien[n]) )
 				return n+1;
 		
 	return 0;
@@ -665,12 +688,12 @@ unsigned char hasAlienCollided( STyp spr1 )
 
 // returns 0 when no collision is detected
 // returns n for sprite affected
-unsigned char hasMissileCollided( STyp s1 )
+unsigned char hasMissileCollided( STyp* const s1 )
 {
 	int n;
 	for(n=0; n < MAX_MISSILES; n++)
 		if(	missile[n].status == ALIVE )
-			if( rectCollisionCheck(s1, missile[n]) )
+			if( rectCollisionCheck( s1, &missile[n]) )
 				return n+1;
 	return 0;
 }
@@ -761,7 +784,7 @@ void TimerRendering()
 	// check for collisions when laser is active
 	if( laser.status == ALIVE )
 	{
-		unsigned char a_idx = hasAlienCollided(laser);
+		unsigned char a_idx = hasAlienCollided( &laser );
 		if( a_idx )																	// if not zero, we get the index of the alien destroyed
 		{
 			gl_game.score += alien[a_idx-1].score;		// add to the game's score
@@ -775,7 +798,7 @@ void TimerRendering()
 	if( gl_m.maxMissiles )
 	{
 		// test collision with laser
-		unsigned char a_idx = hasMissileCollided(laser);
+		unsigned char a_idx = hasMissileCollided( &laser );
 		if( a_idx )													// if not zero, laser and missile have collided
 		{
 			gl_game.score += missile[a_idx-1].score;
@@ -785,7 +808,7 @@ void TimerRendering()
 		}
 		
 		// test collision with player Ship
-		a_idx = hasMissileCollided(pship);
+		a_idx = hasMissileCollided( &pship );
 		if( a_idx )
 		{
 			gl_m.maxMissiles--;							// reduce active missile count
@@ -796,7 +819,7 @@ void TimerRendering()
 	}
 	
 	// has Alien collided with ship ?
-	if( hasAlienCollided(pship) )
+	if( hasAlienCollided( &pship ) )
 		pship.status = DAMAGED;
 
 	

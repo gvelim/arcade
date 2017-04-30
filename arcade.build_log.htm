@@ -4,7 +4,7 @@
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
 C:\Keil\Labware\arcade\arcade.uvproj
-Project File Date:  04/22/2017
+Project File Date:  04/30/2017
 
 <h2>Output:</h2>
 Rebuild target 'Arcade'
@@ -17,70 +17,30 @@ compiling switch.c...
 compiling timer.c...
 compiling sound.c...
 linking...
-Program Size: Code=7650 RO-data=20978 RW-data=992 ZI-data=1096  
+Program Size: Code=7386 RO-data=20978 RW-data=992 ZI-data=1096  
 ".\arcade.axf" - 0 Error(s), 0 Warning(s).
-</pre>
-</body>
-</html>
-rcade\\arcade.axf" 
-Connecting: Mode=JTAG, Speed=1000000Hz
-Erase Done.
-Programming Done.
-Verify OK.
-
+                      tl_p = getPixelBMP( tl_offset_x+x, tl_offset_y+y, tl->image[tl->img_count] );
+main.c(633): error:  #20: identifier "tl" is undefined
+                        tl_p = getPixelBMP( tl_offset_x+x, tl_offset_y+y, tl->image[tl->img_count] );
+main.c(634): error:  #20: identifier "rb_offset_x" is undefined
+                        rb_p = getPixelBMP( rb_offset_x+x, rb_offset_y+y, rb->image[rb->img_count] );
+main.c(634): error:  #20: identifier "rb_offset_y" is undefined
+                        rb_p = getPixelBMP( rb_offset_x+x, rb_offset_y+y, rb->image[rb->img_count] );
+main.c(634): error:  #20: identifier "rb" is undefined
+                        rb_p = getPixelBMP( rb_offset_x+x, rb_offset_y+y, rb->image[rb->img_count] );
+main.c(602): warning:  #550-D: variable "s1_offset_x" was set but never used
+                                                                s1_offset_x, s1_offset_y,
+main.c(602): warning:  #550-D: variable "s1_offset_y" was set but never used
+                                                                s1_offset_x, s1_offset_y,
+main.c(603): warning:  #550-D: variable "s2_offset_x" was set but never used
+                                                                s2_offset_x, s2_offset_y;
+main.c(603): warning:  #550-D: variable "s2_offset_y" was set but never used
+                                                                s2_offset_x, s2_offset_y;
+main.c: 4 warnings, 6 errors
 compiling Nokia5110.c...
 compiling PLL.c...
 compiling switch.c...
 compiling timer.c...
 compiling sound.c...
-linking...
-Program Size: Code=7594 RO-data=20978 RW-data=992 ZI-data=1096  
-".\arcade.axf" - 0 Error(s), 2 Warning(s).
-
-main.c(600): error:  #18: expected a ")"
-        int xolap = rectOverlapX(STyp tl, STyp rb);
-main.c(600): error:  #65: expected a ";"
-        int xolap = rectOverlapX(STyp tl, STyp rb);
-main.c(601): error:  #167: argument of type "int" is incompatible with parameter of type "STyp"
-        int yolap = rectOverlapY(STyp tl, STyp rb);
-main.c(601): error:  #165: too few arguments in function call
-        int yolap = rectOverlapY(STyp tl, STyp rb);
-main.c(601): error:  #18: expected a ")"
-        int yolap = rectOverlapY(STyp tl, STyp rb);
-main.c(601): error:  #101: "STyp" has already been declared in the current scope
-        int yolap = rectOverlapY(STyp tl, STyp rb);
-main.c(601): error:  #65: expected a ";"
-        int yolap = rectOverlapY(STyp tl, STyp rb);
-main.c(605): warning:  #940-D: missing return statement at end of non-void function "bitCollisionCheck"
-  }
-main.c(601): warning:  #177-D: variable "STyp" was declared but never referenced
-        int yolap = rectOverlapY(STyp tl, STyp rb);
-main.c(841): warning:  #177-D: variable "pix" was declared but never referenced
-                char pix;
-main.c: 3 warnings, 9 errors
-"main.c" - 9 Error(s), 3 Warning(s).
-compiling main.c...
-main.c(600): error:  #254: type name is not allowed
-        int xolap = rectOverlapX(STyp tl, STyp rb);
-main.c(600): error:  #165: too few arguments in function call
-        int xolap = rectOverlapX(STyp tl, STyp rb);
-main.c(600): error:  #18: expected a ")"
-        int xolap = rectOverlapX(STyp tl, STyp rb);
-main.c(600): error:  #65: expected a ";"
-        int xolap = rectOverlapX(STyp tl, STyp rb);
-main.c(601): error:  #167: argument of type "int" is incompatible with parameter of type "STyp"
-        int yolap = rectOverlapY(STyp tl, STyp rb);
-main.c(601): error:  #165: too few arguments in function call
-        int yolap = rectOverlapY(STyp tl, STyp rb);
-main.c(601): error:  #18: expected a ")"
-        int yolap = rectOverlapY(STyp tl, STyp rb);
-main.c(601): error:  #101: "STyp" has already been declared in the current scope
-        int yolap = rectOverlapY(STyp tl, STyp rb);
-main.c(601): error:  #65: expected a ";"
-        int yolap = rectOverlapY(STyp tl, STyp rb);
-main.c(605): warning:  #940-D: missing return statement at end of non-void function "bitCollisionCheck"
-  }
-main.c(601): warning:  #177-D: variable "STyp" was declared but never referenced
-        int yolap = rectOverlapY(STyp tl, STyp rb);
-main.c: 2 warnings, 9 errors
-"main.c" - 9 Error(s), 2 Warning(s).
+".\arcade.axf" - 6 Error(s), 4 Warning(s).
+Target not created
