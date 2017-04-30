@@ -432,11 +432,11 @@ void Nokia5110_PrintBMP(unsigned char xpos, unsigned char ypos, const unsigned c
     screenx = screenx + 1;
     j = j + 1;
     if((i%(width/2)) == 0){     // at the end of a row
-      if(mask > 0x01){
-        mask = mask>>1;
+      if(mask > 0x01){					// start of y-band ?
+        mask = mask>>1;					// next pixel in the y-band
       } else{
-        mask = 0x80;
-        screeny = screeny - 1;
+        mask = 0x80;						// last pixel of next band
+        screeny = screeny - 1;	// move one y-band back
       }
       screenx = xpos + SCREENW*screeny;
       // bitmaps are 32-bit word aligned
@@ -449,6 +449,21 @@ void Nokia5110_PrintBMP(unsigned char xpos, unsigned char ypos, const unsigned c
     }
   }
 }
+
+unsigned char getPixelBMP( unsigned char xpos, unsigned char ypos, const unsigned char* bitmap )
+{
+  // width = bitmap[18] 
+	// height = bitmap[22]
+	// bitmaps are encoded backwards, so start at the bottom left corner of the image
+	// byte 10 contains the offset where image data can be found
+	// pixel location = bmp(10) + (width-x)/2 + (heigh-y)*w/2 )
+	if( xpos%2 )
+		return (bitmap[ bitmap[10] + (bitmap[18]-xpos-1)/2 + ((bitmap[22]-ypos-1)*bitmap[18])/2]) & 0x0F;
+	else
+	  return (bitmap[ bitmap[10] + (bitmap[18]-xpos-1)/2 + ((bitmap[22]-ypos-1)*bitmap[18])/2] >> 4) & 0x0F;
+	
+}
+
 // There is a buffer in RAM that holds one screen
 // This routine clears this buffer
 void Nokia5110_ClearBuffer(void){int i;

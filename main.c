@@ -357,7 +357,7 @@ void InitGame(void)
 }
 
 
-void Initaliens()
+void InitAliens()
 {	
 	long n;
 
@@ -371,7 +371,7 @@ void Initaliens()
 	
 	for(n=0; n < ALIEN_NUM; n++)
 	{
-		alien[n].x = ENEMY30W*(n%4);						// create 4 columns
+		alien[n].x = ENEMY30W*(n%4);					// create 4 columns
 		alien[n].y = alien[n].y = 9*(1+n/4);	// create 3 rows
 		alien[n].img_count = 0;								// image counter used to point to different BMPs
 		alien[n].decay = 6;										// frames of decay following impact
@@ -417,12 +417,12 @@ void DrawAliens()
 		switch( alien[n].status )
 		{
 			case ALIVE:
-				Nokia5110_PrintBMP( alien[n].x, alien[n].y, alien[n].image[alien[n].img_count], 0);
+				Nokia5110_PrintBMP( alien[n].x, alien[n].y, alien[n].image[alien[n].img_count], 1);
 				break;
 			
 			case DAMAGED:
 				// offset count by 2 so to pick the explosion Bitmaps
-				Nokia5110_PrintBMP( alien[n].x, alien[n].y, alien[n].image[alien[n].img_count+1], 0);
+				Nokia5110_PrintBMP( alien[n].x, alien[n].y, alien[n].image[alien[n].img_count+1], 1);
 				break;
 			
 			case DEAD:
@@ -505,10 +505,10 @@ void DrawShip()
 	switch(pship.status)
 	{
 		case ALIVE:
-			Nokia5110_PrintBMP( pship.x, pship.y, pship.image[pship.img_count], 0 );
+			Nokia5110_PrintBMP( pship.x, pship.y, pship.image[pship.img_count], 1 );
 			break;
 		case DAMAGED:
-			Nokia5110_PrintBMP( pship.x, pship.y, pship.image[pship.img_count+2], 0 );
+			Nokia5110_PrintBMP( pship.x, pship.y, pship.image[pship.img_count+2], 1 );
 			break;
 		case DEAD:
 			break;
@@ -542,7 +542,7 @@ void MoveShip()
 void DrawLaser()
 {
 	if( laser.status == ALIVE )
-		Nokia5110_PrintBMP( laser.x, laser.y, laser.image[laser.img_count], 0);
+		Nokia5110_PrintBMP( laser.x, laser.y, laser.image[laser.img_count], 1);
 }
 
 void MoveLaser()
@@ -558,7 +558,7 @@ void DrawMissiles()
 	int n;
 	for( n = 0; n<MAX_MISSILES; n++ )
 		if( missile[n].status==ALIVE )
-			Nokia5110_PrintBMP( missile[n].x, missile[n].y, missile[n].image[missile[n].img_count], 0);
+			Nokia5110_PrintBMP( missile[n].x, missile[n].y, missile[n].image[missile[n].img_count], 1);
 }
 
 void MoveMissiles()
@@ -595,6 +595,28 @@ static int rectOverlapY(STyp top, STyp bottom) {
 	return bottom.h-(bottom.y-top.y);
 }
 
+int bitCollisionCheck(STyp tl, STyp rb)
+{
+	int xolap = rectOverlapX(tl, rb);
+	int yolap = rectOverlapY(tl, rb);
+	unsigned char x, y, tl_p, rb_p, tl_offset_x, tl_offset_y;
+	
+	tl_offset_x = tl.w-xolap;
+	tl_offset_y = tl.h-yolap;
+	
+	for(y=0; y < yolap; y++)
+	{
+		for(x=0; x < xolap; x++)
+		{		
+			tl_p = getPixelBMP( tl_offset_x+x,tl_offset_y+y, tl.image[tl.img_count]);
+			rb_p = getPixelBMP( x, y, rb.image[rb.img_count]);
+			if(tl_p & rb_p )
+				return 0xFF;
+		}
+	}
+	return 0x00;
+}
+
 unsigned char rectCollisionCheck( STyp s1, STyp s2 )
 {
 	// if Y1 > Y2
@@ -609,7 +631,7 @@ unsigned char rectCollisionCheck( STyp s1, STyp s2 )
 				// X2 falls within X1+W1 ?
 				if( rectOverlapX(s1,s2)>0 ) return 1;
 			} else
-				if( rectOverlapX(s2,s1)>0 ) return 1;
+				if( rectOverlapX(s2,s1)>0 ) return bitCollisionCheck(s2,s1);
 		}
 	} else
 	{
@@ -618,7 +640,7 @@ unsigned char rectCollisionCheck( STyp s1, STyp s2 )
 			// Y indicates collission, check S1 left of S2
 			if( s1.x < s2.x )
 			{
-				if( rectOverlapX(s1,s2)>0 ) return 1;
+				if( rectOverlapX(s1,s2)>0 ) return bitCollisionCheck(s1,s2);
 			} else
 				if( rectOverlapX(s2,s1)>0 ) return 1;
 		}
@@ -829,6 +851,7 @@ int main(void)
 
 	while(1)
 	{
+	
 		// Game Prologue
 		InitGame();
 		
@@ -846,7 +869,8 @@ int main(void)
 		waitForFire();		
 
 		// initialise aliens and levels
-		Initaliens();
+		InitAliens();
+		
 		getLevel(-1);
 		nLevel = 0;
 		
@@ -897,7 +921,7 @@ int main(void)
 			if( gl_a.maxAlien == 0 )
 			{
 				getLevel(++nLevel);			// increase level
-				Initaliens();					// initialise on every level
+				InitAliens();					// initialise on every level
 			}
 			else
 				gl_game.ship_lives--;		// Game exit reason: ship destroyed

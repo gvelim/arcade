@@ -64,7 +64,7 @@
 // Contrast value 0xB1 looks good on red SparkFun
 // and 0xB8 looks good on blue Nokia 5110.
 // Adjust this from 0xA0 (lighter) to 0xCF (darker) for your display.
-#define CONTRAST                0xB0
+#define CONTRAST                0xB7
 
 // This table contains the hex values that represent pixels
 // for a font that is 5 pixels wide and 8 pixels high
@@ -275,4 +275,4 @@ void Nokia5110_OutCharBuffer(unsigned char data, enum OutCharMethod method);
 void Nokia5110_SetCursorBuffer(unsigned char newX, unsigned char newY);
 void Nokia5110_OutStringBuffer(char *ptr, enum OutCharMethod method);
 void Nokia5110_OutUDecBuffer(unsigned short n, enum OutCharMethod method);
-
+unsigned char getPixelBMP( unsigned char xpos, unsigned char ypos, const unsigned char* bitmap );
