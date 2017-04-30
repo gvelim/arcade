@@ -301,18 +301,18 @@ struct {
 
 STyp alien[ALIEN_NUM] = 
 {
-	{ 0,9,15,9,0,{SmallEnemy30PointA,SmallEnemy30PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0},
-	{16,9,15,9,0,{SmallEnemy30PointA,SmallEnemy30PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0},
-	{32,9,15,9,0,{SmallEnemy30PointA,SmallEnemy30PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0},
-	{48,9,15,9,0,{SmallEnemy30PointA,SmallEnemy30PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0},
-	{ 0,18,15,9,0,{SmallEnemy20PointA,SmallEnemy20PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0},
-	{16,18,15,9,0,{SmallEnemy20PointA,SmallEnemy20PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0},
-	{32,18,15,9,0,{SmallEnemy20PointA,SmallEnemy20PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0},
-	{48,18,15,9,0,{SmallEnemy20PointA,SmallEnemy20PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0},
-	{ 0,27,15,9,0,{SmallEnemy10PointA,SmallEnemy10PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0},
-	{16,27,15,9,0,{SmallEnemy10PointA,SmallEnemy10PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0},
-	{32,27,15,9,0,{SmallEnemy10PointA,SmallEnemy10PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0},
-	{48,27,15,9,0,{SmallEnemy10PointA,SmallEnemy10PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0}
+	{ 0,9,16,10,0,{SmallEnemy30PointA,SmallEnemy30PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0},
+	{16,9,16,10,0,{SmallEnemy30PointA,SmallEnemy30PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0},
+	{32,9,16,10,0,{SmallEnemy30PointA,SmallEnemy30PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0},
+	{48,9,16,10,0,{SmallEnemy30PointA,SmallEnemy30PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0},
+	{ 0,18,16,10,0,{SmallEnemy20PointA,SmallEnemy20PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0},
+	{16,18,16,10,0,{SmallEnemy20PointA,SmallEnemy20PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0},
+	{32,18,16,10,0,{SmallEnemy20PointA,SmallEnemy20PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0},
+	{48,18,16,10,0,{SmallEnemy20PointA,SmallEnemy20PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0},
+	{ 0,27,16,10,0,{SmallEnemy10PointA,SmallEnemy10PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0},
+	{16,27,16,10,0,{SmallEnemy10PointA,SmallEnemy10PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0},
+	{32,27,16,10,0,{SmallEnemy10PointA,SmallEnemy10PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0},
+	{48,27,16,10,0,{SmallEnemy10PointA,SmallEnemy10PointB,SmallExplosion0,SmallExplosion1}, 16, ALIVE,0}
 };
 
 /***************************************/
@@ -326,17 +326,17 @@ struct {
 
 STyp missile[MAX_MISSILES] = 
 {
-	{0,0, 3, 8, 0, {Missile0, Missile1, Missile2, Missile2}, 4, DEAD, 1},
-	{0,0, 3, 8, 0, {Missile0, Missile1, Missile2, Missile2}, 4, DEAD, 1},
-	{0,0, 3, 8, 0, {Missile0, Missile1, Missile2, Missile2}, 4, DEAD, 1},
-	{0,0, 3, 8, 0, {Missile0, Missile1, Missile2, Missile2}, 4, DEAD, 1}
+	{0,0, 4, 9, 0, {Missile0, Missile1, Missile2, Missile2}, 4, DEAD, 1},
+	{0,0, 4, 9, 0, {Missile0, Missile1, Missile2, Missile2}, 4, DEAD, 1},
+	{0,0, 4, 9, 0, {Missile0, Missile1, Missile2, Missile2}, 4, DEAD, 1},
+	{0,0, 4, 9, 0, {Missile0, Missile1, Missile2, Missile2}, 4, DEAD, 1}
 };
 
 /***************************************/
 // Ship & Laster sprites
 
-STyp pship = {(SCREENW-18)/2,SCREENH-1,17,7,0,{PlayerShip0,PlayerShip0,BigExplosion0,BigExplosion1}, 32, ALIVE};
-STyp laser = {0,0, 3, 8, 0, {Laser0, Laser1, Laser0, Laser1}, 4, DEAD};
+STyp pship = {(SCREENW-18)/2,SCREENH-1,18,8,0,{PlayerShip0,PlayerShip0,BigExplosion0,BigExplosion1}, 32, ALIVE};
+STyp laser = {0,0, 2, 9, 0, {Laser0, Laser1, Laser0, Laser1}, 4, DEAD};
 
 /***************************************/
 // Game variables
@@ -417,12 +417,12 @@ void DrawAliens()
 		switch( alien[n].status )
 		{
 			case ALIVE:
-				Nokia5110_PrintBMP( alien[n].x, alien[n].y, alien[n].image[alien[n].img_count], 1);
+				Nokia5110_PrintBMP( alien[n].x, alien[n].y, alien[n].image[alien[n].img_count], 0);
 				break;
 			
 			case DAMAGED:
 				// offset count by 2 so to pick the explosion Bitmaps
-				Nokia5110_PrintBMP( alien[n].x, alien[n].y, alien[n].image[alien[n].img_count+1], 1);
+				Nokia5110_PrintBMP( alien[n].x, alien[n].y, alien[n].image[alien[n].img_count+1], 0);
 				break;
 			
 			case DEAD:
@@ -505,10 +505,10 @@ void DrawShip()
 	switch(pship.status)
 	{
 		case ALIVE:
-			Nokia5110_PrintBMP( pship.x, pship.y, pship.image[pship.img_count], 1 );
+			Nokia5110_PrintBMP( pship.x, pship.y, pship.image[pship.img_count], 0 );
 			break;
 		case DAMAGED:
-			Nokia5110_PrintBMP( pship.x, pship.y, pship.image[pship.img_count+2], 1 );
+			Nokia5110_PrintBMP( pship.x, pship.y, pship.image[pship.img_count+2], 0 );
 			break;
 		case DEAD:
 			break;
@@ -542,7 +542,7 @@ void MoveShip()
 void DrawLaser()
 {
 	if( laser.status == ALIVE )
-		Nokia5110_PrintBMP( laser.x, laser.y, laser.image[laser.img_count], 1);
+		Nokia5110_PrintBMP( laser.x, laser.y, laser.image[laser.img_count], 0);
 }
 
 void MoveLaser()
@@ -558,7 +558,7 @@ void DrawMissiles()
 	int n;
 	for( n = 0; n<MAX_MISSILES; n++ )
 		if( missile[n].status==ALIVE )
-			Nokia5110_PrintBMP( missile[n].x, missile[n].y, missile[n].image[missile[n].img_count], 1);
+			Nokia5110_PrintBMP( missile[n].x, missile[n].y, missile[n].image[missile[n].img_count], 0);
 }
 
 void MoveMissiles()
@@ -600,19 +600,21 @@ int bitCollisionCheck(STyp* const s1, STyp* const s2)
 	int xolap, yolap;
 	unsigned char x, y, 
 								s1_p, s2_p, 
-								s1_offset_x, s1_offset_y,
-								s2_offset_x, s2_offset_y;
+								s1_offset_x, s1_offset_y, //Sprite 1 mapping x, y offsets
+								s2_offset_x, s2_offset_y; //Sprite 2 mapping x, y offsets
 
 	if( s1->y < s2->y ) {
 		// s1 top of s2
-		yolap = rectOverlapY(s1, s2);
-		s1_offset_y = s1->h-yolap;
-		s2_offset_y = 0;
+		yolap = rectOverlapY(s1, s2);						// get sprites' overlap height
+		s1_offset_y = s1->h - yolap;						// get s1 pixel mapping offset
+		s2_offset_y = 0;												// get s2 pixel mapping offset
+		yolap = (yolap > s2->h)? s2->h: yolap;	// if Overlap > s2.Height then loop is the s2.height
 	} else {
 		// s2 top of s1
 		yolap = rectOverlapY(s2, s1);
-		s2_offset_y = s2->h-yolap;
+		s2_offset_y = s2->h - yolap;
 		s1_offset_y = 0;
+		yolap = (yolap > s1->h)? s1->h: yolap;	// if Overlap > s1.Height then loop is the s2.height
 	}
 	if( s1->x < s2->x )
 	{
@@ -620,11 +622,13 @@ int bitCollisionCheck(STyp* const s1, STyp* const s2)
 		xolap = rectOverlapX(s1, s2);
 		s1_offset_x = s1->w-xolap;
 		s2_offset_x = 0;
+		xolap = (xolap > s2->w)? s2->w: xolap;	// if Overlap > s2.width then loop is the s2.width
 	}	else {
 		// s2 left of s1
 		xolap = rectOverlapX(s2, s1);
 		s2_offset_x = s2->w-xolap;
 		s1_offset_x = 0;
+		xolap = (xolap > s1->w)? s1->w: xolap;	// if Overlap > s1.width then loop is the s2.width
 	}
 	
 	for(y=0; y < yolap; y++)
@@ -923,10 +927,10 @@ int main(void)
 				while(!gl_game.Flag){}
 					
 				Nokia5110_ClearBuffer();
+				DrawShip();
 				DrawMissiles();
 				DrawAliens();
 				DrawLaser();
-				DrawShip();
 					
 				Nokia5110_SetCursorBuffer(11,0);	
 				Nokia5110_OutUDecBuffer( gl_game.ship_lives, OR_METHOD );

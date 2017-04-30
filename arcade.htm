@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\arcade.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\arcade.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Sun Apr 30 19:48:41 2017
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Sun Apr 30 23:29:56 2017
 <BR><P>
 <H3>Maximum Stack Usage =        136 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1171,7 +1171,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerRendering
 </UL>
 
-<P><STRONG><a name="[83]"></a>bitCollisionCheck</STRONG> (Thumb, 232 bytes, Stack size 56 bytes, main.o(.text))
+<P><STRONG><a name="[83]"></a>bitCollisionCheck</STRONG> (Thumb, 288 bytes, Stack size 56 bytes, main.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = bitCollisionCheck &rArr; getPixelBMP
 </UL>
 <BR>[Calls]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getPixelBMP
@@ -1181,7 +1181,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rectCollisionCheck
 </UL>
 
-<P><STRONG><a name="[87]"></a>rectCollisionCheck</STRONG> (Thumb, 138 bytes, Stack size 16 bytes, main.o(.text))
+<P><STRONG><a name="[87]"></a>rectCollisionCheck</STRONG> (Thumb, 154 bytes, Stack size 16 bytes, main.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = rectCollisionCheck &rArr; bitCollisionCheck &rArr; getPixelBMP
 </UL>
 <BR>[Calls]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bitCollisionCheck
@@ -1192,7 +1192,7 @@ Global Symbols
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hasAlienCollided
 </UL>
 
-<P><STRONG><a name="[88]"></a>hasAlienCollided</STRONG> (Thumb, 58 bytes, Stack size 16 bytes, main.o(.text))
+<P><STRONG><a name="[88]"></a>hasAlienCollided</STRONG> (Thumb, 78 bytes, Stack size 16 bytes, main.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = hasAlienCollided &rArr; rectCollisionCheck &rArr; bitCollisionCheck &rArr; getPixelBMP
 </UL>
 <BR>[Calls]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rectCollisionCheck
@@ -1208,12 +1208,12 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerRendering
 </UL>
 
-<P><STRONG><a name="[8b]"></a>getLevel</STRONG> (Thumb, 80 bytes, Stack size 0 bytes, main.o(.text))
+<P><STRONG><a name="[8b]"></a>getLevel</STRONG> (Thumb, 50 bytes, Stack size 0 bytes, main.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerRendering
 </UL>
 
-<P><STRONG><a name="[8a]"></a>TimerRendering</STRONG> (Thumb, 770 bytes, Stack size 24 bytes, main.o(.text))
+<P><STRONG><a name="[8a]"></a>TimerRendering</STRONG> (Thumb, 766 bytes, Stack size 24 bytes, main.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = TimerRendering &rArr; hasMissileCollided &rArr; rectCollisionCheck &rArr; bitCollisionCheck &rArr; getPixelBMP
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isFirePressed
@@ -1234,7 +1234,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[76]"></a>main</STRONG> (Thumb, 696 bytes, Stack size 0 bytes, main.o(.text))
+<P><STRONG><a name="[76]"></a>main</STRONG> (Thumb, 664 bytes, Stack size 0 bytes, main.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = main &rArr; DrawMissiles &rArr; Nokia5110_PrintBMP
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;waitForFire

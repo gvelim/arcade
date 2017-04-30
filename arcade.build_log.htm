@@ -4,7 +4,7 @@
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
 C:\Keil\Labware\arcade\arcade.uvproj
-Project File Date:  04/30/2017
+Project File Date:  04/22/2017
 
 <h2>Output:</h2>
 Rebuild target 'Arcade'
@@ -17,30 +17,39 @@ compiling switch.c...
 compiling timer.c...
 compiling sound.c...
 linking...
-Program Size: Code=7386 RO-data=20978 RW-data=992 ZI-data=1096  
+Program Size: Code=7450 RO-data=20978 RW-data=992 ZI-data=1096  
 ".\arcade.axf" - 0 Error(s), 0 Warning(s).
-                      tl_p = getPixelBMP( tl_offset_x+x, tl_offset_y+y, tl->image[tl->img_count] );
-main.c(633): error:  #20: identifier "tl" is undefined
-                        tl_p = getPixelBMP( tl_offset_x+x, tl_offset_y+y, tl->image[tl->img_count] );
-main.c(634): error:  #20: identifier "rb_offset_x" is undefined
-                        rb_p = getPixelBMP( rb_offset_x+x, rb_offset_y+y, rb->image[rb->img_count] );
-main.c(634): error:  #20: identifier "rb_offset_y" is undefined
-                        rb_p = getPixelBMP( rb_offset_x+x, rb_offset_y+y, rb->image[rb->img_count] );
-main.c(634): error:  #20: identifier "rb" is undefined
-                        rb_p = getPixelBMP( rb_offset_x+x, rb_offset_y+y, rb->image[rb->img_count] );
-main.c(602): warning:  #550-D: variable "s1_offset_x" was set but never used
-                                                                s1_offset_x, s1_offset_y,
-main.c(602): warning:  #550-D: variable "s1_offset_y" was set but never used
-                                                                s1_offset_x, s1_offset_y,
-main.c(603): warning:  #550-D: variable "s2_offset_x" was set but never used
-                                                                s2_offset_x, s2_offset_y;
-main.c(603): warning:  #550-D: variable "s2_offset_y" was set but never used
-                                                                s2_offset_x, s2_offset_y;
-main.c: 4 warnings, 6 errors
-compiling Nokia5110.c...
+</pre>
+</body>
+</html>
+rcade\\arcade.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+elBMP( unsigned char xpos, unsigned char ypos, const unsigned char* bitmap )
+Nokia5110.c: 1 warning, 0 errors
 compiling PLL.c...
 compiling switch.c...
 compiling timer.c...
 compiling sound.c...
-".\arcade.axf" - 6 Error(s), 4 Warning(s).
+".\arcade.axf" - 1 Error(s), 1 Warning(s).
 Target not created
+eated
+compiling Nokia5110.c...
+Nokia5110.c(453): warning:  #177-D: function "getPixelBMP" was declared but never referenced
+  static unsigned char getPixelBMP( unsigned char xpos, unsigned char ypos, const unsigned char* bitmap )
+Nokia5110.c: 1 warning, 0 errors
+"Nokia5110.c" - 0 Error(s), 1 Warning(s).
+compiling Nokia5110.c...
+Nokia5110.h(278): warning:  #1-D: last line of file ends without a newline
+  static unsigned char getPixelBMP( unsigned char xpos, unsigned char ypos, const unsigned char* bitmap );
+Nokia5110.c(453): warning:  #177-D: function "getPixelBMP" was declared but never referenced
+  static unsigned char getPixelBMP( unsigned char xpos, unsigned char ypos, const unsigned char* bitmap )
+Nokia5110.c: 2 warnings, 0 errors
+"Nokia5110.c" - 0 Error(s), 2 Warning(s).
+compiling Nokia5110.c...
+Nokia5110.c(453): warning:  #177-D: function "getPixelBMP" was declared but never referenced
+  static unsigned char getPixelBMP( unsigned char xpos, unsigned char ypos, const unsigned char* bitmap )
+Nokia5110.c: 1 warning, 0 errors
+"Nokia5110.c" - 0 Error(s), 1 Warning(s).

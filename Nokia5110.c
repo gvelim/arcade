@@ -418,9 +418,9 @@ void Nokia5110_PrintBMP(unsigned char xpos, unsigned char ypos, const unsigned c
   for(i=1; i<=(width*height/2); i=i+1){
     // the left pixel is in the upper 4 bits
     if(((ptr[j]>>4)&0xF) > threshold){
-      Screen[screenx] |= mask;
+      Screen[screenx] |= mask;	// ensure pixel is on
     } else{
-      Screen[screenx] &= ~mask;
+      Screen[screenx] &= ~mask;	// set pixel off
     }
     screenx = screenx + 1;
     // the right pixel is in the lower 4 bits
