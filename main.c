@@ -722,9 +722,9 @@ struct Levels* getLevel(int bIncrease)
 {
 	static struct Levels level[6] = 
 	{
-		{60,6,5,2,3,S_FASTINVADER1},	// Level 1
+		{60,6,3,2,3,S_FASTINVADER1},	// Level 1
 		{45,5,3,2,3,S_FASTINVADER1},	// Level 2
-		{30,4,3,2,2,S_FASTINVADER2},	// Level 3
+		{30,4,2,2,2,S_FASTINVADER2},	// Level 3
 		{15,3,2,1,2,S_FASTINVADER3},	// Level 4
 		{10,2,1,1,1,S_FASTINVADER4},	// Level 5
 		{8,2,1,1,1, S_FASTINVADER4},	// Level 6
@@ -897,7 +897,7 @@ int main(void)
 
 		// initialise aliens and levels
 		InitAliens();
-		
+
 		getLevel(-1);
 		nLevel = 0;
 		

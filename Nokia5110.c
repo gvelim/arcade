@@ -456,11 +456,19 @@ unsigned char getPixelBMP( unsigned char xpos, unsigned char ypos, const unsigne
 	// height = bitmap[22]
 	// bitmaps are encoded backwards, so start at the bottom left corner of the image
 	// byte 10 contains the offset where image data can be found
-	// pixel location = bmp(10) + (width-x)/2 + (heigh-y)*w/2 )
+	// pixel location = bmp(10) + (width-x)/2 + (heigh-y)*(w/2+padding) )
+	int padding;
+	switch((bitmap[18]/2)%4)
+	{      
+		case 0: padding = 0; break;
+		case 1: padding = 3; break;
+		case 2: padding = 2; break;
+		case 3: padding = 1; break;
+	}
 	if( xpos%2 )
-		return (bitmap[ bitmap[10] + (bitmap[18]-xpos-1)/2 + ((bitmap[22]-ypos-1)*bitmap[18])/2]) & 0x0F;
+		return (bitmap[ bitmap[10] + (bitmap[18]-xpos-1)/2 + (bitmap[22]-ypos-1)*(bitmap[18]/2+padding)]) & 0x0F;
 	else
-	  return (bitmap[ bitmap[10] + (bitmap[18]-xpos-1)/2 + ((bitmap[22]-ypos-1)*bitmap[18])/2] >> 4) & 0x0F;
+	  return (bitmap[ bitmap[10] + (bitmap[18]-xpos-1)/2 + (bitmap[22]-ypos-1)*(bitmap[18]/2+padding)] >> 4) & 0x0F;
 	
 }
 

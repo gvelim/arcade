@@ -3,9 +3,9 @@
 <title>Static Call Graph - [.\arcade.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\arcade.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Sun Apr 30 23:29:56 2017
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Wed May 03 22:01:17 2017
 <BR><P>
-<H3>Maximum Stack Usage =        136 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =        140 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
 TimerRendering &rArr; hasMissileCollided &rArr; rectCollisionCheck &rArr; bitCollisionCheck &rArr; getPixelBMP
 <P>
@@ -1172,7 +1172,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[83]"></a>bitCollisionCheck</STRONG> (Thumb, 288 bytes, Stack size 56 bytes, main.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = bitCollisionCheck &rArr; getPixelBMP
+<BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = bitCollisionCheck &rArr; getPixelBMP
 </UL>
 <BR>[Calls]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getPixelBMP
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rectOverlapY
@@ -1182,7 +1182,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[87]"></a>rectCollisionCheck</STRONG> (Thumb, 154 bytes, Stack size 16 bytes, main.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = rectCollisionCheck &rArr; bitCollisionCheck &rArr; getPixelBMP
+<BR><BR>[Stack]<UL><LI>Max Depth = 100<LI>Call Chain = rectCollisionCheck &rArr; bitCollisionCheck &rArr; getPixelBMP
 </UL>
 <BR>[Calls]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bitCollisionCheck
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rectOverlapY
@@ -1193,7 +1193,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[88]"></a>hasAlienCollided</STRONG> (Thumb, 78 bytes, Stack size 16 bytes, main.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = hasAlienCollided &rArr; rectCollisionCheck &rArr; bitCollisionCheck &rArr; getPixelBMP
+<BR><BR>[Stack]<UL><LI>Max Depth = 116<LI>Call Chain = hasAlienCollided &rArr; rectCollisionCheck &rArr; bitCollisionCheck &rArr; getPixelBMP
 </UL>
 <BR>[Calls]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rectCollisionCheck
 </UL>
@@ -1201,7 +1201,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[89]"></a>hasMissileCollided</STRONG> (Thumb, 58 bytes, Stack size 16 bytes, main.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = hasMissileCollided &rArr; rectCollisionCheck &rArr; bitCollisionCheck &rArr; getPixelBMP
+<BR><BR>[Stack]<UL><LI>Max Depth = 116<LI>Call Chain = hasMissileCollided &rArr; rectCollisionCheck &rArr; bitCollisionCheck &rArr; getPixelBMP
 </UL>
 <BR>[Calls]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rectCollisionCheck
 </UL>
@@ -1214,7 +1214,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[8a]"></a>TimerRendering</STRONG> (Thumb, 766 bytes, Stack size 24 bytes, main.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = TimerRendering &rArr; hasMissileCollided &rArr; rectCollisionCheck &rArr; bitCollisionCheck &rArr; getPixelBMP
+<BR><BR>[Stack]<UL><LI>Max Depth = 140<LI>Call Chain = TimerRendering &rArr; hasMissileCollided &rArr; rectCollisionCheck &rArr; bitCollisionCheck &rArr; getPixelBMP
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isFirePressed
 <LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sound_Play
@@ -1355,8 +1355,8 @@ Global Symbols
 <LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DrawAliens
 </UL>
 
-<P><STRONG><a name="[86]"></a>getPixelBMP</STRONG> (Thumb, 128 bytes, Stack size 24 bytes, nokia5110.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = getPixelBMP
+<P><STRONG><a name="[86]"></a>getPixelBMP</STRONG> (Thumb, 188 bytes, Stack size 28 bytes, nokia5110.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = getPixelBMP
 </UL>
 <BR>[Called By]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bitCollisionCheck
 </UL>
@@ -1464,7 +1464,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerRendering
 </UL>
 
-<P><STRONG><a name="[1f]"></a>TIMER1A_Handler</STRONG> (Thumb, 174 bytes, Stack size 8 bytes, sound.o(.text))
+<P><STRONG><a name="[1f]"></a>TIMER1A_Handler</STRONG> (Thumb, 150 bytes, Stack size 8 bytes, sound.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = TIMER1A_Handler
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer1A_Stop
