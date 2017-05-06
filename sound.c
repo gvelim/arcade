@@ -7,7 +7,7 @@ struct Sound
 {
 	const unsigned char* samples;	// reference to a sample set
 	unsigned long	  		 count;		// count of samples
-	S_NAME s_name;								// available sounds enumerator
+	SND_NAME s_name;							// available sounds enumerator
 };
 
 //***************************************************
@@ -111,7 +111,7 @@ void Sound_Init()
 	Timer1A_Init(7256);
 }
 
-void Sound_Play(S_NAME sound_name, SC_CHANNEL channel)
+void Sound_Play(SND_NAME sound_name, SC_CHANNEL channel)
 {
 	if( sound_name > S_HIGHPITCH ) return;
 	if( channel > MAX_CHANNELS-1 ) return;
@@ -130,9 +130,9 @@ void TIMER1A_Handler(void)
   TIMER1->ICR = 0x00000001;  // acknowledge
 
 	// if samples remain the push to output
-	if( cur_sound[0].sample_count ) { DAC_Out(cur_sound[0].samples[cur_sound[0].idx]>>4); cur_sound[0].idx++; cur_sound[0].sample_count--; }
-	if( cur_sound[1].sample_count ) { DAC_Out(cur_sound[1].samples[cur_sound[1].idx]>>4); cur_sound[1].idx++; cur_sound[1].sample_count--; }
-	if( cur_sound[2].sample_count ) { DAC_Out(cur_sound[2].samples[cur_sound[2].idx]>>4); cur_sound[2].idx++; cur_sound[2].sample_count--; }
+	if( cur_sound[0].sample_count ) { DAC_Out(cur_sound[0].samples[cur_sound[0].idx++]>>4); cur_sound[0].sample_count--; }
+	if( cur_sound[1].sample_count ) { DAC_Out(cur_sound[1].samples[cur_sound[1].idx++]>>4); cur_sound[1].sample_count--; }
+	if( cur_sound[2].sample_count ) { DAC_Out(cur_sound[2].samples[cur_sound[2].idx++]>>4); cur_sound[2].sample_count--; }
 //	if( cur_sound[3].sample_count-- ) { DAC_Out(cur_sound[cidx].samples[cur_sound[cidx].idx]>>4); cur_sound[cidx].idx++; }
 	
 	// if all channels counters are zero then no more sound to play

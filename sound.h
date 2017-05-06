@@ -61,7 +61,6 @@ typedef enum {
 	SC_CHANNEL1=0,
 	SC_CHANNEL2=1,
 	SC_CHANNEL3=2,
-	SC_CHANNEL4=3	
 } SC_CHANNEL;
 
 //*********************
@@ -75,9 +74,9 @@ typedef enum {
 	S_EXPLOSION=5,
 	S_SHOOT=6,
 	S_HIGHPITCH=7
-} S_NAME;
+} SND_NAME;
 
 void Sound_Init(void );
-void Sound_Play(S_NAME sound_name, SC_CHANNEL channel);
+void Sound_Play(SND_NAME sound_name, SC_CHANNEL channel);
 
 #endif
