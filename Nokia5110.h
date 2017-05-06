@@ -276,3 +276,4 @@ void Nokia5110_SetCursorBuffer(unsigned char newX, unsigned char newY);
 void Nokia5110_OutStringBuffer(char *ptr, enum OutCharMethod method);
 void Nokia5110_OutUDecBuffer(unsigned short n, enum OutCharMethod method);
 unsigned char getPixelBMP( unsigned char xpos, unsigned char ypos, const unsigned char* bitmap );
+void setPixelBMP( unsigned char xpos, unsigned char ypos, unsigned char* bitmap, unsigned char p_value );

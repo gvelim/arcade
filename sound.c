@@ -7,7 +7,7 @@ struct Sound
 {
 	const unsigned char* samples;	// reference to a sample set
 	unsigned long	  		 count;		// count of samples
-	S_NAME s_name;								// available sounds enumerator
+	SND_NAME s_name;							// available sounds enumerator
 };
 
 //***************************************************
@@ -108,11 +108,10 @@ void Sound_Init()
 	// To interrupt at 11.025 kHz, the interrupt must occur every 80,000,000/11,025 cycles, 
 	// which is about 7256. To make this happen we call Timer_Init with the parameter 7256
 	
-	// as we have 4 channels go round in 11Khz each, the interrup should be 7256/4
-	Timer1A_Init(7256/MAX_CHANNELS);
+	Timer1A_Init(7256);
 }
 
-void Sound_Play(S_NAME sound_name, SC_CHANNEL channel)
+void Sound_Play(SND_NAME sound_name, SC_CHANNEL channel)
 {
 	if( sound_name > S_HIGHPITCH ) return;
 	if( channel > MAX_CHANNELS-1 ) return;
@@ -128,23 +127,13 @@ void Sound_Play(S_NAME sound_name, SC_CHANNEL channel)
 // function defined in "startup_TM4C123.s" 
 void TIMER1A_Handler(void)
 {
-	static unsigned char cidx=0, framecount=0;
-	
   TIMER1->ICR = 0x00000001;  // acknowledge
 
-	// select active channel for connecting to output; should be 0,1,2,3
-	cidx = framecount++ % MAX_CHANNELS; 
-	
-	// samples remain on active channel?
-	if(cur_sound[cidx].sample_count)
-	{
-		// push sample to output
-		DAC_Out(cur_sound[cidx].samples[cur_sound[cidx].idx]>>4); 
-		// get ready to pick the next sample
-		cur_sound[cidx].idx++;
-		// reduce sample remaining by 1
-		cur_sound[cidx].sample_count--;
-	}
+	// if samples remain the push to output
+	if( cur_sound[0].sample_count ) { DAC_Out(cur_sound[0].samples[cur_sound[0].idx++]>>4); cur_sound[0].sample_count--; }
+	if( cur_sound[1].sample_count ) { DAC_Out(cur_sound[1].samples[cur_sound[1].idx++]>>4); cur_sound[1].sample_count--; }
+	if( cur_sound[2].sample_count ) { DAC_Out(cur_sound[2].samples[cur_sound[2].idx++]>>4); cur_sound[2].sample_count--; }
+//	if( cur_sound[3].sample_count-- ) { DAC_Out(cur_sound[cidx].samples[cur_sound[cidx].idx]>>4); cur_sound[cidx].idx++; }
 	
 	// if all channels counters are zero then no more sound to play
 	if( cur_sound[0].sample_count+

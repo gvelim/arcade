@@ -418,9 +418,9 @@ void Nokia5110_PrintBMP(unsigned char xpos, unsigned char ypos, const unsigned c
   for(i=1; i<=(width*height/2); i=i+1){
     // the left pixel is in the upper 4 bits
     if(((ptr[j]>>4)&0xF) > threshold){
-      Screen[screenx] |= mask;
+      Screen[screenx] |= mask;	// ensure pixel is on
     } else{
-      Screen[screenx] &= ~mask;
+      Screen[screenx] &= ~mask;	// set pixel off
     }
     screenx = screenx + 1;
     // the right pixel is in the lower 4 bits
@@ -456,13 +456,43 @@ unsigned char getPixelBMP( unsigned char xpos, unsigned char ypos, const unsigne
 	// height = bitmap[22]
 	// bitmaps are encoded backwards, so start at the bottom left corner of the image
 	// byte 10 contains the offset where image data can be found
-	// pixel location = bmp(10) + (width-x)/2 + (heigh-y)*w/2 )
+	// pixel location = bmp(10) + (width-x)/2 + (heigh-y)*(w/2+padding) )
+	unsigned char padding;
+	switch((bitmap[18]/2)%4)
+	{      
+		case 0: padding = 0; break;
+		case 1: padding = 3; break;
+		case 2: padding = 2; break;
+		case 3: padding = 1; break;
+	}
 	if( xpos%2 )
-		return (bitmap[ bitmap[10] + (bitmap[18]-xpos-1)/2 + ((bitmap[22]-ypos-1)*bitmap[18])/2]) & 0x0F;
+		return (bitmap[ bitmap[10] + (bitmap[18]-xpos-1)/2 + (bitmap[22]-ypos-1)*(bitmap[18]/2+padding)]) & 0x0F;
 	else
-	  return (bitmap[ bitmap[10] + (bitmap[18]-xpos-1)/2 + ((bitmap[22]-ypos-1)*bitmap[18])/2] >> 4) & 0x0F;
-	
+	  return (bitmap[ bitmap[10] + (bitmap[18]-xpos-1)/2 + (bitmap[22]-ypos-1)*(bitmap[18]/2+padding)] >> 4) & 0x0F;
 }
+
+void setPixelBMP( unsigned char xpos, unsigned char ypos, unsigned char* bitmap, unsigned char p_value )
+{
+  // width = bitmap[18] 
+	// height = bitmap[22]
+	// bitmaps are encoded backwards, so start at the bottom left corner of the image
+	// byte 10 contains the offset where image data can be found
+	// pixel location = bmp(10) + (width-x)/2 + (heigh-y)*(w/2+padding) )
+	unsigned char padding;
+	switch((bitmap[18]/2)%4)
+	{      
+		case 0: padding = 0; break;
+		case 1: padding = 3; break;
+		case 2: padding = 2; break;
+		case 3: padding = 1; break;
+	}
+	if( xpos%2 )
+		bitmap[ bitmap[10] + (bitmap[18]-xpos-1)/2 + (bitmap[22]-ypos-1)*(bitmap[18]/2+padding)] |= (0x0F & p_value);
+	else
+	  bitmap[ bitmap[10] + (bitmap[18]-xpos-1)/2 + (bitmap[22]-ypos-1)*(bitmap[18]/2+padding)] |=  (p_value << 4)|0x0F;
+}
+
+
 
 // There is a buffer in RAM that holds one screen
 // This routine clears this buffer
